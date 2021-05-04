@@ -1,9 +1,8 @@
 package proyecto1;
 
-import proyecto1.network.ClientSession;
+import proyecto1.network.ServerSession;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -23,13 +22,14 @@ public class Server {
 
                 System.out.println("Cliente conectado");
 
-                ClientSession clientSession = new ClientSession(client);
+                ServerSession serverSession = new ServerSession(client);
 
-                Thread clientSessionThread = new Thread(clientSession);
+                Thread serverSessionThread = new Thread(serverSession);
 
-                clientSessionThread.start();
+                serverSessionThread.start();
             } while(serverSocket.isBound());
             serverSocket.close();
+
         } catch (IOException e) {
             System.out.println("Error al inicializar el Server: " + e.getMessage());
         }

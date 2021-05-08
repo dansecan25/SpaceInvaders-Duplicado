@@ -36,31 +36,34 @@ public class ServerSession implements Runnable {
 
 
             do {
-                bw.write("Ingrese comando: \n");
+                //bw.write("Ingrese comando: \n");
                 //dos.writeUTF("holi soy el server, ingrese un texto porfi: ");
                 bw.flush();
                 String command = br.readLine();
+                System.out.println(command);
                 switch (command) {
                     case "hola" : {
                         bw.write("gracias por escribir hola \n" );
+                        bw.newLine();
                         bw.flush();
                         break;
                     }
                     case "fecha" : {
                         bw.write("hoy es" + new Date() + "\n");
+                        bw.newLine();
                         bw.flush();
                         break;
                     }
                     default : {
                         bw.write("no se como hacer " + command + "\n");
+                        bw.newLine();
                         bw.flush();
                     }
 
                 }
-                bw.write("usted escribio: " + command + "\n");
-                bw.flush();
+                //bw.write("usted escribio: " + command + "\n");
+                //bw.flush();
                 //dos.writeUTF("usted escribio: " + text);
-                Thread.sleep(500);
             } while(socket.isBound());
 
         } catch (Exception e) {

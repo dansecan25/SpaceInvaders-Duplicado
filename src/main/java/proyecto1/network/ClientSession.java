@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Date;
 
-public class ClientSession implements Runnable{
+public class ClientSession implements Runnable {
     Socket clientSocket;
 
     public ClientSession(Socket clientSocket){
@@ -20,6 +20,7 @@ public class ClientSession implements Runnable{
         InputStream is = null;
         InputStreamReader isr;
         BufferedReader br;
+
         try {
             os = clientSocket.getOutputStream();
             osw = new OutputStreamWriter(os);
@@ -29,10 +30,13 @@ public class ClientSession implements Runnable{
             br = new BufferedReader(isr);
 
             do {
+                bw.write("hola");
+                bw.newLine();
+                bw.flush();
                 String line = br.readLine();
                 System.out.println(line);
                 
-            } while(clientSocket.isBound());
+            } while(clientSocket.isConnected());
 
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

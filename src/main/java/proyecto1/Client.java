@@ -4,6 +4,7 @@ import proyecto1.network.ClientSession;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client {
     public static String host;
@@ -13,16 +14,23 @@ public class Client {
         host = "127.0.0.1";
         Socket clientSocket = new Socket(host, port);
 
-        do{
-            ClientSession clientSession = new ClientSession(clientSocket);
+        System.out.println("conectando al server . . . ");
 
-            Thread clientSessionThread = new Thread(clientSession);
+        ClientSession clientSession = new ClientSession(clientSocket);
 
-            clientSessionThread.start();
+        Thread clientSessionThread = new Thread(clientSession);
 
-        } while(clientSocket.isBound());
+        clientSessionThread.start();
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("presione enter para terminar");
+
+        String line = scanner.nextLine();
 
         clientSocket.close();
+
+        System.out.println("programa finalizad0");
 
     }
 }

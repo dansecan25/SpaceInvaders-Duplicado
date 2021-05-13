@@ -14,5 +14,6 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.swing', 'javafx.media']
 }
 
-mainClassName = 'proyecto1.Client'
+
+mainClassName =  project.hasProperty("mainClass") ? project.getProperty("mainClass") : 'proyecto1.Main'
 

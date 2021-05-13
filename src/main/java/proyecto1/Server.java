@@ -6,12 +6,36 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+public class Server implements Runnable {
     public static int port = 9000;
+    public static ServerSocket serverSocket;
+
+
+    public static void startServer() {
+
+        Server server = new Server();
+
+        Thread serverThread = new Thread(server);
+
+        serverThread.start();
+
+    }
+
+    public static void stopServer() throws IOException {
+        System.out.println("servidor terminado");
+        serverSocket.close();
+    }
 
     public static void main(String[] args) {
+        startServer();
+
+    }
+
+    @Override
+    public void run() {
+
         System.out.println("inicializando servidor en el puerto " + port);
-        ServerSocket serverSocket = null;
+
         try {
             serverSocket = new ServerSocket(port);
 
@@ -28,12 +52,11 @@ public class Server {
 
                 serverSessionThread.start();
             } while(serverSocket.isBound());
-            serverSocket.close();
+
+            stopServer();
 
         } catch (IOException e) {
             System.out.println("Error al inicializar el Server: " + e.getMessage());
         }
-
-        System.out.println("servidor terminado");
     }
 }

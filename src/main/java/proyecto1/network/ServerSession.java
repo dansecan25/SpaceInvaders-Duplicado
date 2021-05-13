@@ -1,5 +1,9 @@
 package proyecto1.network;
 
+import javafx.application.Platform;
+import proyecto1.Client;
+import proyecto1.Ventanas.ClientWindow;
+import proyecto1.Ventanas.VentanaDeJuego;
 import proyecto1.protocolo.Protocol;
 
 import java.io.*;
@@ -37,47 +41,59 @@ public class ServerSession implements Runnable {
             br = new BufferedReader(isr);
 
 
-
             do {
-                String[] completeCommand = Protocol.readSplitMessage(br);
-                String command = completeCommand[0];
-                System.out.println(command);
 
-                switch (command) {
-                    case Protocol.CMD_OK : {
-                        break;
-                    }
+                double posicionX = VentanaDeJuego.getJugador().getPosicionX();
+                double posicionY = VentanaDeJuego.getJugador().getPosicionY();
 
-                    case Protocol.CMD_START : {
-                        String ID = completeCommand[1];
-                        System.out.println(command + " " + ID);
-                        Protocol.writeMessage(bw, Protocol.CMD_OK, ID + " CREATED");
-                        Protocol.writeMessage(bw, Protocol.CMD_CLEAR, ID);
-                        Protocol.writeMessage(bw, Protocol.CMD_CREATE, ID);
-                        break;
-                    }
+                Protocol.writeMessage(bw, Protocol.CMD_MOVE, posicionX + " " + posicionY);
 
-                    case Protocol.CMD_END: {
-                        String ID = completeCommand[1];
-                        System.out.println(command + " " + ID);
-                        Protocol.writeMessage(bw, Protocol.CMD_OK, ID + " TERMINATED");
-                        break;
-                    }
+              //  String[] completeCommand = Protocol.readSplitMessage(br);
+               // String command = completeCommand[0];
+               // System.out.println(command);
 
-                    case Protocol.CMD_MOVE_LEFT: {
-                        Protocol.writeMessage(bw, Protocol.CMD_OK, "MOVED LEFT");
-                        break;
-                    }
-                    case Protocol.CMD_MOVE_RIGHT: {
-                        Protocol.writeMessage(bw, Protocol.CMD_OK, "MOVED RIGHT");
-                        break;
-                    }
+//                switch (command) {
+//                    case Protocol.CMD_OK : {
+//                        break;
+//                    }
+//
+//                    case Protocol.CMD_START : {
+//                        String ID = completeCommand[1];
+//                        System.out.println(command + " " + ID);
+//                        //ClientWindow.createNaveUsuario(ID);
+//                        //Protocol.writeMessage(bw, Protocol.CMD_OK, ID + " CREATED");
+//                        //Protocol.writeMessage(bw, Protocol.CMD_CLEAR, ID);
+//                        Protocol.writeMessage(bw, Protocol.CMD_CREATE, "p1");
+//                        Protocol.writeMessage(bw, Protocol.CMD_MOVE, "200  200");
+//                        break;
+//                    }
+//
+//                    case Protocol.CMD_END: {
+//                        String ID = completeCommand[1];
+//                        System.out.println(command + " " + ID);
+//                        Protocol.writeMessage(bw, Protocol.CMD_OK, ID + " TERMINATED");
+//                        break;
+//                    }
+//
+//                    case Protocol.CMD_MOVE_LEFT: {
+//                        Protocol.writeMessage(bw, Protocol.CMD_OK, "MOVED LEFT");
+//                        break;
+//                    }
+//                    case Protocol.CMD_MOVE_RIGHT: {
+//                        Protocol.writeMessage(bw, Protocol.CMD_OK, "MOVED RIGHT");
+//                        break;
+//                    }
+//                    case Protocol.CMD_SHOOT: {
+//                        Protocol.writeMessage(bw, Protocol.CMD_OK, "SHOT");
+//                        break;
+//                    }
+//
+//                    default : {
+//                        Protocol.writeMessage(bw, Protocol.CMD_ERROR);
+//                    }
 
-                    default : {
-                        Protocol.writeMessage(bw, Protocol.CMD_ERROR);
-                    }
-
-                }
+              //  }
+                Thread.sleep(50);
             } while(socket.isBound());
 
         } catch (Exception e) {

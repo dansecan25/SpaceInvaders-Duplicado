@@ -25,8 +25,12 @@ import java.io.FileNotFoundException;
 public class ClientWindow {
 
     private static NaveUsuario jugador;
+    private static ImageView user = new ImageView(Imagenes.getInstancia().getNaveUsuario());
+
     private static Stage GameStage;
     private static Stage stagePrincipal;
+
+    public static Group ventanaDeJuego = null;
 
     /**
      * Iniciar ventana de juego.
@@ -37,7 +41,7 @@ public class ClientWindow {
     public  ClientWindow(Stage mainStage) throws FileNotFoundException {
 
         stagePrincipal = mainStage;
-        Group ventanaDeJuego= new Group();
+        ventanaDeJuego= new Group();
         Scene gameScene = new Scene(ventanaDeJuego, 850, 700, Color.valueOf("#262934"));
         GameStage = new Stage();
         GameStage.setScene(gameScene);
@@ -56,21 +60,37 @@ public class ClientWindow {
         botonExit.setLayoutY(8);
         botonExit.setGraphic(EXIT);
         botonExit.setWrapText(true);
+
+        user.setX(200);
+        user.setY(300);
+
         ventanaDeJuego.getChildren().add(botonExit);
+        ventanaDeJuego.getChildren().add(user);
+
+
 
 
         GameStage.show();
+    }
+
+    public static void createNaveUsuario(String ID){
+        //NaveUsuario naveUsuario = new NaveUsuario(ID, ventanaDeJuego));
+    }
+
+    public static ImageView getUserImage(){
+        return user;
     }
 
     public static NaveUsuario getJugador(){
         return jugador;
     }
 
-    private static void setJugador(NaveUsuario naveJugador){
+    public static void setJugador(NaveUsuario naveJugador){
         jugador = naveJugador;
     }
 
     public static void terminarJuego(char condicion){
         GameStage.close();
     }
+
 }

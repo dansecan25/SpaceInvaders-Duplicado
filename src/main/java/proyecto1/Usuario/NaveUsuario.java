@@ -50,9 +50,9 @@ public class NaveUsuario {
         juego.setOnMouseMoved(new EventHandler<>() {
             @Override
             public void handle(MouseEvent event) {
-                double posicionMouseX = event.getX();
+                 posicionX = event.getX();
                 // System.out.println(posicionMouseX);
-                user.setX(posicionMouseX - 50);
+                user.setX(posicionX - 50);
             }
         });
     }
@@ -120,5 +120,14 @@ public class NaveUsuario {
         });
         new Thread(animacionLaser).start();
     }
+
+    public double getPosicionX() {
+        return posicionX;
+    }
+
+    public double getPosicionY() {
+        return posicionY;
+    }
+
 
 }

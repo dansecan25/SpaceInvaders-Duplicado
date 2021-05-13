@@ -67,7 +67,7 @@ public class VentanaDeJuego {
         setJugador(new NaveUsuario(ventanaDeJuego));
         GameStage.show(); //requerido para mostrar el stage
 
-        HileraBasic primeraHilera = new HileraBasic(ventanaDeJuego);
+       // HileraBasic primeraHilera = new HileraBasic(ventanaDeJuego);
         new HileraC(ventanaDeJuego);
         Animacion.iniciarAnimacion(currentClass.getLista());
         setCLASE();

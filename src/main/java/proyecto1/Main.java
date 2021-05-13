@@ -11,6 +11,7 @@ import proyecto1.Ventanas.VentanaPrincipal;
 public class Main extends Application{
     @Override
     public void start(Stage Lobby) throws Exception{
+        Server.startServer();
         VentanaPrincipal.ventana(Lobby);
     }
 

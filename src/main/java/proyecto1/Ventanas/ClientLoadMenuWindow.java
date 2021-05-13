@@ -11,16 +11,11 @@ import javafx.util.Duration;
 import proyecto1.Client;
 import proyecto1.Imagenes.Imagenes;
 import proyecto1.Musica.ReproductorMusica;
-import proyecto1.network.ClientSession;
 import proyecto1.protocolo.Protocol;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-/**
- * The type Cargar ventana principal.
- */
-public class CargarVentanaPrincipal {
+public class ClientLoadMenuWindow {
     private boolean estadoMusica = true;
     /**
      * Instantiates a new Cargar ventana principal.
@@ -29,7 +24,7 @@ public class CargarVentanaPrincipal {
      * @param rectanguloCreditos the rectangulo creditos
      * @param Lobby              the lobby
      */
-    public CargarVentanaPrincipal(Group root, Rectangle rectanguloCreditos, Stage Lobby, ReproductorMusica reproductorMusica) {
+    public ClientLoadMenuWindow(Group root, Rectangle rectanguloCreditos, Stage Lobby, ReproductorMusica reproductorMusica) {
 
         root.getChildren().remove(rectanguloCreditos);
 
@@ -66,9 +61,9 @@ public class CargarVentanaPrincipal {
         juegoInicia.setOnAction(e -> {
             Lobby.hide(); //se esconde la ventana principal
             try {
-                //ClientWindow clientWindow = new ClientWindow(Lobby);
-                VentanaDeJuego.iniciarVentanaDeJuego(Lobby); //se abre la ventana de juego
-                Client.clientSession.clientWriteMessage(Protocol.CMD_START, "P1");
+                ClientWindow clientWindow = new ClientWindow(Lobby);
+                //VentanaDeJuego.iniciarVentanaDeJuego(Lobby); //se abre la ventana de juego
+                //Client.clientSession.clientWriteMessage(Protocol.CMD_START, "P1");
             } catch (IOException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
             }

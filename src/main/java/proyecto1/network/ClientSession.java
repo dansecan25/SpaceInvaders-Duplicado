@@ -1,5 +1,7 @@
 package proyecto1.network;
 
+import proyecto1.protocolo.Protocol;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.Date;
@@ -30,10 +32,8 @@ public class ClientSession implements Runnable {
             br = new BufferedReader(isr);
 
             do {
-                bw.write("hola");
-                bw.newLine();
-                bw.flush();
-                String line = br.readLine();
+                Protocol.writeMessage(bw, Protocol.CMD_START, "P1");
+                String line = Protocol.readMessage(br);
                 System.out.println(line);
                 
             } while(clientSocket.isConnected());

@@ -1,9 +1,12 @@
 package proyecto1.network;
 
+import proyecto1.protocolo.Protocol;
+
 import java.io.*;
 import java.net.Socket;
 import java.nio.Buffer;
 import java.util.Date;
+
 
 public class ServerSession implements Runnable {
     private Socket socket;
@@ -39,25 +42,30 @@ public class ServerSession implements Runnable {
                 //bw.write("Ingrese comando: \n");
                 //dos.writeUTF("holi soy el server, ingrese un texto porfi: ");
                 bw.flush();
-                String command = br.readLine();
+                String[] completeCommand = Protocol.readSplitMessage(br);
+                String command = completeCommand[0];
                 System.out.println(command);
+
                 switch (command) {
-                    case "hola" : {
-                        bw.write("gracias por escribir hola \n" );
-                        bw.newLine();
-                        bw.flush();
+                    case Protocol.CMD_START : {
+                        Protocol.writeMessage(bw, Protocol.CMD_OK);
                         break;
                     }
-                    case "fecha" : {
-                        bw.write("hoy es" + new Date() + "\n");
-                        bw.newLine();
-                        bw.flush();
+                    case Protocol.CMD_END: {
+                        Protocol.writeMessage(bw, Protocol.CMD_OK);
                         break;
                     }
+                    case Protocol.CMD_MOVE_LEFT: {
+                        Protocol.writeMessage(bw, Protocol.CMD_OK);
+                        break;
+                    }
+                    case Protocol.CMD_MOVE_RIGHT: {
+                        Protocol.writeMessage(bw, Protocol.CMD_OK);
+                        break;
+                    }
+
                     default : {
-                        bw.write("no se como hacer " + command + "\n");
-                        bw.newLine();
-                        bw.flush();
+                        Protocol.writeMessage(bw, Protocol.CMD_ERROR);
                     }
 
                 }
@@ -71,4 +79,5 @@ public class ServerSession implements Runnable {
         }
 
     }
+
 }

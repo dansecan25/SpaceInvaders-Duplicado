@@ -44,13 +44,22 @@ public class ServerSession implements Runnable {
                 System.out.println(command);
 
                 switch (command) {
-                    case Protocol.CMD_START : {
-                        String ID = completeCommand[1];
-                        Protocol.writeMessage(bw, Protocol.CMD_OK, ID + " CREATED");
+                    case Protocol.CMD_OK : {
                         break;
                     }
+
+                    case Protocol.CMD_START : {
+                        String ID = completeCommand[1];
+                        System.out.println(command + " " + ID);
+                        Protocol.writeMessage(bw, Protocol.CMD_OK, ID + " CREATED");
+                        Protocol.writeMessage(bw, Protocol.CMD_CLEAR, ID);
+                        Protocol.writeMessage(bw, Protocol.CMD_CREATE, ID);
+                        break;
+                    }
+
                     case Protocol.CMD_END: {
                         String ID = completeCommand[1];
+                        System.out.println(command + " " + ID);
                         Protocol.writeMessage(bw, Protocol.CMD_OK, ID + " TERMINATED");
                         break;
                     }
@@ -69,9 +78,6 @@ public class ServerSession implements Runnable {
                     }
 
                 }
-                //bw.write("usted escribio: " + command + "\n");
-                //bw.flush();
-                //dos.writeUTF("usted escribio: " + text);
             } while(socket.isBound());
 
         } catch (Exception e) {

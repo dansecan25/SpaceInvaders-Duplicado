@@ -33,9 +33,41 @@ public class ClientSession implements Runnable {
             br = new BufferedReader(isr);
 
             do {
-                //Protocol.writeMessage(bw, Protocol.CMD_START, "P1");
-                String line = Protocol.readMessage(br);
-                System.out.println(line);
+//                String line = Protocol.readMessage(br);
+//                System.out.println(line);
+
+                String[] completeCommand = Protocol.readSplitMessage(br);
+                String command = completeCommand[0];
+
+                switch (command) {
+                    case Protocol.CMD_OK -> {
+                        System.out.println(command);
+                        break;
+                    }
+                    case Protocol.CMD_CLEAR -> {
+                        String ID = completeCommand[1];
+                        System.out.println(command + " " + ID);
+                        Protocol.writeMessage(bw, Protocol.CMD_OK, "CLEARED");
+                        break;
+                    }
+                    case Protocol.CMD_CREATE -> {
+                        String ID = completeCommand[1];
+                        System.out.println(command + " " + ID);
+                        Protocol.writeMessage(bw, Protocol.CMD_OK, ID + " CREATED");
+                        break;
+                    }
+                    case Protocol.CMD_DRAW -> {
+                        Protocol.writeMessage(bw, Protocol.CMD_OK, "DRAWN");
+                        break;
+                    }
+                    case Protocol.CMD_MOVE -> {
+                        Protocol.writeMessage(bw, Protocol.CMD_OK, "MOVED");
+                        break;
+                    }
+                    default -> {
+                        Protocol.writeMessage(bw, Protocol.CMD_ERROR);
+                    }
+                }
                 
             } while(clientSocket.isConnected());
 

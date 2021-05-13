@@ -8,10 +8,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import proyecto1.Client;
 import proyecto1.Imagenes.Imagenes;
 import proyecto1.Musica.ReproductorMusica;
+import proyecto1.network.ClientSession;
+import proyecto1.protocolo.Protocol;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * The type Cargar ventana principal.
@@ -26,21 +30,27 @@ public class CargarVentanaPrincipal {
      * @param Lobby              the lobby
      */
     public CargarVentanaPrincipal(Group root, Rectangle rectanguloCreditos, Stage Lobby, ReproductorMusica reproductorMusica) {
+
         root.getChildren().remove(rectanguloCreditos);
+
         //Se crea imagen Start
         ImageView img = new ImageView(Imagenes.getInstancia().getBotonStart());
+
         //Se crea imagen Titulo
         ImageInput titulo = new ImageInput(Imagenes.getInstancia().getTitulo());
         titulo.setX(167);
         titulo.setY(200);
+
         Rectangle tituloRectan= new Rectangle();
         tituloRectan.setEffect(titulo);
         root.getChildren().add(tituloRectan);
+
         //Imagen de la nave animada--------------------------------------------------------------------------------------------------------
         ImageInput naveUsuario = new ImageInput(Imagenes.getInstancia().getNaveAnimacion());
         Rectangle nave = new Rectangle(); //crea un rectangulo, nodo donde se insertará la imagen
         naveUsuario.setX(20); //posicione en x
         naveUsuario.setY(600); //posicion en y
+
         nave.setEffect(naveUsuario); //se le da al rectangulo la imagen
         TranslateTransition translate = new TranslateTransition(); //se inicia a crear la animacion
         translate.setByX(630); //destino final de la nave al moverse
@@ -56,8 +66,10 @@ public class CargarVentanaPrincipal {
         juegoInicia.setOnAction(e -> {
             Lobby.hide(); //se esconde la ventana principal
             try {
-                VentanaDeJuego.iniciarVentanaDeJuego(Lobby); //se abre la ventana de juego
-            } catch (FileNotFoundException fileNotFoundException) {
+                ClientWindow clientWindow = new ClientWindow(Lobby);
+                //VentanaDeJuego.iniciarVentanaDeJuego(Lobby); //se abre la ventana de juego
+                Client.clientSession.clientWriteMessage(Protocol.CMD_START, "P1");
+            } catch (IOException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
             }
         });

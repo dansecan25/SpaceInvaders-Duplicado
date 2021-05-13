@@ -8,10 +8,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import proyecto1.Client;
 import proyecto1.Imagenes.Imagenes;
 import proyecto1.Musica.ReproductorMusica;
 
 import java.io.FileNotFoundException;
+import java.net.Socket;
 import java.net.URISyntaxException;
 
 /**
@@ -25,12 +27,15 @@ public class VentanaPrincipal {
      * @throws FileNotFoundException the file not found exception
      */
     public static void ventana(Stage Lobby) throws FileNotFoundException, URISyntaxException {
+
         ReproductorMusica reproductorMusica = new ReproductorMusica();
         reproductorMusica.reproducir();
+
         Lobby.setTitle( "Space Invaders" );
         Group root = new Group(); //se crea la ventana
         Scene scene = new Scene( root,800,750,Color.valueOf("#262934")); //se liga scene al root
         Lobby.setScene( scene ); //se le da al metodo el scene
+
         //Imagen de fondo
         ImageInput fondo = new ImageInput(Imagenes.getInstancia().getFondo());
         Rectangle rectanguloFondo=new Rectangle();
@@ -38,12 +43,14 @@ public class VentanaPrincipal {
         fondo.setY(-5);
         rectanguloFondo.setEffect(fondo);
         root.getChildren().add(rectanguloFondo);
+
         //Imagen de creditos
         ImageInput produc = new ImageInput(Imagenes.getInstancia().getTitulo());
         Rectangle rectanguloCreditos = new Rectangle();//crea el recatangulo de la imagen con los nombres de los involucrados en el proyecto
         produc.setX(167);
         produc.setY(200);
         rectanguloCreditos.setEffect(produc); //se le da al rectangulo la imagen con el texto
+
         //animacion de aparición y desaparición de la imagen
         FadeTransition fade = new FadeTransition();
         fade.setDuration(Duration.millis(3500)); //duración de la animación

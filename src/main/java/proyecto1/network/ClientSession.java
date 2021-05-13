@@ -8,6 +8,7 @@ import java.util.Date;
 
 public class ClientSession implements Runnable {
     Socket clientSocket;
+    BufferedWriter bw;
 
     public ClientSession(Socket clientSocket){
         this.clientSocket = clientSocket;
@@ -18,7 +19,7 @@ public class ClientSession implements Runnable {
     public void run() {
         OutputStream os = null;
         OutputStreamWriter osw;
-        BufferedWriter bw;
+        //BufferedWriter bw;
         InputStream is = null;
         InputStreamReader isr;
         BufferedReader br;
@@ -32,7 +33,7 @@ public class ClientSession implements Runnable {
             br = new BufferedReader(isr);
 
             do {
-                Protocol.writeMessage(bw, Protocol.CMD_START, "P1");
+                //Protocol.writeMessage(bw, Protocol.CMD_START, "P1");
                 String line = Protocol.readMessage(br);
                 System.out.println(line);
                 
@@ -42,5 +43,12 @@ public class ClientSession implements Runnable {
             System.out.println("Error: " + e.getMessage());
         }
 
+    }
+    public void clientWriteMessage(String message) throws IOException {
+        Protocol.writeMessage(bw, message);
+    }
+
+    public void clientWriteMessage(String message, String parameter) throws IOException {
+        Protocol.writeMessage(bw, message, parameter);
     }
 }

@@ -16,15 +16,17 @@ import java.util.Scanner;
 public class Client extends Application{
     public static String host;
     public static int port = 9000;
+    public static Socket clientSocket = null;
+    public static ClientSession clientSession = null;
 
     public static void main(String[] args) throws IOException {
 
         host = "127.0.0.1";
-        Socket clientSocket = new Socket(host, port);
+        clientSocket = new Socket(host, port);
 
         System.out.println("conectando al server . . . ");
 
-        ClientSession clientSession = new ClientSession(clientSocket);
+        clientSession = new ClientSession(clientSocket);
 
         Thread clientSessionThread = new Thread(clientSession);
 

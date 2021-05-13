@@ -6,6 +6,7 @@ import proyecto1.Imagenes.Imagenes;
 import proyecto1.Usuario.NaveUsuario;
 import proyecto1.Ventanas.ClientWindow;
 import proyecto1.Ventanas.VentanaDeJuego;
+import proyecto1.protocolo.ImageWithProperties;
 import proyecto1.protocolo.Protocol;
 
 import java.io.*;
@@ -39,14 +40,19 @@ public class ClientSession implements Runnable {
             isr = new InputStreamReader(is);
             br = new BufferedReader(isr);
 
+            Protocol.writeMessage(bw, Protocol.CMD_START, "P1");
+
+            System.out.println(" se envio comando start");
+
             do {
 //                String line = Protocol.readMessage(br);
 //                System.out.println(line);
 
-                String[] completeCommand = Protocol.readSplitMessage(br);
-                String command = completeCommand[0];
+                if (is.available() > 0) {
+                    String[] completeCommand = Protocol.readSplitMessage(br);
+                    String command = completeCommand[0];
 
-                switch (command) {
+                    switch (command) {
 //                    case Protocol.CMD_OK -> {
 //                        System.out.println(command);
 //                        break;
@@ -75,20 +81,19 @@ public class ClientSession implements Runnable {
 //                        Protocol.writeMessage(bw, Protocol.CMD_OK, "DRAWN");
 //                        break;
 //                    }
-                    case Protocol.CMD_MOVE -> {
-                        double newX = Double.parseDouble(completeCommand[1]);
-                        double newY = Double.parseDouble(completeCommand[2]);
+                        case Protocol.CMD_MOVE -> {
+                            double newX = Double.parseDouble(completeCommand[1]);
+                            double newY = Double.parseDouble(completeCommand[2]);
 
-                        ImageView user = ClientWindow.getUserImage();
-                        user.setX(newX - 50);
-                        user.setY(newY);
-                        break;
+                            ImageWithProperties user = ClientWindow.getUserImage();
+                            user.move(newX - 50, newY);
+                            break;
 //                    }
 //                    default -> {
 //                        Protocol.writeMessage(bw, Protocol.CMD_ERROR);
+                        }
                     }
                 }
-//
             } while(clientSocket.isConnected());
 //
         } catch (Exception e) {

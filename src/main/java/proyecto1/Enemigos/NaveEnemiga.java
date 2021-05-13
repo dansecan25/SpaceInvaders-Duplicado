@@ -9,6 +9,7 @@ import proyecto1.Animaciones.currentClass;
 import proyecto1.Hileras.HileraC;
 import proyecto1.Hileras.HileraD;
 import proyecto1.Imagenes.Imagenes;
+import proyecto1.Usuario.NaveUsuario;
 import proyecto1.Ventanas.VentanaDeJuego;
 
 import java.util.Random;
@@ -117,32 +118,35 @@ public class NaveEnemiga {
      * Detecta colisiones
      */
     private void colision(){
-        if (!VentanaDeJuego.getJugador().getDisparo().isVisible()){
-            return;
-        }
-        if (this.nave.getBoundsInParent().intersects(VentanaDeJuego.getJugador().getDisparo().getBoundsInParent())){
-            VentanaDeJuego.getJugador().setEstadoDisparo(true);
-            vida -= 1;
-            if (currentClass.getClase().equals("D")){
-                HileraD.ordenarNaves();
+
+        for(NaveUsuario naveUsuario: VentanaDeJuego.getJugadores()){
+            if (!naveUsuario.getDisparo().isVisible()){
+                return;
             }
-            if (vida <= 0){
-                currentClass.getLista().borrarDato(this);
-                if(currentClass.getLista().tamanoLista()>0){
-                    currentClass.reordenar(posicionLista);
+            if (this.nave.getBoundsInParent().intersects(naveUsuario.getDisparo().getBoundsInParent())){
+                naveUsuario.setEstadoDisparo(true);
+                vida -= 1;
+                if (currentClass.getClase().equals("D")){
+                    HileraD.ordenarNaves();
                 }
-                ventana.getChildren().remove(nave);
-                comprobacion.stop();
-                VentanaDeJuego.updatePuntos(puntosMorir);
-                if(isBoss && (currentClass.getClase().equals("C") || currentClass.getClase().equals("E"))){
-                    HileraC.cambiarJefe();
-                    //ClaseE.cambiarJefe();
+                if (vida <= 0){
+                    currentClass.getLista().borrarDato(this);
+                    if(currentClass.getLista().tamanoLista()>0){
+                        currentClass.reordenar(posicionLista);
+                    }
+                    ventana.getChildren().remove(nave);
+                    comprobacion.stop();
+                    VentanaDeJuego.updatePuntos(puntosMorir);
+                    if(isBoss && (currentClass.getClase().equals("C") || currentClass.getClase().equals("E"))){
+                        HileraC.cambiarJefe();
+                        //ClaseE.cambiarJefe();
+                    }
+                    if(isBoss && (currentClass.getClase().equals("A"))){
+                        //
+                    }
+                }else if(currentClass.getClase().equals("D")){
+                    HileraD.ordenarNaves();
                 }
-                if(isBoss && (currentClass.getClase().equals("A"))){
-                    //
-                }
-            }else if(currentClass.getClase().equals("D")){
-                HileraD.ordenarNaves();
             }
         }
     }

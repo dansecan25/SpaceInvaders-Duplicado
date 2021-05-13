@@ -5,6 +5,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import proyecto1.Imagenes.Imagenes;
 
 
@@ -12,6 +14,7 @@ import proyecto1.Imagenes.Imagenes;
  * La clase Nave usuario, la nave del usuario que puede mover y disparar.
  */
 public class NaveUsuario {
+    private String id;
     private double posicionX = 200;
     private double posicionY = 600;
     private double posicionYLaser = 550;
@@ -26,7 +29,7 @@ public class NaveUsuario {
      *
      * @param juego the juego
      */
-    public NaveUsuario(Group juego) {
+    public NaveUsuario(String id, Group juego) {
         user.setX(posicionX);
         user.setY(posicionY);
         juego.getChildren().add(user);
@@ -38,6 +41,7 @@ public class NaveUsuario {
         dispararLaser(juego);
         animacionLaser();
         disparoAcertado = false;
+
     }
 
     /**
@@ -50,7 +54,7 @@ public class NaveUsuario {
         juego.setOnMouseMoved(new EventHandler<>() {
             @Override
             public void handle(MouseEvent event) {
-                 posicionX = event.getX();
+                posicionX = event.getX();
                 // System.out.println(posicionMouseX);
                 user.setX(posicionX - 50);
             }

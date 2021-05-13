@@ -1,15 +1,13 @@
 package proyecto1.network;
 
 import javafx.application.Platform;
-import proyecto1.Client;
-import proyecto1.Ventanas.ClientWindow;
+import proyecto1.Usuario.NaveUsuario;
 import proyecto1.Ventanas.VentanaDeJuego;
 import proyecto1.protocolo.Protocol;
 
 import java.io.*;
 import java.net.Socket;
-import java.nio.Buffer;
-import java.util.Date;
+import java.util.List;
 
 
 public class ServerSession implements Runnable {
@@ -43,30 +41,48 @@ public class ServerSession implements Runnable {
 
             do {
 
-                double posicionX = VentanaDeJuego.getJugador().getPosicionX();
-                double posicionY = VentanaDeJuego.getJugador().getPosicionY();
+                List<NaveUsuario> jugadores = VentanaDeJuego.getJugadores();
 
-                Protocol.writeMessage(bw, Protocol.CMD_MOVE, posicionX + " " + posicionY);
+                for (NaveUsuario naveUsuario: jugadores){
 
-              //  String[] completeCommand = Protocol.readSplitMessage(br);
-               // String command = completeCommand[0];
-               // System.out.println(command);
+                    double posicionX = naveUsuario.getPosicionX();
+                    double posicionY = naveUsuario.getPosicionY();
+                    Protocol.writeMessage(bw, Protocol.CMD_MOVE, posicionX + " " + posicionY);
 
-//                switch (command) {
+                }
+
+                if (is.available() > 0) {
+                    String[] completeCommand = Protocol.readSplitMessage(br);
+                    String command = completeCommand[0];
+                    System.out.println(command);
+
+                    switch (command) {
 //                    case Protocol.CMD_OK : {
 //                        break;
 //                    }
 //
-//                    case Protocol.CMD_START : {
-//                        String ID = completeCommand[1];
+                        case Protocol.CMD_START : {
+
+                            String id = completeCommand[1];
+
+                            Platform.runLater(
+                                () -> {
+                                NaveUsuario naveUsuario = new NaveUsuario(id, VentanaDeJuego.getVentanaDeJuego());
+                                VentanaDeJuego.addJugador(naveUsuario);
+                                });
+
+
+
+                            System.out.println("llego el id " + id);
+
 //                        System.out.println(command + " " + ID);
 //                        //ClientWindow.createNaveUsuario(ID);
 //                        //Protocol.writeMessage(bw, Protocol.CMD_OK, ID + " CREATED");
 //                        //Protocol.writeMessage(bw, Protocol.CMD_CLEAR, ID);
 //                        Protocol.writeMessage(bw, Protocol.CMD_CREATE, "p1");
 //                        Protocol.writeMessage(bw, Protocol.CMD_MOVE, "200  200");
-//                        break;
-//                    }
+                            break;
+                        }
 //
 //                    case Protocol.CMD_END: {
 //                        String ID = completeCommand[1];
@@ -92,7 +108,9 @@ public class ServerSession implements Runnable {
 //                        Protocol.writeMessage(bw, Protocol.CMD_ERROR);
 //                    }
 
-              //  }
+                    }
+                }
+
                 Thread.sleep(50);
             } while(socket.isBound());
 

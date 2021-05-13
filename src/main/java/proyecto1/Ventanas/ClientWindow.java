@@ -19,13 +19,15 @@ import proyecto1.Hileras.*;
 import proyecto1.Imagenes.Fondo;
 import proyecto1.Imagenes.Imagenes;
 import proyecto1.Usuario.NaveUsuario;
+import proyecto1.protocolo.ImageWithProperties;
 
 import java.io.FileNotFoundException;
 
 public class ClientWindow {
 
     private static NaveUsuario jugador;
-    private static ImageView user = new ImageView(Imagenes.getInstancia().getNaveUsuario());
+    private static ImageView userImage = new ImageView(Imagenes.getInstancia().getNaveUsuario());
+    private static ImageWithProperties user = new ImageWithProperties("p1", userImage);
 
     private static Stage GameStage;
     private static Stage stagePrincipal;
@@ -61,11 +63,11 @@ public class ClientWindow {
         botonExit.setGraphic(EXIT);
         botonExit.setWrapText(true);
 
-        user.setX(200);
-        user.setY(300);
+        user.move(200, 300);
 
         ventanaDeJuego.getChildren().add(botonExit);
-        ventanaDeJuego.getChildren().add(user);
+       // ventanaDeJuego.getChildren().add(user);
+        user.addToGameWindow(ventanaDeJuego);
 
 
 
@@ -77,7 +79,7 @@ public class ClientWindow {
         //NaveUsuario naveUsuario = new NaveUsuario(ID, ventanaDeJuego));
     }
 
-    public static ImageView getUserImage(){
+    public static ImageWithProperties getUserImage(){
         return user;
     }
 

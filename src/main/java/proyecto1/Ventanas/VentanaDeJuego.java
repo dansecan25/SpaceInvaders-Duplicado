@@ -21,6 +21,8 @@ import proyecto1.Imagenes.Imagenes;
 import proyecto1.Usuario.NaveUsuario;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The type Ventana de juego.
@@ -31,11 +33,12 @@ public class VentanaDeJuego {
     public static String clase = "Basic";
     private static final Text puntos = new Text();
     private static final Text cla = new Text();
-    private static NaveUsuario jugador;
+    private static List<NaveUsuario> jugadores = new ArrayList<>();
     private static Stage GameStage;
     private static Stage stagePrincipal;
     private static int nivel = 1;
     private static Text nivelLabel = new Text();
+    private static Group ventanaDeJuego;
     /**
      * Iniciar ventana de juego.
      *
@@ -44,7 +47,7 @@ public class VentanaDeJuego {
      */
     public static void iniciarVentanaDeJuego(Stage mainStage) throws FileNotFoundException {
         stagePrincipal = mainStage;
-        Group ventanaDeJuego= new Group();
+        ventanaDeJuego= new Group();
         Scene gameScene = new Scene(ventanaDeJuego, 850, 700, Color.valueOf("#262934"));
         GameStage = new Stage();
         GameStage.setScene(gameScene);
@@ -64,7 +67,7 @@ public class VentanaDeJuego {
         botonExit.setWrapText(true);
         ventanaDeJuego.getChildren().add(botonExit);
 
-        setJugador(new NaveUsuario(ventanaDeJuego));
+        //setJugador(new NaveUsuario(ventanaDeJuego));
         GameStage.show(); //requerido para mostrar el stage
 
        // HileraBasic primeraHilera = new HileraBasic(ventanaDeJuego);
@@ -198,11 +201,11 @@ public class VentanaDeJuego {
         clasesAleatoriedad.setCycleCount(Timeline.INDEFINITE);
         clasesAleatoriedad.play();
     }
-    public static NaveUsuario getJugador(){
-        return jugador;
+    public static List<NaveUsuario> getJugadores(){
+        return jugadores;
     }
-    private static void setJugador(NaveUsuario naveJugador){
-        jugador = naveJugador;
+    public static void addJugador(NaveUsuario naveJugador){
+        jugadores.add(naveJugador);
     }
     public static void updatePuntos(int suma){
         pts = pts+suma;
@@ -219,6 +222,10 @@ public class VentanaDeJuego {
         //Llamar ventana game over
         GameStage.close();
         stagePrincipal.show();
+    }
+
+    public static Group getVentanaDeJuego() {
+        return ventanaDeJuego;
     }
 
 }

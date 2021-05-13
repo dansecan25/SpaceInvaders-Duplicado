@@ -10,9 +10,9 @@ repositories {
 }
 
 javafx {
-    version = "13"
+    version = "15"
     modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.swing', 'javafx.media']
 }
 
-mainClassName = 'proyecto1.Main'
+mainClassName = 'proyecto1.Client'
 

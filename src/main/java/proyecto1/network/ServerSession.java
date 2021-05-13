@@ -39,29 +39,28 @@ public class ServerSession implements Runnable {
 
 
             do {
-                //bw.write("Ingrese comando: \n");
-                //dos.writeUTF("holi soy el server, ingrese un texto porfi: ");
-                bw.flush();
                 String[] completeCommand = Protocol.readSplitMessage(br);
                 String command = completeCommand[0];
                 System.out.println(command);
 
                 switch (command) {
                     case Protocol.CMD_START : {
-
-                        Protocol.writeMessage(bw, Protocol.CMD_OK);
+                        String ID = completeCommand[1];
+                        Protocol.writeMessage(bw, Protocol.CMD_OK, ID + " CREATED");
                         break;
                     }
                     case Protocol.CMD_END: {
-                        Protocol.writeMessage(bw, Protocol.CMD_OK);
+                        String ID = completeCommand[1];
+                        Protocol.writeMessage(bw, Protocol.CMD_OK, ID + " TERMINATED");
                         break;
                     }
+
                     case Protocol.CMD_MOVE_LEFT: {
-                        Protocol.writeMessage(bw, Protocol.CMD_OK);
+                        Protocol.writeMessage(bw, Protocol.CMD_OK, "MOVED LEFT");
                         break;
                     }
                     case Protocol.CMD_MOVE_RIGHT: {
-                        Protocol.writeMessage(bw, Protocol.CMD_OK);
+                        Protocol.writeMessage(bw, Protocol.CMD_OK, "MOVED RIGHT");
                         break;
                     }
 

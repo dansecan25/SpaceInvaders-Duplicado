@@ -48,6 +48,7 @@ public class ServerSession implements Runnable {
 
                 switch (command) {
                     case Protocol.CMD_START : {
+
                         Protocol.writeMessage(bw, Protocol.CMD_OK);
                         break;
                     }

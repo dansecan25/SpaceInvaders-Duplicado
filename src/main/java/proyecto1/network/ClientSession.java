@@ -111,6 +111,7 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
                                             imageWithProperties = GraphicElements.createElement(id, imageType);
                                             GraphicElements.addElement(imageWithProperties);
                                             ClientWindow.ventanaDeJuego.getChildren().add(imageWithProperties.getImage());
+                                            ClientWindow.ventanaDeJuego.getChildren().add(imageWithProperties.getIdLabel());
                                         }
 
                                         imageWithProperties.move(newX, newY);

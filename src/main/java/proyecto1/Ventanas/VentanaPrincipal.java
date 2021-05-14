@@ -30,6 +30,7 @@ public class VentanaPrincipal {
 
         ReproductorMusica reproductorMusica = new ReproductorMusica();
         reproductorMusica.reproducir();
+        reproductorMusica.detener();
 
         Lobby.setTitle( "Space Invaders" );
         Group root = new Group(); //se crea la ventana

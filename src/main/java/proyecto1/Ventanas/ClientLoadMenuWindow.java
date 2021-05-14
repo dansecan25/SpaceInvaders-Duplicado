@@ -20,7 +20,7 @@ import java.util.Scanner;
 
 public class ClientLoadMenuWindow {
     private boolean estadoMusica = true;
-    public static String host;
+    public static String host = "127.0.0.1";
     public static int port = 9000;
     public static Socket clientSocket = null;
     public static ClientSession clientSession = null;
@@ -71,7 +71,8 @@ public class ClientLoadMenuWindow {
                 ClientWindow clientWindow = new ClientWindow(Lobby);
 
 
-                host = "127.0.0.1";
+                //host = "192.168.86.24";
+                //host = "127.0.0.1";
                 clientSocket = new Socket(host, port);
 
                 System.out.println("conectando al server . . . ");

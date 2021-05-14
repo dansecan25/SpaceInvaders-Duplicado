@@ -2,6 +2,8 @@ package proyecto1.protocolo;
 
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import proyecto1.Imagenes.Imagenes;
@@ -15,6 +17,7 @@ public class ImageWithProperties {
     private ImageView image;
     private double positionX;
     private double positionY;
+    private int numberOfPlayers = 0;
 
 
     public ImageWithProperties(String id, String imageType) {
@@ -22,7 +25,16 @@ public class ImageWithProperties {
         this.imageType = imageType;
         this.id = id;
         image.setId(id);
-        idLabel.setText(id);
+        if (imageType.equals(Imagenes.IMG_NAVEUSUARIO)) {
+            numberOfPlayers ++;
+
+        }
+
+        idLabel.setText("P" + String.valueOf(numberOfPlayers));
+
+        double fontSize = 15;
+        FontWeight fontWeight = FontWeight.BOLD;
+        idLabel.setFont(Font.font("Arial", fontWeight, fontSize));
 
     }
 
@@ -31,6 +43,7 @@ public class ImageWithProperties {
         window.getChildren().add(idLabel);
 
     }
+
 
     public void removeFromGameWindow(){
         image.setVisible(false);
@@ -41,8 +54,8 @@ public class ImageWithProperties {
     public void move(double x, double y) {
         image.setX(x);
         image.setY(y);
-        idLabel.setX(x);
-        idLabel.setY(y);
+        idLabel.setX(x + 45);
+        idLabel.setY(y + 85);
         positionX = x;
         positionY = y;
     }
@@ -70,4 +83,8 @@ public class ImageWithProperties {
     public String getImageType() {
         return imageType;
     }
+
+//    public void addPlayer(){
+//        numberOfPlayers ++;
+//    }
 }

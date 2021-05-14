@@ -2,9 +2,7 @@ package proyecto1;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import proyecto1.Ventanas.ClientMenuWindow;
-import proyecto1.Ventanas.VentanaDeJuego;
-import proyecto1.Ventanas.VentanaPrincipal;
+import proyecto1.Ventanas.*;
 import proyecto1.network.ClientSession;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -21,6 +19,17 @@ public class Client extends Application {
 //    public static ClientSession clientSession = null;
 
     public static void main(String[] args) throws IOException {
+
+        if (args.length > 0) {
+            ClientLoadMenuWindow.host = args[0];
+        }
+
+        if (args.length > 1) {
+            ClientLoadMenuWindow.port = Integer.parseInt(args[1]);
+        }
+
+        //System.out.println(args[0]);
+        //System.out.println(args[1]);
 
 //        host = "127.0.0.1";
 //        clientSocket = new Socket(host, port);

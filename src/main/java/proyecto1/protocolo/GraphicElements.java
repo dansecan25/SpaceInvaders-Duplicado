@@ -13,6 +13,12 @@ public class GraphicElements {
         return currentImage;
     }
 
+    public static List<ImageWithProperties> getElements() {
+        return elements;
+    }
+
+
+
 
     public static void addElement(ImageWithProperties element) {
         elements.add(element);

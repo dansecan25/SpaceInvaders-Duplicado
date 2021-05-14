@@ -66,4 +66,8 @@ public class ImageWithProperties {
     public double getPositionY() {
         return positionY;
     }
+
+    public String getImageType() {
+        return imageType;
+    }
 }

@@ -45,15 +45,21 @@ public class ServerSession implements Runnable {
 
             do {
 
-                List<NaveUsuario> jugadores = VentanaDeJuego.getJugadores();
-
-                for (NaveUsuario naveUsuario: jugadores){
-
-                    double posicionX = naveUsuario.getPosicionX();
-                    double posicionY = naveUsuario.getPosicionY();
-                    Protocol.writeMessage(bw, Protocol.CMD_MOVE, naveUsuario.getId() + " " + posicionX + " " + posicionY);
-
+              //  List<NaveUsuario> jugadores = VentanaDeJuego.getJugadores();
+                for (ImageWithProperties element: GraphicElements.getElements()) {
+                    double posicionX = element.getPositionX();
+                    double posicionY = element.getPositionY();
+                    Protocol.writeMessage(bw, Protocol.CMD_MOVE, element.getId() + " " + element.getImageType() + " " + posicionX + " " + posicionY);
                 }
+
+//
+//                for (NaveUsuario naveUsuario: jugadores){
+//
+//                    double posicionX = naveUsuario.getPosicionX();
+//                    double posicionY = naveUsuario.getPosicionY();
+//                    Protocol.writeMessage(bw, Protocol.CMD_MOVE, naveUsuario.getId() + " " + posicionX + " " + posicionY);
+//
+//                }
 
                 if (is.available() > 0) {
                     String[] completeCommand = Protocol.readSplitMessage(br);

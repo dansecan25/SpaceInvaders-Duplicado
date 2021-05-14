@@ -97,14 +97,25 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
                         case Protocol.CMD_MOVE -> {
 
                             String id = completeCommand[1];
-                            double newX = Double.parseDouble(completeCommand[2]);
-                            double newY = Double.parseDouble(completeCommand[3]);
+                            String imageType = completeCommand[2];
+                            double newX = Double.parseDouble(completeCommand[3]);
+                            double newY = Double.parseDouble(completeCommand[4]);
 
-                            if (myId.equals(id)) {
-                               // ImageWithProperties user = ClientWindow.getUserImage();
-                               // user.move(newX, newY);
 
-                            }
+                            Platform.runLater(
+                                    () -> {
+                                        ImageWithProperties imageWithProperties = GraphicElements.findElement(id);
+
+                                        if (imageWithProperties == null) {
+                                            System.out.println("se creo elemento");
+                                            imageWithProperties = GraphicElements.createElement(id, imageType);
+                                            GraphicElements.addElement(imageWithProperties);
+                                            ClientWindow.ventanaDeJuego.getChildren().add(imageWithProperties.getImage());
+                                        }
+
+                                        imageWithProperties.move(newX, newY);
+
+                                    });
 
                             break;
 //                    }

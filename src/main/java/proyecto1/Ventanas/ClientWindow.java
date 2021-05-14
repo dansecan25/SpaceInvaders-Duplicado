@@ -25,9 +25,9 @@ import java.io.FileNotFoundException;
 
 public class ClientWindow {
 
-    private static NaveUsuario jugador;
-    private static ImageView userImage = new ImageView(Imagenes.getInstancia().getNaveUsuario());
-    private static ImageWithProperties user = new ImageWithProperties("p1", userImage);
+   // private static NaveUsuario jugador;
+   // private static ImageView userImage = new ImageView(Imagenes.getInstancia().getNaveUsuario());
+   // private static ImageWithProperties user = new ImageWithProperties("p1", Imagenes.IMG_NAVEUSUARIO);
 
     private static Stage GameStage;
     private static Stage stagePrincipal;
@@ -63,11 +63,11 @@ public class ClientWindow {
         botonExit.setGraphic(EXIT);
         botonExit.setWrapText(true);
 
-        user.move(200, 300);
+        //user.move(200, 300);
 
         ventanaDeJuego.getChildren().add(botonExit);
        // ventanaDeJuego.getChildren().add(user);
-        user.addToGameWindow(ventanaDeJuego);
+      //  user.addToGameWindow(ventanaDeJuego);
 
 
 
@@ -79,17 +79,17 @@ public class ClientWindow {
         //NaveUsuario naveUsuario = new NaveUsuario(ID, ventanaDeJuego));
     }
 
-    public static ImageWithProperties getUserImage(){
-        return user;
-    }
+   // public static ImageWithProperties getUserImage(){
+   //     return user;
+    //}
 
-    public static NaveUsuario getJugador(){
-        return jugador;
-    }
-
-    public static void setJugador(NaveUsuario naveJugador){
-        jugador = naveJugador;
-    }
+//    public static NaveUsuario getJugador(){
+//        return jugador;
+//    }
+//
+//    public static void setJugador(NaveUsuario naveJugador){
+//        jugador = naveJugador;
+//    }
 
     public static void terminarJuego(char condicion){
         GameStage.close();

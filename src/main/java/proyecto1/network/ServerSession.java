@@ -1,9 +1,12 @@
 package proyecto1.network;
 
 import javafx.application.Platform;
+import proyecto1.Imagenes.Imagenes;
 import proyecto1.Usuario.NaveUsuario;
 import proyecto1.Ventanas.ClientWindow;
 import proyecto1.Ventanas.VentanaDeJuego;
+import proyecto1.protocolo.GraphicElements;
+import proyecto1.protocolo.ImageWithProperties;
 import proyecto1.protocolo.Protocol;
 
 import java.io.*;
@@ -68,8 +71,12 @@ public class ServerSession implements Runnable {
 
                             Platform.runLater(
                                 () -> {
-                                NaveUsuario naveUsuario = new NaveUsuario(id, VentanaDeJuego.getVentanaDeJuego());
-                                VentanaDeJuego.addJugador(naveUsuario);
+                                    ImageWithProperties naveUsuario = GraphicElements.createElement(id, Imagenes.IMG_NAVEUSUARIO);
+                                    naveUsuario.move(200, 600);
+                                    VentanaDeJuego.getVentanaDeJuego().getChildren().add(naveUsuario.getImage());
+                                    GraphicElements.addElement(naveUsuario);
+                                //NaveUsuario naveUsuario = new NaveUsuario(id, VentanaDeJuego.getVentanaDeJuego());
+
 
                                 });
 
@@ -91,16 +98,27 @@ public class ServerSession implements Runnable {
 //                        break;
 //                    }
                         case Protocol.CMD_MOVE: {
+
                             String ID = completeCommand[1];
                             double posicionX = Double.parseDouble(completeCommand[2]);
-                            for (NaveUsuario naveUsuario: jugadores){
-                                if (naveUsuario.getId().equals(ID)) {
-                                    // System.out.println("found id");
-                                    // double posicionX = naveUsuario.getPosicionX();
-                                     naveUsuario.moveNave(posicionX - 50);
-                                     break;
-                                }
-                            }
+
+                            Platform.runLater(
+                                    () -> {
+                                        ImageWithProperties naveUsuario = GraphicElements.findElement(ID);
+                                        if (naveUsuario != null) {
+                                            naveUsuario.move(posicionX - 50, naveUsuario.getPositionY());
+                                        }
+
+                                    });
+
+//                            for (NaveUsuario naveUsuario: jugadores){
+//                                if (naveUsuario.getId().equals(ID)) {
+//                                    // System.out.println("found id");
+//                                    // double posicionX = naveUsuario.getPosicionX();
+//                                     naveUsuario.moveNave(posicionX - 50);
+//                                     break;
+//                                }
+//                            }
                         break;
                         }
 

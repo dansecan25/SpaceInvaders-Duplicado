@@ -9,6 +9,7 @@ import proyecto1.Imagenes.Imagenes;
 import proyecto1.Usuario.NaveUsuario;
 import proyecto1.Ventanas.ClientWindow;
 import proyecto1.Ventanas.VentanaDeJuego;
+import proyecto1.protocolo.GraphicElements;
 import proyecto1.protocolo.ImageWithProperties;
 import proyecto1.protocolo.Protocol;
 
@@ -70,26 +71,25 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
 //                        System.out.println(command);
 //                        break;
 //                    }
-//                    case Protocol.CMD_CLEAR -> {
-//                        String ID = completeCommand[1];
-//                        System.out.println(command + " " + ID);
-//                        Protocol.writeMessage(bw, Protocol.CMD_OK, "CLEARED");
-//                        break;
-//                    }
-//                    case Protocol.CMD_CREATE -> {
-//                        String ID = completeCommand[1];
-//                        System.out.println(command + " " + ID);
+                    case Protocol.CMD_CLEAR -> {
+                        GraphicElements.clearElements();
+                        break;
+                    }
+                    case Protocol.CMD_CREATE -> {
+//                        String id = completeCommand[1];
+//
 //                        Platform.runLater(
 //                                () -> {
-//                                    user = new ImageView(Imagenes.getInstancia().getNaveUsuario());
-//                                    user.setX(300);
-//                                    user.setY(300);
-//                                    ClientWindow.ventanaDeJuego.getChildren().add(user);
-//                                }
-//                        );
-//                        Protocol.writeMessage(bw, Protocol.CMD_OK, ID + " CREATED");
+//
+//                                    ImageWithProperties naveUsuario = GraphicElements.createElement(id, Imagenes.IMG_NAVEUSUARIO);
+//                                    VentanaDeJuego.getVentanaDeJuego().getChildren().add(naveUsuario.getImage());
+//                                    GraphicElements.addElement(naveUsuario);
+//
+//
+//                                });
 //                        break;
-//                    }
+                    }
+
 //                    case Protocol.CMD_DRAW -> {
 //                        Protocol.writeMessage(bw, Protocol.CMD_OK, "DRAWN");
 //                        break;
@@ -101,8 +101,8 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
                             double newY = Double.parseDouble(completeCommand[3]);
 
                             if (myId.equals(id)) {
-                                ImageWithProperties user = ClientWindow.getUserImage();
-                                user.move(newX, newY);
+                               // ImageWithProperties user = ClientWindow.getUserImage();
+                               // user.move(newX, newY);
 
                             }
 

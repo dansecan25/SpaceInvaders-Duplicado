@@ -14,6 +14,31 @@ usar singleton para cargar cada imagen que se usa solo una vez
 public class Imagenes{
     private static Imagenes INSTANCIA = null;
 
+    public static final String IMG_TITULO = "/Imagenes/titulo.png";
+    public static final String IMG_FONDO = "/Imagenes/fondo.png";
+    public static final String IMG_BOTONSTART = "/Imagenes/START.png";
+    public static final String IMG_UFO1 = "/Imagenes/UFO1.png";
+    public static final String IMG_UFO2 = "/Imagenes/UFO2.png";
+    public static final String IMG_UFO3 = "/Imagenes/UFO3.png";
+    public static final String IMG_UFOBOSS1 = "/Imagenes/boss.png";
+    public static final String IMG_UFOBOSS2 = "/Imagenes/boss2.png";
+    public static final String IMG_UFOBOSS3 = "/Imagenes/boss3.png";
+    public static final String IMG_UFOBOSS4 = "/Imagenes/boss4.png";
+    public static final String IMG_BOTONCONFIGURACION = "/Imagenes/configIC.png";
+    public static final String IMG_NAVEUSUARIO = "/Imagenes/navecita.png";
+    public static final String IMG_BOTONMUSICAON = "/Imagenes/sonidoON.png";
+    public static final String IMG_FONDO1 = "/Imagenes/fondo1.png";
+    public static final String IMG_FONDO2 = "/Imagenes/fondo2.png";
+    public static final String IMG_FONDO3 = "/Imagenes/fondo3.png";
+    public static final String IMG_FONDO4 = "/Imagenes/fondo4.png";
+    public static final String IMG_FONDO5 = "/Imagenes/fondo5.png";
+    public static final String IMG_LASER = "/Imagenes/laser.png";
+    public static final String IMG_EXPLOSION = "/Imagenes/explosion.png";
+    public static final String IMG_BOTONEXIT = "/Imagenes/botonEXIT.png";
+    public static final String IMG_NAVEANIMACION = "/Imagenes/navePantallaPrincipal.png";
+
+
+
     // imagenes disponibles
     private Image naveUsuario = null;
     private Image titulo = null;
@@ -60,28 +85,30 @@ public class Imagenes{
 
     //llama a todos los cargar imagenes de todas las imagenes
     private void cargarImagenes(){
-        naveUsuario = cargarImagen("/Imagenes/navecita.png");
-        titulo = cargarImagen("/Imagenes/titulo.png");
-        fondo = cargarImagen("/Imagenes/fondo.png");
-        botonStart = cargarImagen("/Imagenes/START.png");
-        ufo1 = cargarImagen("/Imagenes/UFO1.png");
-        ufo2 = cargarImagen("/Imagenes/UFO2.png");
-        ufo3 = cargarImagen("/Imagenes/UFO3.png");
-        ufoBoss1 = cargarImagen("/Imagenes/boss.png");
-        ufoBoss2 = cargarImagen("/Imagenes/boss2.png");
-        ufoBoss3 = cargarImagen("/Imagenes/boss3.png");
-        ufoBoss4 = cargarImagen("/Imagenes/boss4.png");
-        botonConfiguracion = cargarImagen("/Imagenes/configIC.png");
-        botonMusicaON = cargarImagen("/Imagenes/sonidoON.png");
-        fondo1 = cargarImagen("/Imagenes/fondo1.png");
-        fondo2 = cargarImagen("/Imagenes/fondo2.png");
-        fondo3 = cargarImagen("/Imagenes/fondo3.png");
-        fondo4 = cargarImagen("/Imagenes/fondo4.png");
-        fondo5 = cargarImagen("/Imagenes/fondo5.png");
-        laser = cargarImagen("/Imagenes/laser.png");
-        explosion = cargarImagen("/Imagenes/explosion.png");
-        botonExit = cargarImagen("/Imagenes/botonEXIT.png");
-        naveAnimacion = cargarImagen("/Imagenes/navePantallaPrincipal.png");
+
+
+        naveUsuario = cargarImagen(IMG_NAVEUSUARIO);
+        titulo = cargarImagen(IMG_TITULO);
+        fondo = cargarImagen(IMG_FONDO);
+        botonStart = cargarImagen(IMG_BOTONSTART);
+        ufo1 = cargarImagen(IMG_UFO1);
+        ufo2 = cargarImagen(IMG_UFO2);
+        ufo3 = cargarImagen(IMG_UFO3);
+        ufoBoss1 = cargarImagen(IMG_UFOBOSS1);
+        ufoBoss2 = cargarImagen(IMG_UFOBOSS2);
+        ufoBoss3 = cargarImagen(IMG_UFOBOSS3);
+        ufoBoss4 = cargarImagen(IMG_UFOBOSS4);
+        botonConfiguracion = cargarImagen(IMG_BOTONCONFIGURACION);
+        botonMusicaON = cargarImagen(IMG_BOTONMUSICAON);
+        fondo1 = cargarImagen(IMG_FONDO1);
+        fondo2 = cargarImagen(IMG_FONDO2);
+        fondo3 = cargarImagen(IMG_FONDO3);
+        fondo4 = cargarImagen(IMG_FONDO4);
+        fondo5 = cargarImagen(IMG_FONDO5);
+        laser = cargarImagen(IMG_LASER);
+        explosion = cargarImagen(IMG_EXPLOSION);
+        botonExit = cargarImagen(IMG_BOTONEXIT);
+        naveAnimacion = cargarImagen(IMG_NAVEANIMACION);
     }
 
     /**
@@ -89,7 +116,7 @@ public class Imagenes{
      * @param nombreImagen:String
      * @return resultado: Image
      */
-    private Image cargarImagen(String nombreImagen){
+    public Image cargarImagen(String nombreImagen){
         Image resultado = null;
         try {
              InputStream inputStream = this.getClass().getResourceAsStream(nombreImagen);

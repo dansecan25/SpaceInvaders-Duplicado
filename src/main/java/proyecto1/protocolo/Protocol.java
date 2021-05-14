@@ -15,8 +15,8 @@ public class Protocol {
     // CLIENT
     public static final String CMD_START = "START";
     public static final String CMD_END = "END";
-    public static final String CMD_MOVE_LEFT = "MOVE_LEFT";
-    public static final String CMD_MOVE_RIGHT = "MOVE_RIGHT";
+    //public static final String CMD_MOVE_LEFT = "MOVE_LEFT";
+    //public static final String CMD_MOVE_RIGHT = "MOVE_RIGHT";
     public static final String CMD_SHOOT = "SHOOT";
 
     public static final String CMD_OK = "OK";

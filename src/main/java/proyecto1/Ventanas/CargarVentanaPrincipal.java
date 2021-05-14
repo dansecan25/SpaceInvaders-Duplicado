@@ -68,7 +68,7 @@ public class CargarVentanaPrincipal {
             try {
                 //ClientWindow clientWindow = new ClientWindow(Lobby);
                 VentanaDeJuego.iniciarVentanaDeJuego(Lobby); //se abre la ventana de juego
-                Client.clientSession.clientWriteMessage(Protocol.CMD_START, "P1");
+                //Client.clientSession.clientWriteMessage(Protocol.CMD_START, "P1");
             } catch (IOException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
             }

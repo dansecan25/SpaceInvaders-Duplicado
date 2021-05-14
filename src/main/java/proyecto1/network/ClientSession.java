@@ -1,7 +1,10 @@
 package proyecto1.network;
 
 import javafx.application.Platform;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import proyecto1.Imagenes.Imagenes;
 import proyecto1.Usuario.NaveUsuario;
 import proyecto1.Ventanas.ClientWindow;
@@ -12,10 +15,13 @@ import proyecto1.protocolo.Protocol;
 import java.io.*;
 import java.net.Socket;
 import java.util.Date;
+import java.util.Random;
 
-public class ClientSession implements Runnable {
+public class ClientSession implements Runnable, EventHandler<MouseEvent> {
     Socket clientSocket;
     BufferedWriter bw;
+    double posicionX = 0;
+    double lastPosicionX = 0;
     //public ImageView user;
 
     public ClientSession(Socket clientSocket){
@@ -32,6 +38,9 @@ public class ClientSession implements Runnable {
         InputStreamReader isr;
         BufferedReader br;
 
+        String myId = generateRandomId();
+        long lastSentTime = 0;
+
         try {
             os = clientSocket.getOutputStream();
             osw = new OutputStreamWriter(os);
@@ -40,7 +49,11 @@ public class ClientSession implements Runnable {
             isr = new InputStreamReader(is);
             br = new BufferedReader(isr);
 
-            Protocol.writeMessage(bw, Protocol.CMD_START, "P1");
+            Protocol.writeMessage(bw, Protocol.CMD_START, myId);
+
+            System.out.println("mi id es " + myId);
+
+            ClientWindow.ventanaDeJuego.setOnMouseMoved(this);
 
             System.out.println(" se envio comando start");
 
@@ -82,11 +95,17 @@ public class ClientSession implements Runnable {
 //                        break;
 //                    }
                         case Protocol.CMD_MOVE -> {
-                            double newX = Double.parseDouble(completeCommand[1]);
-                            double newY = Double.parseDouble(completeCommand[2]);
 
-                            ImageWithProperties user = ClientWindow.getUserImage();
-                            user.move(newX - 50, newY);
+                            String id = completeCommand[1];
+                            double newX = Double.parseDouble(completeCommand[2]);
+                            double newY = Double.parseDouble(completeCommand[3]);
+
+                            if (myId.equals(id)) {
+                                ImageWithProperties user = ClientWindow.getUserImage();
+                                user.move(newX, newY);
+
+                            }
+
                             break;
 //                    }
 //                    default -> {
@@ -94,6 +113,14 @@ public class ClientSession implements Runnable {
                         }
                     }
                 }
+                if (lastPosicionX != posicionX && System.currentTimeMillis() - lastSentTime > 200) {
+                    Protocol.writeMessage(bw, Protocol.CMD_MOVE, myId + " " + posicionX);
+                    lastSentTime = System.currentTimeMillis();
+                    lastPosicionX = posicionX;
+                }
+
+
+                //Thread.sleep(100);
             } while(clientSocket.isConnected());
 //
         } catch (Exception e) {
@@ -108,4 +135,17 @@ public class ClientSession implements Runnable {
     public void clientWriteMessage(String message, String parameter) throws IOException {
         Protocol.writeMessage(bw, message, parameter);
     }
+
+    @Override
+    public void handle(MouseEvent event) {
+        posicionX = event.getX();
+        //System.out.println(posicionX);
+    }
+
+    public static String generateRandomId() {
+        Random random = new Random();
+        int value = random.nextInt();
+        return "p" + value;
+    }
+
 }

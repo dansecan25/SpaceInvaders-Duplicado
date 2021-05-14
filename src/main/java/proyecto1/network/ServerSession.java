@@ -2,6 +2,7 @@ package proyecto1.network;
 
 import javafx.application.Platform;
 import proyecto1.Usuario.NaveUsuario;
+import proyecto1.Ventanas.ClientWindow;
 import proyecto1.Ventanas.VentanaDeJuego;
 import proyecto1.protocolo.Protocol;
 
@@ -47,14 +48,14 @@ public class ServerSession implements Runnable {
 
                     double posicionX = naveUsuario.getPosicionX();
                     double posicionY = naveUsuario.getPosicionY();
-                    Protocol.writeMessage(bw, Protocol.CMD_MOVE, posicionX + " " + posicionY);
+                    Protocol.writeMessage(bw, Protocol.CMD_MOVE, naveUsuario.getId() + " " + posicionX + " " + posicionY);
 
                 }
 
                 if (is.available() > 0) {
                     String[] completeCommand = Protocol.readSplitMessage(br);
                     String command = completeCommand[0];
-                    System.out.println(command);
+                    //System.out.println(command);
 
                     switch (command) {
 //                    case Protocol.CMD_OK : {
@@ -69,9 +70,8 @@ public class ServerSession implements Runnable {
                                 () -> {
                                 NaveUsuario naveUsuario = new NaveUsuario(id, VentanaDeJuego.getVentanaDeJuego());
                                 VentanaDeJuego.addJugador(naveUsuario);
+
                                 });
-
-
 
                             System.out.println("llego el id " + id);
 
@@ -90,13 +90,42 @@ public class ServerSession implements Runnable {
 //                        Protocol.writeMessage(bw, Protocol.CMD_OK, ID + " TERMINATED");
 //                        break;
 //                    }
+                        case Protocol.CMD_MOVE: {
+                            String ID = completeCommand[1];
+                            double posicionX = Double.parseDouble(completeCommand[2]);
+                            for (NaveUsuario naveUsuario: jugadores){
+                                if (naveUsuario.getId().equals(ID)) {
+                                    // System.out.println("found id");
+                                    // double posicionX = naveUsuario.getPosicionX();
+                                     naveUsuario.moveNave(posicionX - 50);
+                                     break;
+                                }
+                            }
+                        break;
+                        }
+
 //
 //                    case Protocol.CMD_MOVE_LEFT: {
-//                        Protocol.writeMessage(bw, Protocol.CMD_OK, "MOVED LEFT");
+//                        String ID = completeCommand[1];
+//                        for (NaveUsuario naveUsuario: jugadores){
+//                            if (naveUsuario.getId().equals(ID)){
+//                               // System.out.println("found id");
+//                                double posicionX = naveUsuario.getPosicionX();
+//                                naveUsuario.moveNave(posicionX - 1);
+//                            }
+//                        }
 //                        break;
 //                    }
+////
 //                    case Protocol.CMD_MOVE_RIGHT: {
-//                        Protocol.writeMessage(bw, Protocol.CMD_OK, "MOVED RIGHT");
+//                         String ID = completeCommand[1];
+//                        for (NaveUsuario naveUsuario: jugadores){
+//                            if (naveUsuario.getId().equals(ID)){
+//                                //System.out.println("found id");
+//                                double posicionX = naveUsuario.getPosicionX();
+//                                naveUsuario.moveNave(posicionX + 1);
+//                            }
+//                        }
 //                        break;
 //                    }
 //                    case Protocol.CMD_SHOOT: {

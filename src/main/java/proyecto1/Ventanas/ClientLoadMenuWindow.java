@@ -11,12 +11,19 @@ import javafx.util.Duration;
 import proyecto1.Client;
 import proyecto1.Imagenes.Imagenes;
 import proyecto1.Musica.ReproductorMusica;
+import proyecto1.network.ClientSession;
 import proyecto1.protocolo.Protocol;
 
 import java.io.IOException;
+import java.net.Socket;
+import java.util.Scanner;
 
 public class ClientLoadMenuWindow {
     private boolean estadoMusica = true;
+    public static String host;
+    public static int port = 9000;
+    public static Socket clientSocket = null;
+    public static ClientSession clientSession = null;
     /**
      * Instantiates a new Cargar ventana principal.
      *
@@ -62,6 +69,23 @@ public class ClientLoadMenuWindow {
             Lobby.hide(); //se esconde la ventana principal
             try {
                 ClientWindow clientWindow = new ClientWindow(Lobby);
+
+
+                host = "127.0.0.1";
+                clientSocket = new Socket(host, port);
+
+                System.out.println("conectando al server . . . ");
+
+                clientSession = new ClientSession(clientSocket);
+
+                Thread clientSessionThread = new Thread(clientSession);
+
+                clientSessionThread.start();
+
+                Scanner scanner = new Scanner(System.in);
+
+                System.out.println("presione enter para terminar");
+
                 //VentanaDeJuego.iniciarVentanaDeJuego(Lobby); //se abre la ventana de juego
                 //Client.clientSession.clientWriteMessage(Protocol.CMD_START, "P1");
             } catch (IOException fileNotFoundException) {

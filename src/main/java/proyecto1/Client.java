@@ -15,41 +15,42 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client extends Application {
-    public static String host;
-    public static int port = 9000;
-    public static Socket clientSocket = null;
-    public static ClientSession clientSession = null;
+//    public static String host;
+//    public static int port = 9000;
+//    public static Socket clientSocket = null;
+//    public static ClientSession clientSession = null;
 
     public static void main(String[] args) throws IOException {
 
-        host = "127.0.0.1";
-        clientSocket = new Socket(host, port);
-
-        System.out.println("conectando al server . . . ");
-
-        clientSession = new ClientSession(clientSocket);
-
-        Thread clientSessionThread = new Thread(clientSession);
-
-        clientSessionThread.start();
-
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("presione enter para terminar");
-
-        //String line = scanner.nextLine();
-
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-        }
+//        host = "127.0.0.1";
+//        clientSocket = new Socket(host, port);
+//
+//        System.out.println("conectando al server . . . ");
+//
+//        clientSession = new ClientSession(clientSocket);
+//
+//        Thread clientSessionThread = new Thread(clientSession);
+//
+//        clientSessionThread.start();
+//
+//        Scanner scanner = new Scanner(System.in);
+//
+//        System.out.println("presione enter para terminar");
+//
+//        //String line = scanner.nextLine();
+//
+//        while (scanner.hasNextLine()) {
+//            String line = scanner.nextLine();
+//        }
 
         launch(args);
 
-        clientSocket.close();
+//        clientSocket.close();
 
         System.out.println("programa finalizad0");
 
     }
+
 
 
     @Override

@@ -2,6 +2,7 @@ package proyecto1.network;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.input.MouseEvent;
 import proyecto1.Ventanas.ClientWindow;
 import proyecto1.protocolo.GraphicElements;
@@ -17,6 +18,8 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
     BufferedWriter bw;
     double posicionX = 0;
     double lastPosicionX = 0;
+    String myId;
+    String myLaserId;
     //public ImageView user;
 
     public ClientSession(Socket clientSocket){
@@ -33,7 +36,8 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
         InputStreamReader isr;
         BufferedReader br;
 
-        String myId = generateId();
+        myId = generateId();
+        myLaserId = generateId();
         long lastSentTime = 0;
 
         try {
@@ -44,11 +48,12 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
             isr = new InputStreamReader(is);
             br = new BufferedReader(isr);
 
-            Protocol.writeMessage(bw, Protocol.CMD_START, myId);
+            Protocol.writeMessage(bw, Protocol.CMD_START, myId + " " + myLaserId);
 
             System.out.println("mi id es " + myId);
 
             ClientWindow.ventanaDeJuego.setOnMouseMoved(this);
+            ClientWindow.ventanaDeJuego.setOnMouseClicked(this);
 
             System.out.println(" se envio comando start");
 
@@ -113,9 +118,6 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
                                     });
 
                             break;
-//                    }
-//                    default -> {
-//                        Protocol.writeMessage(bw, Protocol.CMD_ERROR);
                         }
                     }
                 }
@@ -134,17 +136,20 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
         }
     }
 
-    public void clientWriteMessage(String message) throws IOException {
-        Protocol.writeMessage(bw, message);
-    }
-
-    public void clientWriteMessage(String message, String parameter) throws IOException {
-        Protocol.writeMessage(bw, message, parameter);
-    }
-
     @Override
     public void handle(MouseEvent event) {
         posicionX = event.getX();
+        if (event.getClickCount() > 0) {
+            System.out.println("se dio click");
+            try {
+                Protocol.writeMessage(bw, Protocol.CMD_SHOOT, myLaserId + " " + GraphicElements.SINGLETON.findElement(myId).getPositionX());
+                System.out.println("se mando un shoot loco");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
         //System.out.println(posicionX);
     }
 

@@ -2,6 +2,7 @@ package proyecto1.network;
 
 import javafx.application.Platform;
 import proyecto1.Imagenes.Imagenes;
+import proyecto1.Usuario.LaserTask;
 import proyecto1.Usuario.NaveUsuario;
 import proyecto1.Ventanas.ClientWindow;
 import proyecto1.Ventanas.VentanaDeJuego;
@@ -93,13 +94,21 @@ public class ServerSession implements Runnable {
                         case Protocol.CMD_START : {
 
                             String id = completeCommand[1];
+                            String laserId = completeCommand[2];
 
                             Platform.runLater(
                                 () -> {
                                     ImageWithProperties naveUsuario = GraphicElements.SINGLETON.createElement(id, Imagenes.IMG_NAVEUSUARIO);
                                     naveUsuario.move(200, 600);
+
+                                    ImageWithProperties laser = GraphicElements.SINGLETON.createElement(laserId, Imagenes.IMG_LASER);
+                                    naveUsuario.move(200, 550);
+                                    laser.getImage().setVisible(false);
+
                                     VentanaDeJuego.getVentanaDeJuego().getChildren().add(naveUsuario.getImage());
+                                    VentanaDeJuego.getVentanaDeJuego().getChildren().add(laser.getImage());
                                     GraphicElements.SINGLETON.addElement(naveUsuario);
+                                    GraphicElements.SINGLETON.addElement(laser);
                                 //NaveUsuario naveUsuario = new NaveUsuario(id, VentanaDeJuego.getVentanaDeJuego());
 
 
@@ -135,46 +144,26 @@ public class ServerSession implements Runnable {
                                         }
 
                                     });
-
-//                            for (NaveUsuario naveUsuario: jugadores){
-//                                if (naveUsuario.getId().equals(ID)) {
-//                                    // System.out.println("found id");
-//                                    // double posicionX = naveUsuario.getPosicionX();
-//                                     naveUsuario.moveNave(posicionX - 50);
-//                                     break;
-//                                }
-//                            }
                         break;
                         }
 
-//
-//                    case Protocol.CMD_MOVE_LEFT: {
-//                        String ID = completeCommand[1];
-//                        for (NaveUsuario naveUsuario: jugadores){
-//                            if (naveUsuario.getId().equals(ID)){
-//                               // System.out.println("found id");
-//                                double posicionX = naveUsuario.getPosicionX();
-//                                naveUsuario.moveNave(posicionX - 1);
-//                            }
-//                        }
-//                        break;
-//                    }
-////
-//                    case Protocol.CMD_MOVE_RIGHT: {
-//                         String ID = completeCommand[1];
-//                        for (NaveUsuario naveUsuario: jugadores){
-//                            if (naveUsuario.getId().equals(ID)){
-//                                //System.out.println("found id");
-//                                double posicionX = naveUsuario.getPosicionX();
-//                                naveUsuario.moveNave(posicionX + 1);
-//                            }
-//                        }
-//                        break;
-//                    }
-//                    case Protocol.CMD_SHOOT: {
-//                        Protocol.writeMessage(bw, Protocol.CMD_OK, "SHOT");
-//                        break;
-//                    }
+                    case Protocol.CMD_SHOOT: {
+                        String ID = completeCommand[1];
+                        double posicionX = Double.parseDouble(completeCommand[2]);
+                        System.out.println("aqui estamos intentando un shoot");
+                        ImageWithProperties laser = GraphicElements.SINGLETON.findElement(ID);
+                        if (laser == null ){
+                            laser = GraphicElements.SINGLETON.createElement(ID, Imagenes.IMG_LASER);
+                            GraphicElements.SINGLETON.addElement(laser);
+
+                        }
+                        laser.setPositionX(posicionX);
+                        laser.setPositionY(550);
+                        LaserTask laserTask = new LaserTask(laser);
+                        Thread laserThread = new Thread(laserTask);
+                        laserThread.start();
+                        break;
+                    }
 //
 //                    default : {
 //                        Protocol.writeMessage(bw, Protocol.CMD_ERROR);

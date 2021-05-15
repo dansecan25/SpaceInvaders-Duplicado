@@ -36,11 +36,14 @@ public class ImageWithProperties {
 //
 //        }
 
-        idLabel.setText("P" + String.valueOf(id));
+        if (imageType.equals(Imagenes.IMG_NAVEUSUARIO)) {
+            idLabel.setText("P" + String.valueOf(id));
+            double fontSize = 15;
+            FontWeight fontWeight = FontWeight.BOLD;
+            idLabel.setFont(Font.font("Arial", fontWeight, fontSize));
+        }
 
-        double fontSize = 15;
-        FontWeight fontWeight = FontWeight.BOLD;
-        idLabel.setFont(Font.font("Arial", fontWeight, fontSize));
+
 
     }
 
@@ -90,7 +93,35 @@ public class ImageWithProperties {
         return imageType;
     }
 
-//    public void addPlayer(){
+    public void setImageType(String imageType) {
+        this.imageType = imageType;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setIdLabel(Text idLabel) {
+        this.idLabel = idLabel;
+    }
+
+    public void setImage(ImageView image) {
+        this.image = image;
+    }
+
+    public void setPositionX(double positionX) {
+        this.positionX = positionX;
+    }
+
+    public void setPositionY(double positionY) {
+        this.positionY = positionY;
+    }
+
+    public void setNumberOfPlayers(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
+    }
+
+    //    public void addPlayer(){
 //        numberOfPlayers ++;
 //    }
 }

@@ -31,6 +31,9 @@ public class LaserTask implements Runnable {
                     () -> {
                         laser.move(posicionX + 50, posicionY);
                     });
+            if (laser.getPositionY() >= 70){
+                laser.getImage().setVisible(false);
+            }
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -39,7 +42,7 @@ public class LaserTask implements Runnable {
             posicionY--;
         }
         laser.getImage().setVisible(false);
-        laser.move(posicionX, 550);
+        laser.move(posicionX, 700);
         System.out.println("listisimo");
     }
 }

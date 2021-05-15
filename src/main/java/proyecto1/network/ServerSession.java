@@ -157,11 +157,16 @@ public class ServerSession implements Runnable {
                             GraphicElements.SINGLETON.addElement(laser);
 
                         }
-                        laser.setPositionX(posicionX);
-                        laser.setPositionY(550);
-                        LaserTask laserTask = new LaserTask(laser);
-                        Thread laserThread = new Thread(laserTask);
-                        laserThread.start();
+
+                        System.out.println("la posicion del laser es" + laser.getPositionY());
+
+                       if (laser.getPositionY() == 550.0 || laser.getPositionY() == 0.0) {
+                           System.out.println("pew pew");
+                            laser.setPositionX(posicionX);
+                            LaserTask laserTask = new LaserTask(laser);
+                            Thread laserThread = new Thread(laserTask);
+                            laserThread.start();
+                        }
                         break;
                     }
 //

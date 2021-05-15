@@ -19,18 +19,24 @@ public class ImageWithProperties {
     private double positionY;
     private int numberOfPlayers = 0;
 
+    public ImageWithProperties(String id, String imageType, double positionX, double positionY) {
+        this(id, imageType);
+        this.positionX = positionX;
+        this.positionY = positionY;
+    }
+
 
     public ImageWithProperties(String id, String imageType) {
         this.image = new ImageView(Imagenes.getInstancia().cargarImagen(imageType));
         this.imageType = imageType;
         this.id = id;
         image.setId(id);
-        if (imageType.equals(Imagenes.IMG_NAVEUSUARIO)) {
-            numberOfPlayers ++;
+//        if (imageType.equals(Imagenes.IMG_NAVEUSUARIO)) {
+//            numberOfPlayers ++;
+//
+//        }
 
-        }
-
-        idLabel.setText("P" + String.valueOf(numberOfPlayers));
+        idLabel.setText("P" + String.valueOf(id));
 
         double fontSize = 15;
         FontWeight fontWeight = FontWeight.BOLD;

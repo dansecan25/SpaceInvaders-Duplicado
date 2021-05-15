@@ -1,21 +1,15 @@
 package proyecto1.network;
 
 import javafx.application.Platform;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import proyecto1.Imagenes.Imagenes;
-import proyecto1.Usuario.NaveUsuario;
 import proyecto1.Ventanas.ClientWindow;
-import proyecto1.Ventanas.VentanaDeJuego;
 import proyecto1.protocolo.GraphicElements;
 import proyecto1.protocolo.ImageWithProperties;
 import proyecto1.protocolo.Protocol;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Date;
 import java.util.Random;
 
 public class ClientSession implements Runnable, EventHandler<MouseEvent> {
@@ -39,7 +33,7 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
         InputStreamReader isr;
         BufferedReader br;
 
-        String myId = generateRandomId();
+        String myId = generateId();
         long lastSentTime = 0;
 
         try {
@@ -72,7 +66,7 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
 //                        break;
 //                    }
                     case Protocol.CMD_CLEAR -> {
-                        GraphicElements.clearElements();
+                        GraphicElements.SINGLETON.clearElements();
                         break;
                     }
                     case Protocol.CMD_CREATE -> {
@@ -104,12 +98,12 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
 
                             Platform.runLater(
                                     () -> {
-                                        ImageWithProperties imageWithProperties = GraphicElements.findElement(id);
+                                        ImageWithProperties imageWithProperties = GraphicElements.SINGLETON.findElement(id);
 
                                         if (imageWithProperties == null) {
                                             System.out.println("se creo elemento");
-                                            imageWithProperties = GraphicElements.createElement(id, imageType);
-                                            GraphicElements.addElement(imageWithProperties);
+                                            imageWithProperties = GraphicElements.SINGLETON.createElement(id, imageType);
+                                            GraphicElements.SINGLETON.addElement(imageWithProperties);
                                             ClientWindow.ventanaDeJuego.getChildren().add(imageWithProperties.getImage());
                                             ClientWindow.ventanaDeJuego.getChildren().add(imageWithProperties.getIdLabel());
                                         }
@@ -154,10 +148,10 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
         //System.out.println(posicionX);
     }
 
-    public static String generateRandomId() {
+    public static String generateId() {
         Random random = new Random();
         int value = random.nextInt();
-        return "p" + value;
+        return String.valueOf(value);
     }
 
 }

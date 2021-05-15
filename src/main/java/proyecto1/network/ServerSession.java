@@ -11,6 +11,7 @@ import proyecto1.protocolo.Protocol;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,15 +43,33 @@ public class ServerSession implements Runnable {
             isr = new InputStreamReader(is);
             br = new BufferedReader(isr);
 
+            GraphicElements lastState = new GraphicElements();
+
+            long lastSentTime = 0;
+
 
             do {
 
               //  List<NaveUsuario> jugadores = VentanaDeJuego.getJugadores();
-                for (ImageWithProperties element: GraphicElements.getElements()) {
-                    double posicionX = element.getPositionX();
-                    double posicionY = element.getPositionY();
-                    Protocol.writeMessage(bw, Protocol.CMD_MOVE, element.getId() + " " + element.getImageType() + " " + posicionX + " " + posicionY);
+
+                if ( System.currentTimeMillis() - lastSentTime > 200) {
+                    for (ImageWithProperties element: GraphicElements.SINGLETON.getElements()) {
+
+                        double posicionX = element.getPositionX();
+                        double posicionY = element.getPositionY();
+
+                        ImageWithProperties lastStateElement = lastState.findElement(element.getId());
+                        if (lastStateElement == null || lastStateElement.getPositionX() != posicionX || lastStateElement.getPositionY() != posicionY){
+                            Protocol.writeMessage(bw, Protocol.CMD_MOVE, element.getId() + " " + element.getImageType() + " " + posicionX + " " + posicionY);
+                            lastStateElement = new ImageWithProperties(element.getId(), element.getImageType(), posicionX, posicionY);
+                            lastState.removeElement(element.getId());
+                            lastState.addElement(lastStateElement);
+
+                        }
+                    }
+                    lastSentTime = System.currentTimeMillis();
                 }
+
 
 //
 //                for (NaveUsuario naveUsuario: jugadores){
@@ -77,10 +96,10 @@ public class ServerSession implements Runnable {
 
                             Platform.runLater(
                                 () -> {
-                                    ImageWithProperties naveUsuario = GraphicElements.createElement(id, Imagenes.IMG_NAVEUSUARIO);
+                                    ImageWithProperties naveUsuario = GraphicElements.SINGLETON.createElement(id, Imagenes.IMG_NAVEUSUARIO);
                                     naveUsuario.move(200, 600);
                                     VentanaDeJuego.getVentanaDeJuego().getChildren().add(naveUsuario.getImage());
-                                    GraphicElements.addElement(naveUsuario);
+                                    GraphicElements.SINGLETON.addElement(naveUsuario);
                                 //NaveUsuario naveUsuario = new NaveUsuario(id, VentanaDeJuego.getVentanaDeJuego());
 
 
@@ -110,7 +129,7 @@ public class ServerSession implements Runnable {
 
                             Platform.runLater(
                                     () -> {
-                                        ImageWithProperties naveUsuario = GraphicElements.findElement(ID);
+                                        ImageWithProperties naveUsuario = GraphicElements.SINGLETON.findElement(ID);
                                         if (naveUsuario != null) {
                                             naveUsuario.move(posicionX - 50, naveUsuario.getPositionY());
                                         }
@@ -164,7 +183,7 @@ public class ServerSession implements Runnable {
                     }
                 }
 
-                Thread.sleep(50);
+
             } while(socket.isBound());
 
         } catch (Exception e) {

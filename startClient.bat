@@ -1,1 +1,1 @@
-gradlew -PmainClass=proyecto1.Client run --args="0.tcp.ngrok.io 14173"
+gradlew -PmainClass=proyecto1.Client run --args="127.0.0.1 9000"

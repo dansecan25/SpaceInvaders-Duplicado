@@ -26,6 +26,7 @@ public class NaveEnemiga {
     private boolean isBoss = false;
     private int puntosMorir = 5;
     private int vida;
+    private final int shipID;
 
     /**
      * Instantiates a new Nave enemiga.
@@ -34,13 +35,14 @@ public class NaveEnemiga {
      * @param y     the y
      * @param juego the juego
      */
-    public NaveEnemiga(int x, int y, Group juego,int pos) {
+    public NaveEnemiga(int x, int y, Group juego,int shipID) {
+        this.shipID = shipID;
+        posicionLista = shipID;
         nave = spriteNaveAleatorio();
         nave.setX(x);
         nave.setY(y);
         nave.setId("ufos");
         juego.getChildren().add(nave);
-        posicionLista=pos;
         vida = 1;
         comprobacion = new Timeline(new KeyFrame(Duration.millis(100), event -> colision()));
         comprobarColision();
@@ -53,6 +55,14 @@ public class NaveEnemiga {
      */
     public int getVida(){
         return vida;
+    }
+
+    /**
+     * Returns the ship ID.
+     * @return shipID int
+     */
+    public int getID(){
+        return shipID;
     }
 
     /**
@@ -140,9 +150,6 @@ public class NaveEnemiga {
                     if(isBoss && (currentClass.getClase().equals("C") || currentClass.getClase().equals("E"))){
                         HileraC.cambiarJefe();
                         //ClaseE.cambiarJefe();
-                    }
-                    if(isBoss && (currentClass.getClase().equals("A"))){
-                        //
                     }
                 }else if(currentClass.getClase().equals("D")){
                     HileraD.ordenarNaves();

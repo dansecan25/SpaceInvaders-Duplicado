@@ -72,11 +72,12 @@ public class VentanaDeJuego {
         GameStage.show(); //requerido para mostrar el stage
 
        // HileraBasic primeraHilera = new HileraBasic(ventanaDeJuego);
-        new HileraC(ventanaDeJuego);
-        Animacion.iniciarAnimacion(currentClass.getLista());
-        setCLASE();
+//        new HileraC(ventanaDeJuego);
+//        Animacion.iniciarAnimacion(currentClass.getLista());
+//        setCLASE();
+        new HileraArbolAVL(ventanaDeJuego);
 
-        crearClases(ventanaDeJuego, nivelLabel);
+//        crearClases(ventanaDeJuego, nivelLabel);
         String puntaje = Integer.toString(pts);
         puntos.setText(puntaje);
         puntos.setX(105);

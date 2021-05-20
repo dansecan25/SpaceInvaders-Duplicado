@@ -56,6 +56,10 @@ public class BinaryTree implements Tree{
         return this.find(elementID,root);
     }
 
+    /**
+     * Returns tree size
+     * @return tree size
+     */
     @Override
     public int getSize() {
         return getSize(root);

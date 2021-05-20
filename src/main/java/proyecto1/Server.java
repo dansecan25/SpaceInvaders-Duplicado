@@ -33,7 +33,6 @@ public class Server implements Runnable {
 
     @Override
     public void run() {
-
         System.out.println("inicializando servidor en el puerto " + port);
 
         try {

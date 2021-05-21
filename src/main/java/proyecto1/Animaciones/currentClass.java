@@ -3,6 +3,7 @@ package proyecto1.Animaciones;
 import proyecto1.Enemigos.NaveEnemiga;
 import proyecto1.ListasEnlazadas.ListFactory;
 import proyecto1.ListasEnlazadas.Lista;
+import proyecto1.Trees.Tree;
 
 /**
  * Clase currentClass.
@@ -12,14 +13,16 @@ public class currentClass {
     private static final ListFactory<NaveEnemiga> listFactory = new ListFactory<>();
     private static Lista<NaveEnemiga> listaActual;
     private static int nivel=1;
+    private static Tree treecito;
     /**
      * Setter para indicar cual es la hilera actual.
      * @param claseActual the clase actual
      */
-    public static void setClass(String claseActual,Lista<NaveEnemiga> lista) {
+    public static void setClass(String claseActual,Lista<NaveEnemiga> lista, Tree tree) {
         System.out.println("Esto deberia correr primero");
         currentClass.claseActual = claseActual;
         listaActual = lista;
+        treecito = tree;
     }
     /**
      * Retorna la lista actual
@@ -29,6 +32,8 @@ public class currentClass {
     public static Lista<NaveEnemiga> getLista(){
         return listaActual;
     }
+
+    public static Tree getTreecito() {return treecito;}
 
     /**
      * Retorna el tipo de hilera actual

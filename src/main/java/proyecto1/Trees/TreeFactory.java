@@ -1,7 +1,9 @@
 package proyecto1.Trees;
 
-public class TreeFactory {
-    public Tree createTree(String treeType){
+import proyecto1.AbstractFactory.Factory;
+
+public class TreeFactory implements Factory<Tree> {
+    public Tree create(String treeType){
         if(treeType == null){
             return null;
         }else if(treeType.equalsIgnoreCase("Binary")){

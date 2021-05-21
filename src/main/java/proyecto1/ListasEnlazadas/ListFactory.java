@@ -1,7 +1,10 @@
 package proyecto1.ListasEnlazadas;
 
-public class ListFactory<T>{
-    public Lista<T> crearLista(String tipoLista){
+import proyecto1.AbstractFactory.Factory;
+import proyecto1.Enemigos.NaveEnemiga;
+
+public class ListFactory<T> implements Factory<Lista<T>> {
+    public Lista<T> create(String tipoLista){
         if (tipoLista == null){
             return null;
         }else if ("Simple".equalsIgnoreCase(tipoLista)){

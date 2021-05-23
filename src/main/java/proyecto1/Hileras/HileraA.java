@@ -18,9 +18,9 @@ public class HileraA {
      * @param juego: JavaFX Group
      */
     public HileraA(Group juego){
-        Lista<NaveEnemiga> listaA= listFactory.crearLista("Simple");
+        Lista<NaveEnemiga> listaA= listFactory.create("Simple");
 
-        currentClass.setClass("A", listaA);
+        currentClass.setClass("A", listaA,null);
         listaA.agregarUltimo(new NaveEnemiga(110, 100, juego, 0));
         listaA.agregarUltimo(new NaveEnemiga(220, 100, juego, 1));
         listaA.agregarUltimo(new NaveEnemiga(330, 100, juego, 2));

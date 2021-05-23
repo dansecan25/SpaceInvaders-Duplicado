@@ -16,10 +16,10 @@ import java.io.FileNotFoundException;
  */
 public class HileraB {
     private static final ListFactory<NaveEnemiga> listFactory = new ListFactory<>();
-    private static final Lista<NaveEnemiga> listaB = listFactory.crearLista("Doble");
+    private static final Lista<NaveEnemiga> listaB = listFactory.create("Doble");
     private static NaveEnemiga naveAnt = null;
     public static void IniciarClaseB(Group juego) throws FileNotFoundException {
-        currentClass.setClass("B", listaB);
+        currentClass.setClass("B", listaB, null);
         listaB.agregarUltimo(new NaveEnemiga(110, 100, juego,0));
         listaB.agregarUltimo(new NaveEnemiga(220, 100, juego,1));
         listaB.agregarUltimo(new NaveEnemiga(330, 100, juego,2));

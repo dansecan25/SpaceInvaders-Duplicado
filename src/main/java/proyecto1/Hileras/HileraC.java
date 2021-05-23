@@ -19,8 +19,8 @@ public class HileraC {
      * @throws FileNotFoundException File not found
      */
     public HileraC(Group juego) throws FileNotFoundException {
-        Lista<NaveEnemiga> listaNaves = listFactory.crearLista("Circular");
-        currentClass.setClass("C", listaNaves);
+        Lista<NaveEnemiga> listaNaves = listFactory.create("Circular");
+        currentClass.setClass("C", listaNaves, null);
         listaNaves.agregarUltimo(new NaveEnemiga(110, 100, juego, 0));
         listaNaves.agregarUltimo(new NaveEnemiga(220, 100, juego, 1));
         listaNaves.agregarUltimo(new NaveEnemiga(330, 100, juego, 2));
@@ -37,7 +37,7 @@ public class HileraC {
      * Cambia el jefe en la hilera
      */
     public static void cambiarJefe(){
-        Lista<NaveEnemiga> lista = listFactory.crearLista("Circular");
+        Lista<NaveEnemiga> lista = listFactory.create("Circular");
         lista = currentClass.getLista();
 
         double pos = Math.random()*lista.tamanoLista();

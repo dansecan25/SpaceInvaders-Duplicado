@@ -13,9 +13,9 @@ import java.io.FileNotFoundException;
  */
 public class HileraD {
     private final ListFactory<NaveEnemiga> listFactory = new ListFactory<>();
-    private final Lista<NaveEnemiga> listaNaves = listFactory.crearLista("Doble");
+    private final Lista<NaveEnemiga> listaNaves = listFactory.create("Doble");
     public HileraD(Group juego) throws FileNotFoundException {
-        currentClass.setClass("D", listaNaves);
+        currentClass.setClass("D", listaNaves, null);
         listaNaves.agregarUltimo(new NaveEnemiga(110, 100, juego, 0));
         listaNaves.agregarUltimo(new NaveEnemiga(220, 100, juego, 1));
         listaNaves.agregarUltimo(new NaveEnemiga(330, 100, juego, 2));

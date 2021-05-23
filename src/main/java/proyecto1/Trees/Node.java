@@ -1,11 +1,12 @@
 package proyecto1.Trees;
 
+
 import proyecto1.Enemigos.NaveEnemiga;
 
 /**
  * Node class.
  */
-public class Node{
+public class Node {
     public NaveEnemiga element;
     public Node left;
     public Node right;
@@ -30,4 +31,7 @@ public class Node{
         this.left = left;
         this.right = right;
     }
+
+
+
 }

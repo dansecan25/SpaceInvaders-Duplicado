@@ -18,12 +18,12 @@ public class HileraBasic {
      * @throws FileNotFoundException  file not found exception
      */
     public HileraBasic(Group juego) throws FileNotFoundException{
-        Lista<NaveEnemiga> listaBasic = listFactory.crearLista("Simple");
+        Lista<NaveEnemiga> listaBasic = listFactory.create("Simple");
         listaBasic.agregarUltimo(new NaveEnemiga(110, 100, juego, 0));
         listaBasic.agregarUltimo(new NaveEnemiga(220, 100, juego, 1));
         listaBasic.agregarUltimo(new NaveEnemiga(330, 100, juego, 2));
         listaBasic.agregarUltimo(new NaveEnemiga(440, 100, juego, 3));
         listaBasic.agregarUltimo(new NaveEnemiga(550, 100, juego, 4));
-        currentClass.setClass("BA", listaBasic);
+        currentClass.setClass("BA", listaBasic, null);
     }
 }

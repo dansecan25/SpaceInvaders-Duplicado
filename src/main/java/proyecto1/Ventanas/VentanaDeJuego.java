@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import proyecto1.Animaciones.Animacion;
 import proyecto1.Animaciones.AnimacionClaseE;
+import proyecto1.Animaciones.TreeEnemysAnimation;
 import proyecto1.Animaciones.currentClass;
 import proyecto1.Hileras.*;
 import proyecto1.Imagenes.Fondo;
@@ -76,6 +77,7 @@ public class VentanaDeJuego {
 //        Animacion.iniciarAnimacion(currentClass.getLista());
 //        setCLASE();
         new HileraArbolAVL(ventanaDeJuego);
+        TreeEnemysAnimation.AnimationStart(ventanaDeJuego);
 
 //        crearClases(ventanaDeJuego, nivelLabel);
         String puntaje = Integer.toString(pts);

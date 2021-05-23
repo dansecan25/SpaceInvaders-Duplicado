@@ -184,11 +184,20 @@ public class NaveEnemiga {
     }
 
     /**
+     * Moves ship to the right a longer distance
+     */
+    public void moveRight2(){
+        Timeline movimientoDerecha = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.setX(nave.getX()+1)));
+        movimientoDerecha.setCycleCount(250);
+        movimientoDerecha.play();
+    }
+
+    /**
      * Mueve la nave hacia la izquierda
      */
     public void moveLeft(){
         Timeline movimientoIzquierda = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.setX(nave.getX()-1)));
-        movimientoIzquierda.setCycleCount(80);
+        movimientoIzquierda.setCycleCount(250);
         movimientoIzquierda.play();
     }
 

@@ -170,9 +170,7 @@ public class NaveEnemiga {
      * Retorna la imagen de la nave
      * @return nave: ImageView
      */
-    public ImageView getImagenNave(){
-        return nave;
-    }
+    public ImageView getImagenNave(){ return nave; }
 
     /**
      * Mueve la nave hacia la derecha

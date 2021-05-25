@@ -69,10 +69,10 @@ public class TreeEnemysAnimation {
             if (tryShip != null) {
                 NaveEnemiga Ship = Tree.find(i).element;
                 switch(direction){
-                    case "Right"->Ship.moveRight();
-                    case "Down"->Ship.moveDown();
-                    case "Left"->Ship.moveLeft();
-                    case "Right2"->Ship.moveRight2();
+                    case "Right"->Ship.moveRight(80);
+                    case "Down"->Ship.moveDown(80);
+                    case "Left"->Ship.moveLeft(250);
+                    case "Right2"->Ship.moveRight(250);
                 }
             }
         }

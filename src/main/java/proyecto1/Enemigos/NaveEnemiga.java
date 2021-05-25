@@ -175,36 +175,26 @@ public class NaveEnemiga {
     /**
      * Mueve la nave hacia la derecha
      */
-    public void moveRight(){
+    public void moveRight(int pixels){
         Timeline movimientoDerecha = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.setX(nave.getX()+1)));
-        movimientoDerecha.setCycleCount(80);
+        movimientoDerecha.setCycleCount(pixels);
         movimientoDerecha.play();
     }
-
-    /**
-     * Moves ship to the right a longer distance
-     */
-    public void moveRight2(){
-        Timeline movimientoDerecha = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.setX(nave.getX()+1)));
-        movimientoDerecha.setCycleCount(250);
-        movimientoDerecha.play();
-    }
-
     /**
      * Mueve la nave hacia la izquierda
      */
-    public void moveLeft(){
+    public void moveLeft(int pixels){
         Timeline movimientoIzquierda = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.setX(nave.getX()-1)));
-        movimientoIzquierda.setCycleCount(250);
+        movimientoIzquierda.setCycleCount(pixels);
         movimientoIzquierda.play();
     }
 
     /**
      * Mueve la nave hacia abajo
      */
-    public void moveDown(){
+    public void moveDown(int pixels){
         Timeline movimientoAbajo = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.setY(nave.getY()+1)));
-        movimientoAbajo.setCycleCount(80);
+        movimientoAbajo.setCycleCount(pixels);
         movimientoAbajo.play();
     }
 }

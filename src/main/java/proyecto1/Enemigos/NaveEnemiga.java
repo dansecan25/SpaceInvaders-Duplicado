@@ -45,7 +45,7 @@ public class NaveEnemiga {
         nave = spriteNaveAleatorio();
         GraphicElements.SINGLETON.addElement(nave);
         nave.move(x, y);
-        nave.setId("ufos");
+        //nave.setId("ufos");
         juego.getChildren().add(nave.getImage());
         vida = 1;
         comprobacion = new Timeline(new KeyFrame(Duration.millis(100), event -> colision()));

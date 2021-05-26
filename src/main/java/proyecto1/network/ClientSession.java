@@ -36,8 +36,8 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
         InputStreamReader isr;
         BufferedReader br;
 
-        myId = generateId();
-        myLaserId = generateId();
+        myId = Protocol.generateId();
+        myLaserId = Protocol.generateId();
         long lastSentTime = 0;
 
         try {
@@ -151,12 +151,6 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
 
 
         //System.out.println(posicionX);
-    }
-
-    public static String generateId() {
-        Random random = new Random();
-        int value = random.nextInt();
-        return String.valueOf(value);
     }
 
 }

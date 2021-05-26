@@ -11,6 +11,8 @@ import proyecto1.Hileras.HileraD;
 import proyecto1.Imagenes.Imagenes;
 import proyecto1.Usuario.NaveUsuario;
 import proyecto1.Ventanas.VentanaDeJuego;
+import proyecto1.protocolo.ImageWithProperties;
+import proyecto1.protocolo.Protocol;
 
 import java.util.Random;
 
@@ -22,11 +24,12 @@ public class NaveEnemiga {
     private int posicionLista;
     private final Group ventana;
     private final Timeline comprobacion;
-    private final ImageView nave;
+    private final ImageWithProperties nave;
     private boolean isBoss = false;
     private int puntosMorir = 5;
     private int vida;
     private final int shipID;
+    private final String imageId = Protocol.generateId();
 
     /**
      * Instantiates a new Nave enemiga.
@@ -39,10 +42,9 @@ public class NaveEnemiga {
         this.shipID = shipID;
         posicionLista = shipID;
         nave = spriteNaveAleatorio();
-        nave.setX(x);
-        nave.setY(y);
+        nave.move(x, y);
         nave.setId("ufos");
-        juego.getChildren().add(nave);
+        juego.getChildren().add(nave.getImage());
         vida = 1;
         comprobacion = new Timeline(new KeyFrame(Duration.millis(100), event -> colision()));
         comprobarColision();
@@ -78,8 +80,8 @@ public class NaveEnemiga {
      */
     public void toNave(){
         isBoss = false;
-        nave.setImage(Imagenes.getInstancia().getUfo2());
-        nave.setX(nave.getX() + 28);
+        nave.setImageType(Imagenes.IMG_UFO2);
+        nave.move(nave.getPositionX() + 28, nave.getPositionY());
         vida = 1;
         puntosMorir = 5;
     }
@@ -90,12 +92,14 @@ public class NaveEnemiga {
     public void toBoss(){
         int randomBossSprite = random.nextInt(4);
         switch (randomBossSprite){
-            case 1 -> nave.setImage(Imagenes.getInstancia().getUfoBoss2());
-            case 2 -> nave.setImage(Imagenes.getInstancia().getUfoBoss3());
-            case 3 -> nave.setImage(Imagenes.getInstancia().getUfoBoss4());
-            default -> nave.setImage(Imagenes.getInstancia().getUfoBoss1());
+            case 1 -> nave.setImageType(Imagenes.IMG_UFOBOSS1);
+            case 2 -> nave.setImageType(Imagenes.IMG_UFOBOSS2);
+            case 3 -> nave.setImageType(Imagenes.IMG_UFOBOSS3);
+            default -> nave.setImageType(Imagenes.IMG_UFOBOSS4);
         }
-        nave.setX(nave.getX() - 27);
+
+        nave.move(nave.getPositionX() - 27, nave.getPositionY());
+
 
         int randomBonusHP = random.nextInt(4) + 1;
         vida = randomBonusHP;
@@ -113,13 +117,13 @@ public class NaveEnemiga {
      * Asigna un sprite (imagen) aleatorio a la nave
      * @return sprite: ImageView
      */
-    private ImageView spriteNaveAleatorio(){
-        ImageView sprite;
+    private ImageWithProperties spriteNaveAleatorio(){
+        ImageWithProperties sprite;
         int spriteID = random.nextInt(3);
         switch (spriteID) {
-            case 1 -> sprite = new ImageView(Imagenes.getInstancia().getUfo2());
-            case 2 -> sprite = new ImageView(Imagenes.getInstancia().getUfo3());
-            default -> sprite = new ImageView(Imagenes.getInstancia().getUfo1());
+            case 1 -> sprite = new ImageWithProperties(imageId, Imagenes.IMG_UFO1);
+            case 2 -> sprite = new ImageWithProperties(imageId, Imagenes.IMG_UFO2);
+            default -> sprite = new ImageWithProperties(imageId, Imagenes.IMG_UFO3);
         }
         return sprite;
     }
@@ -133,7 +137,7 @@ public class NaveEnemiga {
             if (!naveUsuario.getDisparo().isVisible()){
                 return;
             }
-            if (this.nave.getBoundsInParent().intersects(naveUsuario.getDisparo().getBoundsInParent())){
+            if (this.nave.getImage().getBoundsInParent().intersects(naveUsuario.getDisparo().getBoundsInParent())){
                 naveUsuario.setEstadoDisparo(true);
                 vida -= 1;
                 if (currentClass.getClase().equals("D")){
@@ -170,13 +174,13 @@ public class NaveEnemiga {
      * Retorna la imagen de la nave
      * @return nave: ImageView
      */
-    public ImageView getImagenNave(){ return nave; }
+    public ImageView getImagenNave(){ return nave.getImage(); }
 
     /**
      * Mueve la nave hacia la derecha
      */
     public void moveRight(){
-        Timeline movimientoDerecha = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.setX(nave.getX()+1)));
+        Timeline movimientoDerecha = new Timeline(new KeyFrame(Duration.millis(25),mover ->  nave.move(nave.getPositionX() + 1, nave.getPositionY())));
         movimientoDerecha.setCycleCount(80);
         movimientoDerecha.play();
     }
@@ -185,7 +189,7 @@ public class NaveEnemiga {
      * Moves ship to the right a longer distance
      */
     public void moveRight2(){
-        Timeline movimientoDerecha = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.setX(nave.getX()+1)));
+        Timeline movimientoDerecha = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.move(nave.getPositionX() + 1, nave.getPositionY())));
         movimientoDerecha.setCycleCount(250);
         movimientoDerecha.play();
     }
@@ -194,7 +198,7 @@ public class NaveEnemiga {
      * Mueve la nave hacia la izquierda
      */
     public void moveLeft(){
-        Timeline movimientoIzquierda = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.setX(nave.getX()-1)));
+        Timeline movimientoIzquierda = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.move(nave.getPositionX() - 1, nave.getPositionY())));
         movimientoIzquierda.setCycleCount(250);
         movimientoIzquierda.play();
     }
@@ -203,11 +207,8 @@ public class NaveEnemiga {
      * Mueve la nave hacia abajo
      */
     public void moveDown(){
-        Timeline movimientoAbajo = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.setY(nave.getY()+1)));
+        Timeline movimientoAbajo = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.move(nave.getPositionX(), nave.getPositionY() + 1)));
         movimientoAbajo.setCycleCount(80);
         movimientoAbajo.play();
     }
-}
-class banano{
-
 }

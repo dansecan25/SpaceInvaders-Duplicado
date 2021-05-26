@@ -1,6 +1,11 @@
 package proyecto1.Trees;
 
+import javafx.scene.image.ImageView;
+import proyecto1.Animaciones.TreeEnemysAnimation;
+import proyecto1.Animaciones.currentClass;
 import proyecto1.Enemigos.NaveEnemiga;
+
+import java.awt.*;
 
 /**
  * AVL Tree data structure.
@@ -69,6 +74,7 @@ public class AVLTree implements Tree{
         Node z = node.right;
         x.right = node;
         node.left = z;
+        TreeEnemysAnimation.relocateShip(node.element);
         updateHeight(node);
         updateHeight(x);
         return x;
@@ -136,6 +142,9 @@ public class AVLTree implements Tree{
      * @param elementID int
      */
     public void delete(int elementID){
+        ImageView enemy = find(elementID).element.getImagenNave();
+        currentClass.setPosDeceased((int) enemy.getX(), (int) enemy.getY());
+
         root = this.delete(root,elementID);
     }
     private Node delete(Node root,int elementID){
@@ -157,6 +166,7 @@ public class AVLTree implements Tree{
         if (root != null) {
             root = rebalance(root);
         }
+
         return root;
     }
 
@@ -209,5 +219,13 @@ public class AVLTree implements Tree{
         }
         return mostLeftChild(root).height;
     }
+
+    public void eliminating(){
+
+
+
+
+    }
+
 
 }

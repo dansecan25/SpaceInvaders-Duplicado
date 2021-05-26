@@ -27,19 +27,27 @@ public class TreeEnemysAnimation {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                boolean stopMovement = false;
                 while (movements <= 3) {
-                    try {
-                        MoveThemShips("Down");
-                        Thread.sleep(2000);
-                        MoveThemShips("Left");
-                        Thread.sleep(6400);
-                        MoveThemShips("Down");
-                        Thread.sleep(2000);
-                        MoveThemShips("Right2");
-                        Thread.sleep(6400);
-                        movements+=1;
-                    }catch(InterruptedException e) {
-                        e.printStackTrace();
+                    if (currentClass.getDeathID()==-1) {
+                        try {
+                            MoveThemShips("Down");
+                            Thread.sleep(2000);
+                            MoveThemShips("Left");
+                            Thread.sleep(6400);
+                            MoveThemShips("Down");
+                            Thread.sleep(2000);
+                            MoveThemShips("Right2");
+                            Thread.sleep(6400);
+                            movements += 1;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }else if(currentClass.getDeathID()!=-1){
+                        int IDdeceased = currentClass.getDeathID();
+//                        if (IDdeceased==1 && ){
+//
+//                        }
                     }
                 }
                 return null;
@@ -68,5 +76,27 @@ public class TreeEnemysAnimation {
                 }
             }
         }
+    }
+
+    public static void relocateShip(NaveEnemiga SHIP){
+        int xKilled = currentClass.getPosDeceased(0);
+        int yKilled = currentClass.getPosDeceased(1);
+        double initialX = SHIP.getImagenNave().getY();
+        double initialY = SHIP.getImagenNave().getX();
+
+        if(xKilled<initialX){
+            //the ship moves to the left
+        }
+        if(xKilled>initialX){
+            //moves the ship to the right
+        }
+        if(yKilled<initialY){
+            //moves ship up
+        }
+        if(yKilled>initialY){
+            //moves ship down
+        }
+
+
     }
 }

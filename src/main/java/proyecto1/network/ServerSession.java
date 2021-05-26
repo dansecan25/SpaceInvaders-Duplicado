@@ -61,9 +61,13 @@ public class ServerSession implements Runnable {
 
               //  List<NaveUsuario> jugadores = VentanaDeJuego.getJugadores();
 
+
+                // esto recorre lo que existe en graphic elements y lo manda a dibujar en el cliente
+
+
                 if ( System.currentTimeMillis() - lastSentTime > 200) {
                     for (ImageWithProperties element: GraphicElements.SINGLETON.getElements()) {
-
+                        //for (ImageWithProperties element: GraphicElements.SINGLETON.getElements()) {
                         double posicionX = element.getPositionX();
                         double posicionY = element.getPositionY();
 

@@ -11,6 +11,7 @@ import proyecto1.Hileras.HileraD;
 import proyecto1.Imagenes.Imagenes;
 import proyecto1.Usuario.NaveUsuario;
 import proyecto1.Ventanas.VentanaDeJuego;
+import proyecto1.protocolo.GraphicElements;
 import proyecto1.protocolo.ImageWithProperties;
 import proyecto1.protocolo.Protocol;
 
@@ -42,6 +43,7 @@ public class NaveEnemiga {
         this.shipID = shipID;
         posicionLista = shipID;
         nave = spriteNaveAleatorio();
+        GraphicElements.SINGLETON.addElement(nave);
         nave.move(x, y);
         nave.setId("ufos");
         juego.getChildren().add(nave.getImage());

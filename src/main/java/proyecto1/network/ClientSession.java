@@ -143,7 +143,7 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
             System.out.println("se dio click");
             try {
                 Protocol.writeMessage(bw, Protocol.CMD_SHOOT, myLaserId + " " + GraphicElements.SINGLETON.findElement(myId).getPositionX());
-                System.out.println("se mando un shoot loco");
+                System.out.println("laser enviado");
             } catch (IOException e) {
                 e.printStackTrace();
             }

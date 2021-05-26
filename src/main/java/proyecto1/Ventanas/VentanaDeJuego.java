@@ -41,6 +41,7 @@ public class VentanaDeJuego {
     private static int nivel = 1;
     private static Text nivelLabel = new Text();
     private static Group ventanaDeJuego;
+    private static boolean gamePaused = true;
     /**
      * Iniciar ventana de juego.
      *
@@ -232,4 +233,51 @@ public class VentanaDeJuego {
         return ventanaDeJuego;
     }
 
+    public static boolean getGamePaused() {
+        return gamePaused;
+    }
+
+    public static void setGamePaused(boolean state) {
+        gamePaused = state;
+    }
+
+    public static boolean isEstado() {
+        return estado;
+    }
+
+    public static int getPts() {
+        return pts;
+    }
+
+    public static String getClase() {
+        return clase;
+    }
+
+    public static Text getPuntos() {
+        return puntos;
+    }
+
+    public static Text getCla() {
+        return cla;
+    }
+
+    public static Stage getGameStage() {
+        return GameStage;
+    }
+
+    public static Stage getStagePrincipal() {
+        return stagePrincipal;
+    }
+
+    public static int getNivel() {
+        return nivel;
+    }
+
+    public static Text getNivelLabel() {
+        return nivelLabel;
+    }
+
+    public static boolean isGamePaused() {
+        return gamePaused;
+    }
 }

@@ -24,7 +24,6 @@ public class LaserTask implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("hay laser amix");
         laser.getImage().setVisible(true);
         while (posicionY >= 75) {
             Platform.runLater(
@@ -43,6 +42,5 @@ public class LaserTask implements Runnable {
         }
         laser.getImage().setVisible(false);
         laser.move(posicionX, 700);
-        System.out.println("listisimo");
     }
 }

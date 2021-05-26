@@ -1,5 +1,8 @@
 package proyecto1;
 
+import proyecto1.Animaciones.TreeEnemysAnimation;
+import proyecto1.Hileras.HileraArbolAVL;
+import proyecto1.Ventanas.VentanaDeJuego;
 import proyecto1.network.ServerSession;
 
 import java.io.IOException;
@@ -9,6 +12,7 @@ import java.net.Socket;
 public class Server implements Runnable {
     public static int port = 9000;
     public static ServerSocket serverSocket;
+    private static int currentConnectedClients = 0;
 
 
     public static void startServer() {
@@ -56,6 +60,28 @@ public class Server implements Runnable {
 
         } catch (IOException e) {
             System.out.println("Error al inicializar el Server: " + e.getMessage());
+        }
+    }
+
+    public static int getCurrentConnectedClients() {
+        return currentConnectedClients;
+    }
+
+    public static void decreaseCurrentConnectedClients() {
+        currentConnectedClients--;
+        if (currentConnectedClients <= 0) {
+            VentanaDeJuego.setGamePaused(true);
+
+
+        }
+    }
+
+    public static void increaseCurrentConnectedClients() {
+       currentConnectedClients++;
+        if (VentanaDeJuego.getGamePaused()){
+            VentanaDeJuego.setGamePaused(false);
+//            new HileraArbolAVL(VentanaDeJuego.getVentanaDeJuego());
+//            TreeEnemysAnimation.AnimationStart(VentanaDeJuego.getVentanaDeJuego());
         }
     }
 }

@@ -2,6 +2,7 @@ package proyecto1.network;
 
 import javafx.application.Platform;
 import proyecto1.Imagenes.Imagenes;
+import proyecto1.Server;
 import proyecto1.Usuario.LaserTask;
 import proyecto1.Usuario.NaveUsuario;
 import proyecto1.Ventanas.ClientWindow;
@@ -26,6 +27,13 @@ public class ServerSession implements Runnable {
 
     @Override
     public void run() {
+
+        Server.increaseCurrentConnectedClients();
+
+        System.out.println("connected clients: " + Server.getCurrentConnectedClients());
+
+        System.out.println("game state: " + VentanaDeJuego.getGamePaused());
+
         OutputStream os = null;
         //DataOutputStream dos;
         OutputStreamWriter osw;
@@ -185,6 +193,8 @@ public class ServerSession implements Runnable {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
+
+        Server.decreaseCurrentConnectedClients();
 
     }
 

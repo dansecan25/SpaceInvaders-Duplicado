@@ -32,7 +32,7 @@ public class currentClass {
         return listaActual;
     }
 
-    public static Tree getTreecito() {return treecito;}
+    public static Tree getTree() {return treecito;}
 
     /**
      * Retorna el tipo de hilera actual
@@ -69,12 +69,13 @@ public class currentClass {
         PosList.agregarUltimo(y);
     }
     public static int getPosDeceased(int pos){
-        if(pos==0){
-            return PosList.getElemento(pos);
-        }
-        if(pos==1){
-            return PosList.obtenerDato(pos);
-        } return 0;
+        return 0;
+//        if(pos==0){
+//            return PosList.getElemento(pos);
+//        }
+//        if(pos==1){
+//            return PosList.obtenerDato(pos);
+//        } return 0;
 
     }
 

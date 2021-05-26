@@ -3,60 +3,65 @@ package proyecto1.Animaciones;
 import javafx.concurrent.Task;
 import javafx.scene.Group;
 import proyecto1.Enemigos.NaveEnemiga;
-import proyecto1.Excepciones.InvalidDirectionException;
 import proyecto1.Trees.Node;
 import proyecto1.Trees.Tree;
+import proyecto1.Ventanas.VentanaDeJuego;
 
 public class TreeEnemysAnimation {
     private static Task<Void> animation;
-    private static Tree Tree = currentClass.getTreecito();
+    private static Tree Tree = currentClass.getTree();
 
     /**
      * Starts the thread that moves the ships through the screen
      * @param gameWindow the Group of the game window for future usage
      */
     public static void AnimationStart(Group gameWindow) {
+        System.out.println("inicio de animacion");
 
-        animation = new Task<Void>() {
-            @Override
-            protected Void call() {
-                int movements=0;
-                MoveThemShips("Right");
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                boolean stopMovement = false;
-                while (movements <= 3) {
-                    if (currentClass.getDeathID()==-1) {
-                        try {
-                            MoveThemShips("Down");
-                            Thread.sleep(2000);
-                            MoveThemShips("Left");
-                            Thread.sleep(6400);
-                            MoveThemShips("Down");
-                            Thread.sleep(2000);
-                            MoveThemShips("Right2");
-                            Thread.sleep(6400);
-                            movements += 1;
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }else if(currentClass.getDeathID()!=-1){
-                        int IDdeceased = currentClass.getDeathID();
+            animation = new Task<Void>() {
+                @Override
+                protected Void call() {
+                    //if (!VentanaDeJuego.getGamePaused()) {
+                    System.out.println("iniciando animacion de naves");
+                    int movements=0;
+                    MoveThemShips("Right");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    boolean stopMovement = false;
+                    while (movements <= 3) {
+
+                        if (currentClass.getDeathID() == -1) {
+                            try {
+                                MoveThemShips("Down");
+                                Thread.sleep(2000);
+                                MoveThemShips("Left");
+                                Thread.sleep(6400);
+                                MoveThemShips("Down");
+                                Thread.sleep(2000);
+                                MoveThemShips("Right2");
+                                Thread.sleep(6400);
+                                movements += 1;
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        } else if (currentClass.getDeathID() != -1) {
+                            int IDdeceased = currentClass.getDeathID();
 //                        if (IDdeceased==1 && ){
 //
 //                        }
+                        }
                     }
+                  //  }
+                    return null;
                 }
-                return null;
-            }
-        };
-        animation.setOnSucceeded(event -> {
-            System.out.println("se animo");
-        });
-        new Thread(animation).start();
+            };
+            animation.setOnSucceeded(event -> {
+                System.out.println("se animo");
+            });
+            new Thread(animation).start();
     }
 
     /**

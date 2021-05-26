@@ -70,10 +70,10 @@ public class currentClass {
     }
     public static int getPosDeceased(int pos){
         if(pos==0){
-            return PosList.getElemento(pos);
+            return (int) PosList.obtenerDato(pos);
         }
         if(pos==1){
-            return PosList.obtenerDato(pos);
+            return (int) PosList.obtenerDato(pos);
         } return 0;
 
     }

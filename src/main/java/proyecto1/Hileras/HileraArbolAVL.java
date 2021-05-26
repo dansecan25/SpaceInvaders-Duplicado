@@ -30,7 +30,6 @@ public class HileraArbolAVL {
         arbolAVL.add(new NaveEnemiga(x+180, y+160, juego, 6));
         //Setea la clase actual
         currentClass.setClass("AVL", null, arbolAVL);
-        currentClass.getTreecito();
 
     }
 }

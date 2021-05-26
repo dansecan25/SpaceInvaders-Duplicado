@@ -86,9 +86,11 @@ public class TreeEnemysAnimation {
 
         if(xKilled<initialX){
             //the ship moves to the left
+            int newEnd = (int) initialX-xKilled;
         }
         if(xKilled>initialX){
             //moves the ship to the right
+            int newEnd = (int) initialX-xKilled;
         }
         if(yKilled<initialY){
             //moves ship up

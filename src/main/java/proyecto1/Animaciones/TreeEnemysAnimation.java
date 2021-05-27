@@ -3,13 +3,12 @@ package proyecto1.Animaciones;
 import javafx.concurrent.Task;
 import javafx.scene.Group;
 import proyecto1.Enemigos.NaveEnemiga;
-import proyecto1.Excepciones.InvalidDirectionException;
 import proyecto1.Trees.Node;
 import proyecto1.Trees.Tree;
 
 public class TreeEnemysAnimation {
     private static Task<Void> animation;
-    private static Tree Tree = currentClass.getTreecito();
+    private static final Tree Tree = currentClass.getTreecito();
 
     /**
      * Starts the thread that moves the ships through the screen
@@ -17,7 +16,7 @@ public class TreeEnemysAnimation {
      */
     public static void AnimationStart(Group gameWindow) {
 
-        animation = new Task<Void>() {
+        animation = new Task<>() {
             @Override
             protected Void call() {
                 int movements=0;
@@ -27,7 +26,6 @@ public class TreeEnemysAnimation {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                boolean stopMovement = false;
                 while (movements <= 3) {
                     if (currentClass.getDeathID()==-1) {
                         try {
@@ -43,19 +41,12 @@ public class TreeEnemysAnimation {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                    }else if(currentClass.getDeathID()!=-1){
-                        int IDdeceased = currentClass.getDeathID();
-//                        if (IDdeceased==1 && ){
-//
-//                        }
                     }
                 }
                 return null;
             }
         };
-        animation.setOnSucceeded(event -> {
-            System.out.println("se animo");
-        });
+        animation.setOnSucceeded(event -> System.out.println("se animo"));
         new Thread(animation).start();
     }
 
@@ -78,6 +69,10 @@ public class TreeEnemysAnimation {
         }
     }
 
+    /**
+     * moves the ship to the location of where another ship was
+     * @param SHIP NaveEnemiga element
+     */
     public static void relocateShip(NaveEnemiga SHIP){
         int xKilled = currentClass.getPosDeceased(0);
         int yKilled = currentClass.getPosDeceased(1);
@@ -87,16 +82,22 @@ public class TreeEnemysAnimation {
         if(xKilled<initialX){
             //the ship moves to the left
             int newEnd = (int) initialX-xKilled;
+            SHIP.moveLeft(newEnd);
         }
         if(xKilled>initialX){
             //moves the ship to the right
             int newEnd = (int) initialX-xKilled;
+            SHIP.moveRight(newEnd);
         }
         if(yKilled<initialY){
             //moves ship up
+            int newEnd = (int) initialY-yKilled;
+            SHIP.moveUp(newEnd);
         }
         if(yKilled>initialY){
             //moves ship down
+            int newEnd = (int) initialY-yKilled;
+            SHIP.moveDown(newEnd);
         }
 
 

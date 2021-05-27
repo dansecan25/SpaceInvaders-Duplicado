@@ -176,7 +176,12 @@ public class NaveEnemiga {
      * Mueve la nave hacia la derecha
      */
     public void moveRight(int pixels){
-        Timeline movimientoDerecha = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.setX(nave.getX()+1)));
+        Timeline movimientoDerecha = new Timeline(new KeyFrame(Duration.millis(25),mover -> {
+            if(!currentClass.getStopMovement()){
+                nave.setX(nave.getX()+1);
+            }
+
+        }));
         movimientoDerecha.setCycleCount(pixels);
         movimientoDerecha.play();
     }
@@ -184,7 +189,11 @@ public class NaveEnemiga {
      * Mueve la nave hacia la izquierda
      */
     public void moveLeft(int pixels){
-        Timeline movimientoIzquierda = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.setX(nave.getX()-1)));
+        Timeline movimientoIzquierda = new Timeline(new KeyFrame(Duration.millis(25),mover ->{
+            if(!currentClass.getStopMovement()) {
+                nave.setX(nave.getX() - 1);
+            }
+        }));
         movimientoIzquierda.setCycleCount(pixels);
         movimientoIzquierda.play();
     }
@@ -193,7 +202,21 @@ public class NaveEnemiga {
      * Mueve la nave hacia abajo
      */
     public void moveDown(int pixels){
-        Timeline movimientoAbajo = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.setY(nave.getY()+1)));
+        Timeline movimientoAbajo = new Timeline(new KeyFrame(Duration.millis(25),mover ->{
+                if(!currentClass.getStopMovement()){
+                    nave.setY(nave.getY()+1);
+                }
+        }));
+        movimientoAbajo.setCycleCount(pixels);
+        movimientoAbajo.play();
+    }
+
+    public void moveUp(int pixels){
+        Timeline movimientoAbajo = new Timeline(new KeyFrame(Duration.millis(25),mover ->{
+            if(!currentClass.getStopMovement()){
+                nave.setY(nave.getY()-1);
+            }
+        }));
         movimientoAbajo.setCycleCount(pixels);
         movimientoAbajo.play();
     }

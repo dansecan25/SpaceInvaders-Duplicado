@@ -7,7 +7,7 @@ import proyecto1.Enemigos.NaveEnemiga;
 import proyecto1.Trees.BinaryTree;
 
 public class HileraArbolBST {
-    public static void IniciarAnimacion(Group juego){
+    public static void InitiateLine(Group juego){
         //if id parent dead, the child younger goes up becomes parent not itself anymore, other stays same
         BinaryTree BSTtree = new BinaryTree();
         int x=380;

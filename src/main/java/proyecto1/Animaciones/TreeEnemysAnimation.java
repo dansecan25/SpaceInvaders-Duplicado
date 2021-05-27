@@ -70,7 +70,7 @@ public class TreeEnemysAnimation {
     }
 
     /**
-     * moves the ship to the location of where another ship was
+     * moves the ship to the location of where another ship was, only called by AVL tree
      * @param SHIP NaveEnemiga element
      */
     public static void relocateShip(NaveEnemiga SHIP){

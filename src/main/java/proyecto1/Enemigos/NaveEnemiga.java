@@ -181,36 +181,49 @@ public class NaveEnemiga {
     /**
      * Mueve la nave hacia la derecha
      */
-    public void moveRight(){
-        Timeline movimientoDerecha = new Timeline(new KeyFrame(Duration.millis(25),mover ->  nave.move(nave.getPositionX() + 1, nave.getPositionY())));
-        movimientoDerecha.setCycleCount(80);
+    public void moveRight(int pixels){
+        Timeline movimientoDerecha = new Timeline(new KeyFrame(Duration.millis(25),mover -> {
+            if(!currentClass.getStopMovement()){
+                nave.setX(nave.getX()+1);
+            }
+
+        }));
+        movimientoDerecha.setCycleCount(pixels);
         movimientoDerecha.play();
     }
-
-    /**
-     * Moves ship to the right a longer distance
-     */
-    public void moveRight2(){
-        Timeline movimientoDerecha = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.move(nave.getPositionX() + 1, nave.getPositionY())));
-        movimientoDerecha.setCycleCount(250);
-        movimientoDerecha.play();
-    }
-
     /**
      * Mueve la nave hacia la izquierda
      */
-    public void moveLeft(){
-        Timeline movimientoIzquierda = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.move(nave.getPositionX() - 1, nave.getPositionY())));
-        movimientoIzquierda.setCycleCount(250);
+    public void moveLeft(int pixels){
+        Timeline movimientoIzquierda = new Timeline(new KeyFrame(Duration.millis(25),mover ->{
+            if(!currentClass.getStopMovement()) {
+                nave.setX(nave.getX() - 1);
+            }
+        }));
+        movimientoIzquierda.setCycleCount(pixels);
         movimientoIzquierda.play();
     }
 
     /**
      * Mueve la nave hacia abajo
      */
-    public void moveDown(){
-        Timeline movimientoAbajo = new Timeline(new KeyFrame(Duration.millis(25),mover -> nave.move(nave.getPositionX(), nave.getPositionY() + 1)));
-        movimientoAbajo.setCycleCount(80);
+    public void moveDown(int pixels){
+        Timeline movimientoAbajo = new Timeline(new KeyFrame(Duration.millis(25),mover ->{
+                if(!currentClass.getStopMovement()){
+                    nave.setY(nave.getY()+1);
+                }
+        }));
+        movimientoAbajo.setCycleCount(pixels);
+        movimientoAbajo.play();
+    }
+
+    public void moveUp(int pixels){
+        Timeline movimientoAbajo = new Timeline(new KeyFrame(Duration.millis(25),mover ->{
+            if(!currentClass.getStopMovement()){
+                nave.setY(nave.getY()-1);
+            }
+        }));
+        movimientoAbajo.setCycleCount(pixels);
         movimientoAbajo.play();
     }
 }

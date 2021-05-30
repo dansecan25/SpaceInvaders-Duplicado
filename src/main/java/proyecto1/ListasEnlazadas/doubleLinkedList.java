@@ -13,9 +13,8 @@ public class doubleLinkedList<T> implements Serializable,Lista<T>{
     private int largo;
     //Constructor lista doble
     public doubleLinkedList(){
-
-        this.primero = null;
-        this.ultimo = null;
+        primero = null;
+        ultimo = null;
         largo=0;
     }
 
@@ -85,11 +84,6 @@ public class doubleLinkedList<T> implements Serializable,Lista<T>{
         largo--;
     }
 
-    @Override
-    public T obtenerDato(int posicion) {
-        return null;
-    }
-
     //Borrar dato en indice específico
     public void borrarDato(T t) {
         if (this.primero == null) {
@@ -114,24 +108,15 @@ public class doubleLinkedList<T> implements Serializable,Lista<T>{
             }
         }largo--;
     }
-    public T getElemento(int index){
+    public T obtenerDato(int index){
         if (index >= largo){
-            try {
-                throw new Exception();
-
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            return null;
         }
         Nodo<T> actual= primero;
-        while (actual!=primero){
-            if(actual.getPosicion()==index){
-                return actual.getDato();
-            }
-            actual=actual.getSiguiente();
+        for(int i = 0; i <= index; ++i){
+            actual = actual.siguiente;
         }
-        return null;
-
+        return actual.getDato();
     }
 
     public void bubbleSort(){

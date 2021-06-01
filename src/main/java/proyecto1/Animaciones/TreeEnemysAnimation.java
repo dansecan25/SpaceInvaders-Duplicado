@@ -57,11 +57,11 @@ public class TreeEnemysAnimation {
                   //  }
                     return null;
                 }
-            };
-            animation.setOnSucceeded(event -> {
-                System.out.println("se animo");
-            });
-            new Thread(animation).start();
+                return null;
+            }
+        };
+        animation.setOnSucceeded(event -> System.out.println("se animo"));
+        new Thread(animation).start();
     }
 
     /**
@@ -74,15 +74,19 @@ public class TreeEnemysAnimation {
             if (tryShip != null) {
                 NaveEnemiga Ship = Tree.find(i).element;
                 switch(direction){
-                    case "Right"->Ship.moveRight();
-                    case "Down"->Ship.moveDown();
-                    case "Left"->Ship.moveLeft();
-                    case "Right2"->Ship.moveRight2();
+                    case "Right"->Ship.moveRight(80);
+                    case "Down"->Ship.moveDown(80);
+                    case "Left"->Ship.moveLeft(250);
+                    case "Right2"->Ship.moveRight(250);
                 }
             }
         }
     }
 
+    /**
+     * moves the ship to the location of where another ship was, only called by AVL tree
+     * @param SHIP NaveEnemiga element
+     */
     public static void relocateShip(NaveEnemiga SHIP){
         int xKilled = currentClass.getPosDeceased(0);
         int yKilled = currentClass.getPosDeceased(1);
@@ -91,15 +95,23 @@ public class TreeEnemysAnimation {
 
         if(xKilled<initialX){
             //the ship moves to the left
+            int newEnd = (int) initialX-xKilled;
+            SHIP.moveLeft(newEnd);
         }
         if(xKilled>initialX){
             //moves the ship to the right
+            int newEnd = (int) initialX-xKilled;
+            SHIP.moveRight(newEnd);
         }
         if(yKilled<initialY){
             //moves ship up
+            int newEnd = (int) initialY-yKilled;
+            SHIP.moveUp(newEnd);
         }
         if(yKilled>initialY){
             //moves ship down
+            int newEnd = (int) initialY-yKilled;
+            SHIP.moveDown(newEnd);
         }
 
 

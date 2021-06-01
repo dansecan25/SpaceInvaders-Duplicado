@@ -22,6 +22,7 @@ public class LaserTask implements Runnable {
         posicionY = laser.getPositionY();
     }
 
+
     @Override
     public void run() {
         System.out.println("hay laser amix");
@@ -42,7 +43,6 @@ public class LaserTask implements Runnable {
             posicionY--;
         }
         laser.getImage().setVisible(false);
-        laser.move(posicionX, 700);
-        System.out.println("listisimo");
+        laser.move(posicionX, 695);
     }
 }

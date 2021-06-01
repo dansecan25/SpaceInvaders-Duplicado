@@ -4,11 +4,13 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.input.MouseEvent;
+import proyecto1.Usuario.LaserTask;
 import proyecto1.Ventanas.ClientWindow;
 import proyecto1.protocolo.GraphicElements;
 import proyecto1.protocolo.ImageWithProperties;
 import proyecto1.protocolo.Protocol;
 
+import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.Random;
@@ -104,6 +106,7 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
                             Platform.runLater(
                                     () -> {
                                         ImageWithProperties imageWithProperties = GraphicElements.SINGLETON.findElement(id);
+                                        ImageWithProperties laser =GraphicElements.SINGLETON.findElement(myLaserId);
 
                                         if (imageWithProperties == null) {
                                             System.out.println("se creo elemento");
@@ -112,8 +115,18 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
                                             ClientWindow.ventanaDeJuego.getChildren().add(imageWithProperties.getImage());
                                             ClientWindow.ventanaDeJuego.getChildren().add(imageWithProperties.getIdLabel());
                                         }
-
+                                        //dimensiones UFO 75x69
                                         imageWithProperties.move(newX, newY);
+                                        var laserX= laser.getPositionX();
+                                        var laserY= laser.getPositionY();
+                                        System.out.println("PosicionX nave: " + imageWithProperties.getPositionX() + "PosY nave: " + imageWithProperties.getPositionY());
+                                        System.out.println("PosicionX laser" + laserX + "PosicionY laser " + laserY);
+                                        if ((imageWithProperties.getImage().intersects(laser.getImage().getBoundsInParent()))){
+//                                            if((imageWithProperties.getPositionY()+34.5)<=GraphicElements.SINGLETON.findElement(myLaserId).getPositionY()&&(imageWithProperties.getPositionY()-34.5)>=GraphicElements.SINGLETON.findElement(myLaserId).getPositionY()){
+                                            System.out.println("INTERSECA");
+                                            imageWithProperties.removeFromGameWindow();
+
+                                        }
 
                                     });
 

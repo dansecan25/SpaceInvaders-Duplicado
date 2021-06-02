@@ -22,7 +22,6 @@ public class LaserTask implements Runnable {
         posicionY = laser.getPositionY();
     }
 
-
     @Override
     public void run() {
         laser.getImage().setVisible(true);
@@ -42,6 +41,6 @@ public class LaserTask implements Runnable {
             posicionY--;
         }
         laser.getImage().setVisible(false);
-        laser.move(posicionX, 695);
+        laser.move(posicionX, 700);
     }
 }

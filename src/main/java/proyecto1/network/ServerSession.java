@@ -78,7 +78,6 @@ public class ServerSession implements Runnable {
                             lastState.removeElement(element.getId());
                             lastState.addElement(lastStateElement);
 
-
                         }
                     }
                     lastSentTime = System.currentTimeMillis();
@@ -168,13 +167,13 @@ public class ServerSession implements Runnable {
                         if (laser == null ){
                             laser = GraphicElements.SINGLETON.createElement(ID, Imagenes.IMG_LASER);
                             GraphicElements.SINGLETON.addElement(laser);
-                            laser.setPositionY(695);
+                            laser.setPositionY(700);
 
                         }
 
                         System.out.println("la posicion del laser es" + laser.getPositionY());
 
-                       if (laser.getPositionY() == 695 || laser.getPositionY() == 0.0) {
+                       if (laser.getPositionY() == 700 || laser.getPositionY() == 0.0) {
                            laser.setPositionY(550);
                            System.out.println("pew pew");
                             laser.setPositionX(posicionX);

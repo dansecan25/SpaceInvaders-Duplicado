@@ -1,4 +1,5 @@
 package proyecto1.Ventanas;
+
 import javafx.animation.FadeTransition;
 import javafx.concurrent.Task;
 import javafx.scene.Group;
@@ -8,25 +9,21 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import proyecto1.Client;
 import proyecto1.Imagenes.Imagenes;
 import proyecto1.Musica.ReproductorMusica;
 
 import java.io.FileNotFoundException;
-import java.net.Socket;
 import java.net.URISyntaxException;
 
-/**
- * The type Ventana principal.
- */
-public class VentanaPrincipal {
+public class ClientMenuWindow {
+
     /**
      * Ventana.
      *
      * @param Lobby the lobby
      * @throws FileNotFoundException the file not found exception
      */
-    public static void ventana(Stage Lobby) throws FileNotFoundException, URISyntaxException {
+    public ClientMenuWindow(Stage Lobby) throws FileNotFoundException, URISyntaxException {
 
         ReproductorMusica reproductorMusica = new ReproductorMusica();
         reproductorMusica.reproducir();
@@ -34,7 +31,7 @@ public class VentanaPrincipal {
 
         Lobby.setTitle( "Space Invaders" );
         Group root = new Group(); //se crea la ventana
-        Scene scene = new Scene( root,800,750,Color.valueOf("#262934")); //se liga scene al root
+        Scene scene = new Scene( root,800,750, Color.valueOf("#262934")); //se liga scene al root
         Lobby.setScene( scene ); //se le da al metodo el scene
 
         //Imagen de fondo
@@ -72,12 +69,12 @@ public class VentanaPrincipal {
         };
         ventanaPrincipal.setOnSucceeded(event -> {
             try {
-                new CargarVentanaPrincipal(root, rectanguloCreditos, Lobby, reproductorMusica);
+                new ClientLoadMenuWindow(root, rectanguloCreditos, Lobby, reproductorMusica);
             } catch (Exception e){
                 System.out.println(e.getMessage());
             }
 
-            });
+        });
         new Thread(ventanaPrincipal).start();
         Lobby.show();
     }

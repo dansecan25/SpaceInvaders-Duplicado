@@ -7,13 +7,20 @@ import proyecto1.ListasEnlazadas.ListFactory;
 import proyecto1.ListasEnlazadas.Lista;
 
 
-
+/**
+ * Hilera de naves tipo A
+ */
 public class HileraA {
     private static final ListFactory<NaveEnemiga> listFactory = new ListFactory<>();
-    public HileraA(Group juego){
-        Lista<NaveEnemiga> listaA= listFactory.crearLista("Simple");
 
-        currentClass.setClass("A", listaA);
+    /**
+     * Constructor de la hilera
+     * @param juego: JavaFX Group
+     */
+    public HileraA(Group juego){
+        Lista<NaveEnemiga> listaA= listFactory.create("Simple");
+
+        currentClass.setClass("A", listaA,null);
         listaA.agregarUltimo(new NaveEnemiga(110, 100, juego, 0));
         listaA.agregarUltimo(new NaveEnemiga(220, 100, juego, 1));
         listaA.agregarUltimo(new NaveEnemiga(330, 100, juego, 2));

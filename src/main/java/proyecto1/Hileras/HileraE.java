@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 
 public class HileraE {
     private final ListFactory<NaveEnemiga> listFactory = new ListFactory<>();
-    private final Lista<NaveEnemiga> lista = listFactory.crearLista("Circular");
+    private final Lista<NaveEnemiga> lista = listFactory.create("Circular");
     private final int x;
     private int y;
     private final int grados = 0;
@@ -30,7 +30,7 @@ public class HileraE {
     public HileraE(Group juego, int x, int y) throws FileNotFoundException {
         this.x = x;
         this.y = y;
-        currentClass.setClass("E", lista);
+        currentClass.setClass("E", lista, null);
         lista.agregarPrimero(new NaveEnemiga(x-120, y, juego,0));
         lista.agregarPrimero(new NaveEnemiga(x-60, y, juego, 1));
         NaveEnemiga boss = new NaveEnemiga(x, y, juego,2);
@@ -68,9 +68,10 @@ public class HileraE {
         return y;
     }
 
+    /**
+     * Mueve la hilera hacia abajo
+     */
     public void bajarHilera(){
         y = y + 5;
     }
-
-
 }

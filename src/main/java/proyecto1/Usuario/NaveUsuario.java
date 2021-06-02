@@ -5,13 +5,18 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import proyecto1.Imagenes.Imagenes;
+
+import java.util.Random;
 
 
 /**
  * La clase Nave usuario, la nave del usuario que puede mover y disparar.
  */
 public class NaveUsuario {
+    private String id;
     private double posicionX = 200;
     private double posicionY = 600;
     private double posicionYLaser = 550;
@@ -20,24 +25,28 @@ public class NaveUsuario {
     private Task<Void> animacionLaser;
     private boolean pararAnimacion = false;
     private boolean disparoAcertado;
+    private Group juego;
 
     /**
      * Instancia nueva Nave usuario.
      *
      * @param juego the juego
      */
-    public NaveUsuario(Group juego) {
+    public NaveUsuario(String id, Group juego) {
         user.setX(posicionX);
         user.setY(posicionY);
+        this.juego = juego;
         juego.getChildren().add(user);
         laser.setX(0);
         laser.setY(0);
         laser.setVisible(false);
         juego.getChildren().add(laser);
-        configuracionMouseX(juego);
-        dispararLaser(juego);
-        animacionLaser();
+        this.id = id;
+        //configuracionMouseX(juego);
+        //dispararLaser(juego);
+        //animacionLaser();
         disparoAcertado = false;
+
     }
 
     /**
@@ -50,9 +59,9 @@ public class NaveUsuario {
         juego.setOnMouseMoved(new EventHandler<>() {
             @Override
             public void handle(MouseEvent event) {
-                double posicionMouseX = event.getX();
+                posicionX = event.getX();
                 // System.out.println(posicionMouseX);
-                user.setX(posicionMouseX - 50);
+                user.setX(posicionX - 50);
             }
         });
     }
@@ -119,6 +128,30 @@ public class NaveUsuario {
             }
         });
         new Thread(animacionLaser).start();
+    }
+
+    public void moveNave(double x) {
+        posicionX = x;
+        user.setX(posicionX - 50);
+    }
+
+    public double getPosicionX() {
+        return posicionX;
+    }
+
+    public double getPosicionY() {
+        return posicionY;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+
+    public void activateNave(Group juego) {
+        configuracionMouseX(juego);
+        dispararLaser(juego);
+        animacionLaser();
     }
 
 }

@@ -1,5 +1,6 @@
 package proyecto1.Animaciones;
 
+import javafx.geometry.Pos;
 import proyecto1.Enemigos.NaveEnemiga;
 import proyecto1.ListasEnlazadas.ListFactory;
 import proyecto1.ListasEnlazadas.Lista;
@@ -17,7 +18,6 @@ public class currentClass {
     private static Tree treecito;
     private static int deathID = -1;
     private static final Lista PosList = new doubleLinkedList();
-    private static boolean StopMovement;
     /**
      * Setter para indicar cual es la hilera actual.
      * @param claseActual the clase actual
@@ -60,54 +60,23 @@ public class currentClass {
         return nivel;
     }
 
-    /**
-     * Sets the id of the deceased ship
-     * @param ID int
-     */
     public static void setDeaths(int ID){
         deathID=ID;
     }
-
-    /**
-     * Return the id of the deceased ship
-     * @return deathID an int with the ID of the deceased ship
-     */
     public static int getDeathID(){ return deathID; }
-
-    /**
-     * Stores the x and y were the ship just died
-     * @param x int
-     * @param y int
-     */
     public static void setPosDeceased(int x, int y){
         PosList.agregarUltimo(x);
         PosList.agregarUltimo(y);
     }
-
-    /**
-     * looks for the x and y coordinate that are stored in a double linked list
-     * @param pos int
-     * @return the position according the index value entered
-     */
     public static int getPosDeceased(int pos){
-        if(pos==0){
-            return (int) PosList.obtenerDato(pos);
-        }
-        if(pos==1){
-            return (int) PosList.obtenerDato(pos);
-        } return 0;
+        return 0;
+//        if(pos==0){
+//            return PosList.getElemento(pos);
+//        }
+//        if(pos==1){
+//            return PosList.obtenerDato(pos);
+//        } return 0;
 
     }
 
-    /**
-     * Sets the variable to indicate the animation to stop if dead
-     * @param stop boolean, true if it should stop, false if it should move
-     */
-    public static void setStopMovement(boolean stop){StopMovement=stop;}
-
-    /**
-     * Gets the boolean for stoping the movement
-     * @return true if the animation should stop, false if the animation execute
-     */
-    public static boolean getStopMovement(){return StopMovement;}
 }

@@ -57,11 +57,11 @@ public class Animacion {
         for (int i = listaNaves.tamanoLista()-1; i >= 0; i--){
             NaveEnemiga nave = listaNaves.obtenerDato(i);
             switch (Dir){
-                case 'D' -> nave.moveRight(80);
-                case 'I' -> nave.moveLeft(80);
-                case 'A' -> nave.moveDown(80);
+                case 'D' -> nave.moveRight();
+                case 'I' -> nave.moveLeft();
+                case 'A' -> nave.moveDown();
                 default -> throw new InvalidDirectionException("La dirección " + String.valueOf(Dir) + " no es válida para realizar un movimiento.");
-            }
+            };
         }
     }
 }

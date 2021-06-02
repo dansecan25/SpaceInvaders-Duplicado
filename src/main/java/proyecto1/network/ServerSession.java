@@ -11,6 +11,7 @@ import proyecto1.protocolo.GraphicElements;
 import proyecto1.protocolo.ImageWithProperties;
 import proyecto1.protocolo.Protocol;
 
+import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -33,7 +34,6 @@ public class ServerSession implements Runnable {
         System.out.println("connected clients: " + Server.getCurrentConnectedClients());
 
         System.out.println("game state: " + VentanaDeJuego.getGamePaused());
-
         OutputStream os = null;
         //DataOutputStream dos;
         OutputStreamWriter osw;
@@ -52,22 +52,16 @@ public class ServerSession implements Runnable {
             isr = new InputStreamReader(is);
             br = new BufferedReader(isr);
 
+
             GraphicElements lastState = new GraphicElements();
 
             long lastSentTime = 0;
 
 
             do {
-
-              //  List<NaveUsuario> jugadores = VentanaDeJuego.getJugadores();
-
-
                 // esto recorre lo que existe en graphic elements y lo manda a dibujar en el cliente
-
-
                 if ( System.currentTimeMillis() - lastSentTime > 200) {
                     for (ImageWithProperties element: GraphicElements.SINGLETON.getElements()) {
-                        //for (ImageWithProperties element: GraphicElements.SINGLETON.getElements()) {
                         double posicionX = element.getPositionX();
                         double posicionY = element.getPositionY();
 
@@ -79,19 +73,12 @@ public class ServerSession implements Runnable {
                             lastState.addElement(lastStateElement);
 
                         }
+
                     }
                     lastSentTime = System.currentTimeMillis();
                 }
 
 
-//
-//                for (NaveUsuario naveUsuario: jugadores){
-//
-//                    double posicionX = naveUsuario.getPosicionX();
-//                    double posicionY = naveUsuario.getPosicionY();
-//                    Protocol.writeMessage(bw, Protocol.CMD_MOVE, naveUsuario.getId() + " " + posicionX + " " + posicionY);
-//
-//                }
 
                 if (is.available() > 0) {
                     String[] completeCommand = Protocol.readSplitMessage(br);
@@ -99,10 +86,7 @@ public class ServerSession implements Runnable {
                     //System.out.println(command);
 
                     switch (command) {
-//                    case Protocol.CMD_OK : {
-//                        break;
-//                    }
-//
+
                         case Protocol.CMD_START : {
 
                             String id = completeCommand[1];
@@ -183,11 +167,21 @@ public class ServerSession implements Runnable {
                         }
                         break;
                     }
-//
-//                    default : {
-//                        Protocol.writeMessage(bw, Protocol.CMD_ERROR);
-//                    }
+                       //Case para destruir nave enemiga al intersecar con el láser
+                       //Ver función handle del CLient Session para obtener el comando y los parámetros del ID
+                        case Protocol.CMD_DESTROY:{
+                            for (ImageWithProperties element: GraphicElements.SINGLETON.getElements()) {
+                                String laserID= completeCommand[1];
+                                ImageWithProperties laser= GraphicElements.SINGLETON.findElement(laserID);
+                                if(laser.getImage().intersects(element.getImage().getBoundsInParent())){
+                                    System.out.println("INTERSECA!");
+                                    element.removeFromGameWindow();
 
+                            }
+
+                        }
+
+                        }
                     }
                 }
 

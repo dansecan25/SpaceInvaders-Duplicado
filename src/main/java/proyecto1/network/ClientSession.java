@@ -4,13 +4,11 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.input.MouseEvent;
-import proyecto1.Usuario.LaserTask;
 import proyecto1.Ventanas.ClientWindow;
 import proyecto1.protocolo.GraphicElements;
 import proyecto1.protocolo.ImageWithProperties;
 import proyecto1.protocolo.Protocol;
 
-import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.Random;
@@ -22,7 +20,7 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
     double lastPosicionX = 0;
     String myId;
     String myLaserId;
-    String invaderID;
+    //public ImageView user;
 
     public ClientSession(Socket clientSocket){
         this.clientSocket = clientSocket;
@@ -40,7 +38,6 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
 
         myId = Protocol.generateId();
         myLaserId = Protocol.generateId();
-        invaderID= Protocol.generateId();
         long lastSentTime = 0;
 
         try {
@@ -115,18 +112,8 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
                                             ClientWindow.ventanaDeJuego.getChildren().add(imageWithProperties.getImage());
                                             ClientWindow.ventanaDeJuego.getChildren().add(imageWithProperties.getIdLabel());
                                         }
-                                        //dimensiones UFO 75x69
-                                        imageWithProperties.move(newX, newY);
-//                                        var laserX= laser.getPositionX();
-//                                        var laserY= laser.getPositionY();
-//                                        System.out.println("PosicionX nave: " + imageWithProperties.getPositionX() + "PosY nave: " + imageWithProperties.getPositionY());
-//                                        System.out.println("PosicionX laser" + laserX + "PosicionY laser " + laserY);
-//                                        if ((imageWithProperties.getImage().intersects(laser.getImage().getBoundsInParent()))){
-////                                            if((imageWithProperties.getPositionY()+34.5)<=GraphicElements.SINGLETON.findElement(myLaserId).getPositionY()&&(imageWithProperties.getPositionY()-34.5)>=GraphicElements.SINGLETON.findElement(myLaserId).getPositionY()){
-//                                            System.out.println("INTERSECA");
-//                                            //GraphicElements.SINGLETON.findElement(id).removeFromGameWindow();
 
-                                       // }
+                                        imageWithProperties.move(newX, newY);
 
                                     });
 
@@ -157,14 +144,13 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
             try {
                 Protocol.writeMessage(bw, Protocol.CMD_SHOOT, myLaserId + " " + GraphicElements.SINGLETON.findElement(myId).getPositionX());
                 System.out.println("laser enviado");
-                Protocol.writeMessage(bw, Protocol.CMD_DESTROY, myLaserId);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
 
-
+        //System.out.println(posicionX);
     }
 
 }

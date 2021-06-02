@@ -172,11 +172,18 @@ public class ServerSession implements Runnable {
                         }
                         break;
                     }
-//
-//                    default : {
-//                        Protocol.writeMessage(bw, Protocol.CMD_ERROR);
-//                    }
-
+                    //Case para destruir nave enemiga al intersecar con el láser
+                    //Ver función handle del CLient Session para obtener el comando y los parámetros del ID
+                        case Protocol.CMD_DESTROY:{
+                            for (ImageWithProperties element: GraphicElements.SINGLETON.getElements()) {
+                                String laserID= completeCommand[1];
+                                ImageWithProperties laser= GraphicElements.SINGLETON.findElement(laserID);
+                                if(laser.getImage().intersects(element.getImage().getBoundsInParent())){
+                                    System.out.println("INTERSECA!");
+                                    element.removeFromGameWindow();
+                                }
+                            }
+                        }
                     }
                 }
 

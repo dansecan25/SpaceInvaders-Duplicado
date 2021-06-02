@@ -22,7 +22,7 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
     double lastPosicionX = 0;
     String myId;
     String myLaserId;
-    //public ImageView user;
+    String invaderID;
 
     public ClientSession(Socket clientSocket){
         this.clientSocket = clientSocket;
@@ -38,8 +38,9 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
         InputStreamReader isr;
         BufferedReader br;
 
-        myId = generateId();
-        myLaserId = generateId();
+        myId = Protocol.generateId();
+        myLaserId = Protocol.generateId();
+        invaderID= Protocol.generateId();
         long lastSentTime = 0;
 
         try {
@@ -106,7 +107,6 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
                             Platform.runLater(
                                     () -> {
                                         ImageWithProperties imageWithProperties = GraphicElements.SINGLETON.findElement(id);
-                                        ImageWithProperties laser =GraphicElements.SINGLETON.findElement(myLaserId);
 
                                         if (imageWithProperties == null) {
                                             System.out.println("se creo elemento");
@@ -117,16 +117,16 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
                                         }
                                         //dimensiones UFO 75x69
                                         imageWithProperties.move(newX, newY);
-                                        var laserX= laser.getPositionX();
-                                        var laserY= laser.getPositionY();
-                                        System.out.println("PosicionX nave: " + imageWithProperties.getPositionX() + "PosY nave: " + imageWithProperties.getPositionY());
-                                        System.out.println("PosicionX laser" + laserX + "PosicionY laser " + laserY);
-                                        if ((imageWithProperties.getImage().intersects(laser.getImage().getBoundsInParent()))){
-//                                            if((imageWithProperties.getPositionY()+34.5)<=GraphicElements.SINGLETON.findElement(myLaserId).getPositionY()&&(imageWithProperties.getPositionY()-34.5)>=GraphicElements.SINGLETON.findElement(myLaserId).getPositionY()){
-                                            System.out.println("INTERSECA");
-                                            imageWithProperties.removeFromGameWindow();
+//                                        var laserX= laser.getPositionX();
+//                                        var laserY= laser.getPositionY();
+//                                        System.out.println("PosicionX nave: " + imageWithProperties.getPositionX() + "PosY nave: " + imageWithProperties.getPositionY());
+//                                        System.out.println("PosicionX laser" + laserX + "PosicionY laser " + laserY);
+//                                        if ((imageWithProperties.getImage().intersects(laser.getImage().getBoundsInParent()))){
+////                                            if((imageWithProperties.getPositionY()+34.5)<=GraphicElements.SINGLETON.findElement(myLaserId).getPositionY()&&(imageWithProperties.getPositionY()-34.5)>=GraphicElements.SINGLETON.findElement(myLaserId).getPositionY()){
+//                                            System.out.println("INTERSECA");
+//                                            //GraphicElements.SINGLETON.findElement(id).removeFromGameWindow();
 
-                                        }
+                                       // }
 
                                     });
 
@@ -156,20 +156,15 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
             System.out.println("se dio click");
             try {
                 Protocol.writeMessage(bw, Protocol.CMD_SHOOT, myLaserId + " " + GraphicElements.SINGLETON.findElement(myId).getPositionX());
-                System.out.println("se mando un shoot loco");
+                System.out.println("laser enviado");
+                Protocol.writeMessage(bw, Protocol.CMD_DESTROY, myLaserId);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
 
-        //System.out.println(posicionX);
-    }
 
-    public static String generateId() {
-        Random random = new Random();
-        int value = random.nextInt();
-        return String.valueOf(value);
     }
 
 }

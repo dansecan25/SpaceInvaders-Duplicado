@@ -3,6 +3,7 @@ package proyecto1.protocolo;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.Random;
 
 public class Protocol {
     // SERVER
@@ -41,6 +42,11 @@ public class Protocol {
     public static String[] readSplitMessage(BufferedReader br) throws IOException {
         String command = readMessage(br);
         return command.split(" ");
+    }
+    public static String generateId() {
+        Random random = new Random();
+        int value = random.nextInt();
+        return String.valueOf(value);
     }
 
 }

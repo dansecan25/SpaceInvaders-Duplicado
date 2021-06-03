@@ -20,7 +20,6 @@ import proyecto1.Hileras.*;
 import proyecto1.Imagenes.Fondo;
 import proyecto1.Imagenes.Imagenes;
 import proyecto1.Usuario.NaveUsuario;
-import proyecto1.protocolo.GraphicElements;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -76,7 +75,7 @@ public class VentanaDeJuego {
 //        new HileraC(ventanaDeJuego);
 //        Animacion.iniciarAnimacion(currentClass.getLista());
 //        setCLASE();
-        new HileraArbolAVL(ventanaDeJuego);
+        new AVLTreeRow(ventanaDeJuego);
         TreeEnemysAnimation.AnimationStart(ventanaDeJuego);
 
 //        crearClases(ventanaDeJuego, nivelLabel);

@@ -25,6 +25,7 @@ import proyecto1.protocolo.GraphicElements;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * The type Ventana de juego.
@@ -73,14 +74,12 @@ public class VentanaDeJuego {
         //setJugador(new NaveUsuario(ventanaDeJuego));
         GameStage.show(); //requerido para mostrar el stage
 
-       // HileraBasic primeraHilera = new HileraBasic(ventanaDeJuego);
-//        new HileraC(ventanaDeJuego);
-//        Animacion.iniciarAnimacion(currentClass.getLista());
-//        setCLASE();
-        new HileraArbolAVL(ventanaDeJuego);
-        TreeEnemysAnimation.AnimationStart(ventanaDeJuego);
 
-//        crearClases(ventanaDeJuego, nivelLabel);
+        new HileraC(ventanaDeJuego);
+        Animacion.iniciarAnimacion(currentClass.getLista());
+        setCLASE();
+
+        crearClases(ventanaDeJuego, nivelLabel);
         String puntaje = Integer.toString(pts);
         puntos.setText(puntaje);
         puntos.setX(105);
@@ -114,45 +113,22 @@ public class VentanaDeJuego {
     }
     private static void generarHilera(Group ventanaDeJuego){
         if (!estado) {
-//                double hill = Math.random()*5;
-//                int hilera = (int) hill+1;
-            int hilera = 5;
+            Random rng = new Random();
+            int hilera = rng.nextInt(4);
             System.out.println("Hilera: "+hilera);
             if (hilera == 0){ //hilera basic
-                try {
-                    HileraBasic naves = new HileraBasic(ventanaDeJuego); //inicia la hilera Basic
-                    Animacion.iniciarAnimacion(currentClass.getLista());
-                    setCLASE();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-            else if(hilera == 1){ //clase A
-                new HileraA(ventanaDeJuego); //inicia la hilera A
-                Animacion.iniciarAnimacion(currentClass.getLista());
+                HileraArbolAVL naves = new HileraArbolAVL(ventanaDeJuego); //inicia la hilera Basic
+                TreeEnemysAnimation.AnimationStart(ventanaDeJuego);
                 setCLASE();
             }
-            else if(hilera == 2){ //clase B
-                try {
-                    HileraB.IniciarClaseB(ventanaDeJuego); //inicia la hilera B
-                    Animacion.iniciarAnimacion(currentClass.getLista());
-                    setCLASE();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+            else if(hilera == 1){ //clase B
+                HileraArbolBST.IniciarAnimacion(ventanaDeJuego); //inicia la hilera B
+                TreeEnemysAnimation.AnimationStart(ventanaDeJuego);
+                setCLASE();
             }
-            else if(hilera == 3){ //clase C
+            else if(hilera == 2){ //clase C
                 try {
                     new HileraC(ventanaDeJuego); //inicia la hilera C
-                    Animacion.iniciarAnimacion(currentClass.getLista());
-                    setCLASE();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-            else if (hilera == 4){ //Clase D
-                try {
-                    new HileraC(ventanaDeJuego); //inicia la hilera D
                     Animacion.iniciarAnimacion(currentClass.getLista());
                     setCLASE();
                 } catch (FileNotFoundException e) {
@@ -196,7 +172,7 @@ public class VentanaDeJuego {
             Fondo.setFondo(nivel);
             cambiarNivel(nivel);
 
-            if (currentClass.getLista().tamanoLista() > 0) {
+            if (currentClass.getLista() != null) {
                 estado = true; //hay enemigos en la ventana
             }else{
                 estado=false;

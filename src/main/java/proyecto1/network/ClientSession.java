@@ -37,7 +37,7 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
         BufferedReader br;
 
         myId = Protocol.generateId();
-        myLaserId = Protocol.generateId();
+        myLaserId = Protocol.generateId()+"l";
         long lastSentTime = 0;
 
         try {
@@ -103,18 +103,27 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
 
                             Platform.runLater(
                                     () -> {
-                                        ImageWithProperties imageWithProperties = GraphicElements.SINGLETON.findElement(id);
+                                        ImageWithProperties object = GraphicElements.SINGLETON.findElement(id);
 
-                                        if (imageWithProperties == null) {
+                                        if (object == null) {
                                             System.out.println("se creo elemento");
-                                            imageWithProperties = GraphicElements.SINGLETON.createElement(id, imageType);
-                                            GraphicElements.SINGLETON.addElement(imageWithProperties);
-                                            ClientWindow.ventanaDeJuego.getChildren().add(imageWithProperties.getImage());
-                                            ClientWindow.ventanaDeJuego.getChildren().add(imageWithProperties.getIdLabel());
+                                            object = GraphicElements.SINGLETON.createElement(id, imageType);
+                                            GraphicElements.SINGLETON.addElement(object);
+                                            ClientWindow.ventanaDeJuego.getChildren().add(object.getImage());
+                                            ClientWindow.ventanaDeJuego.getChildren().add(object.getIdLabel());
                                         }
 
-                                        imageWithProperties.move(newX, newY);
+                                        object.move(newX, newY);
+                                        ImageWithProperties laser = GraphicElements.SINGLETON.findElement(myLaserId);
+                                        if(laser != null){
+                                            if(laser.getImage().getBoundsInParent().intersects(object.getImage().getBoundsInParent())){
+                                                if(object.getId().endsWith("n")){
+                                                    GraphicElements.SINGLETON.removeElement(id);
+                                                    object.removeFromGameWindow();
+                                                }
+                                            }
 
+                                        }
                                     });
 
                             break;

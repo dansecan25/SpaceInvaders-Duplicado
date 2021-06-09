@@ -30,7 +30,7 @@ public class NaveEnemiga {
     private int puntosMorir = 5;
     private int vida;
     private final int shipID;
-    private final String imageId = Protocol.generateId();
+    private final String imageId = Protocol.generateId()+"n";
 
     /**
      * Instantiates a new Nave enemiga.

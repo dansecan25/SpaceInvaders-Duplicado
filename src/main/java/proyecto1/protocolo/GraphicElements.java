@@ -36,6 +36,7 @@ public class GraphicElements {
         int i = findElementIndex(ID);
         if ( i >= 0) {
             elements.get(i).removeFromGameWindow();
+            elements.get(i).move(2000,2000);
             elements.remove(i);
         }
 

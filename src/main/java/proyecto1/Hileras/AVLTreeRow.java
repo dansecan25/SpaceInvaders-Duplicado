@@ -4,11 +4,12 @@ import javafx.scene.Group;
 import proyecto1.Animaciones.currentClass;
 import proyecto1.Enemigos.NaveEnemiga;
 import proyecto1.Trees.AVLTree;
+import proyecto1.Ventanas.VentanaDeJuego;
 
 
-
-public class AVLTreeRow {
-    public AVLTreeRow(Group gameWindow){
+public class AVLTreeRow implements Hilera{
+    public AVLTreeRow(){
+        Group gameWindow = VentanaDeJuego.getVentanaDeJuego();
         int x=380;
         int y=80;
         AVLTree AVLtree = new AVLTree();

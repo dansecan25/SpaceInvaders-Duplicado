@@ -1,15 +1,22 @@
 package proyecto1.Hileras;
 
 import javafx.scene.Group;
+import proyecto1.AbstractFactory.FactoryProvider;
 import proyecto1.Animaciones.TreeEnemysAnimation;
 import proyecto1.Animaciones.currentClass;
 import proyecto1.Enemigos.NaveEnemiga;
 import proyecto1.Trees.BinaryTree;
+import proyecto1.Trees.TreeFactory;
+import proyecto1.Ventanas.VentanaDeJuego;
 
-public class HileraArbolBST {
-    public static void InitiateLine(Group juego){
+public class HileraArbolBST implements Hilera{
+
+    public HileraArbolBST(){
+        Group juego = VentanaDeJuego.getVentanaDeJuego();
         //if id parent dead, the child younger goes up becomes parent not itself anymore, other stays same
-        BinaryTree BSTtree = new BinaryTree();
+        TreeFactory factory = (TreeFactory) FactoryProvider.getFactory("Tree");
+        assert factory != null;
+        BinaryTree BSTtree = (BinaryTree) factory.create("Binary");
         int x=380;
         int y=80;
         //Nave en el primer nivel

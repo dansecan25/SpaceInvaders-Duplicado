@@ -1,6 +1,7 @@
 package proyecto1.Hileras;
 
 import javafx.scene.Group;
+import proyecto1.AbstractFactory.FactoryProvider;
 import proyecto1.Animaciones.currentClass;
 import proyecto1.Enemigos.NaveEnemiga;
 import proyecto1.ListasEnlazadas.ListFactory;
@@ -12,9 +13,15 @@ import java.io.FileNotFoundException;
  * La clase Clase E. las naves rotan en torno a un boss.
  */
 
-public class HileraE {
-    private final ListFactory<NaveEnemiga> listFactory = new ListFactory<>();
-    private final Lista<NaveEnemiga> lista = listFactory.create("Circular");
+public class HileraE implements Hilera{
+    private final ListFactory listFactory = (ListFactory) FactoryProvider.getFactory("List");
+    private final Lista<NaveEnemiga> lista;
+
+    {
+        assert listFactory != null;
+        lista = listFactory.create("Circular");
+    }
+
     private final int x;
     private int y;
     private final int grados = 0;
@@ -25,9 +32,8 @@ public class HileraE {
      * @param juego la ventana de juego
      * @param x     el parametro x
      * @param y     el paramtero y
-     * @throws FileNotFoundException  file not found exception
      */
-    public HileraE(Group juego, int x, int y) throws FileNotFoundException {
+    public HileraE(Group juego, int x, int y){
         this.x = x;
         this.y = y;
         currentClass.setClass("E", lista, null);

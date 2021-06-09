@@ -1,20 +1,29 @@
 package proyecto1.Hileras;
 
 import javafx.scene.Group;
+import proyecto1.AbstractFactory.FactoryProvider;
 import proyecto1.Animaciones.currentClass;
 import proyecto1.Enemigos.NaveEnemiga;
 import proyecto1.ListasEnlazadas.ListFactory;
 import proyecto1.ListasEnlazadas.Lista;
+import proyecto1.Ventanas.VentanaDeJuego;
 
 import java.io.FileNotFoundException;
 
 /**
- * Hilera de naves tipo C
+ * Hilera de naves tipo D
  */
-public class HileraD {
-    private final ListFactory<NaveEnemiga> listFactory = new ListFactory<>();
-    private final Lista<NaveEnemiga> listaNaves = listFactory.create("Doble");
-    public HileraD(Group juego) throws FileNotFoundException {
+public class HileraD implements Hilera{
+    private final ListFactory listFactory = (ListFactory) FactoryProvider.getFactory("List");
+    private final Lista<NaveEnemiga> listaNaves;
+
+    {
+        assert listFactory != null;
+        listaNaves = listFactory.create("Doble");
+    }
+
+    public HileraD(){
+        Group juego = VentanaDeJuego.getVentanaDeJuego();
         currentClass.setClass("D", listaNaves, null);
         listaNaves.agregarUltimo(new NaveEnemiga(110, 100, juego, 0));
         listaNaves.agregarUltimo(new NaveEnemiga(220, 100, juego, 1));

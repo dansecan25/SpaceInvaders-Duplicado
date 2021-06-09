@@ -3,6 +3,7 @@ package proyecto1.network;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import proyecto1.Animaciones.currentClass;
 import proyecto1.Ventanas.ClientWindow;
 import proyecto1.protocolo.GraphicElements;
 import proyecto1.protocolo.ImageWithProperties;
@@ -111,7 +112,7 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
                                         if(laser != null){
                                             if (laser.getImage().intersects(imageWithProperties.getImage().getBoundsInParent())) {
                                                 if (imageWithProperties.getId().endsWith("n")) {
-                                                imageWithProperties.removeFromGameWindow();
+                                                    imageWithProperties.removeFromGameWindow();
                                                 }
                                             }
                                         }

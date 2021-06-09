@@ -4,21 +4,31 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.util.Duration;
+import proyecto1.AbstractFactory.Factory;
+import proyecto1.AbstractFactory.FactoryProvider;
 import proyecto1.Animaciones.currentClass;
 import proyecto1.Enemigos.NaveEnemiga;
 import proyecto1.ListasEnlazadas.ListFactory;
 import proyecto1.ListasEnlazadas.Lista;
+import proyecto1.Ventanas.VentanaDeJuego;
 
 import java.io.FileNotFoundException;
 
 /**
  * Hilera de naves tipo B
  */
-public class HileraB {
-    private static final ListFactory<NaveEnemiga> listFactory = new ListFactory<>();
-    private static final Lista<NaveEnemiga> listaB = listFactory.create("Doble");
+public class HileraB implements Hilera{
+    private static final ListFactory listFactory = (ListFactory) FactoryProvider.getFactory("List");
+    private static final Lista<NaveEnemiga> listaB;
+
+    static {
+        assert listFactory != null;
+        listaB = listFactory.create("Doble");
+    }
+
     private static NaveEnemiga naveAnt = null;
-    public static void IniciarClaseB(Group juego) throws FileNotFoundException {
+    public HileraB() {
+        Group juego = VentanaDeJuego.getVentanaDeJuego();
         currentClass.setClass("B", listaB, null);
         listaB.agregarUltimo(new NaveEnemiga(110, 100, juego,0));
         listaB.agregarUltimo(new NaveEnemiga(220, 100, juego,1));

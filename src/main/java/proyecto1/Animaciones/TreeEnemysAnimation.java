@@ -7,8 +7,7 @@ import proyecto1.Trees.Node;
 import proyecto1.Trees.Tree;
 
 public class TreeEnemysAnimation {
-    private static Task<Void> animation;
-    private static final Tree Tree = currentClass.getTreecito();
+    private static final Tree Tree = currentClass.getTree();
 
     /**
      * Starts the thread that moves the ships through the screen
@@ -16,18 +15,21 @@ public class TreeEnemysAnimation {
      */
     public static void AnimationStart(Group gameWindow) {
 
-        animation = new Task<>() {
+        Task<Void> animation = new Task<Void>() {
             @Override
             protected Void call() {
-                int movements=0;
+                System.out.println("iniciando animacion de naves");
+                int movements = 0;
                 MoveThemShips("Right");
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                boolean stopMovement = false;
                 while (movements <= 3) {
-                    if (currentClass.getDeathID()==-1) {
+
+                    if (currentClass.getDeathID() == -1) {
                         try {
                             MoveThemShips("Down");
                             Thread.sleep(2000);
@@ -41,13 +43,15 @@ public class TreeEnemysAnimation {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                    } else if (currentClass.getDeathID() != -1) {
+                        int IDdeceased = currentClass.getDeathID();
                     }
                 }
                 return null;
             }
         };
-        animation.setOnSucceeded(event -> System.out.println("se animo"));
-        new Thread(animation).start();
+            animation.setOnSucceeded(event -> System.out.println("se animo"));
+            new Thread(animation).start();
     }
 
     /**
@@ -99,7 +103,5 @@ public class TreeEnemysAnimation {
             int newEnd = (int) initialY-yKilled;
             SHIP.moveDown(newEnd);
         }
-
-
     }
 }

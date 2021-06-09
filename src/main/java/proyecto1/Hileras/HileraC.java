@@ -1,24 +1,23 @@
 package proyecto1.Hileras;
 
 import javafx.scene.Group;
+import proyecto1.AbstractFactory.FactoryProvider;
 import proyecto1.Animaciones.currentClass;
 import proyecto1.Enemigos.NaveEnemiga;
 import proyecto1.ListasEnlazadas.ListFactory;
 import proyecto1.ListasEnlazadas.Lista;
-
-import java.io.FileNotFoundException;
+import proyecto1.Ventanas.VentanaDeJuego;
 
 /**
  * Hilera tipo C.
  */
-public class HileraC {
-    private static final ListFactory<NaveEnemiga> listFactory = new ListFactory<>();
+public class HileraC implements Hilera{
+    private static final ListFactory listFactory = (ListFactory) FactoryProvider.getFactory("List");
     /**
      * Iniciar clase c.
-     * @param juego the juego
-     * @throws FileNotFoundException File not found
      */
-    public HileraC(Group juego) throws FileNotFoundException {
+    public HileraC(){
+        Group juego = VentanaDeJuego.getVentanaDeJuego();
         Lista<NaveEnemiga> listaNaves = listFactory.create("Circular");
         currentClass.setClass("C", listaNaves, null);
         listaNaves.agregarUltimo(new NaveEnemiga(110, 100, juego, 0));
@@ -37,6 +36,7 @@ public class HileraC {
      * Cambia el jefe en la hilera
      */
     public static void cambiarJefe(){
+        assert listFactory != null;
         Lista<NaveEnemiga> lista = listFactory.create("Circular");
         lista = currentClass.getLista();
 

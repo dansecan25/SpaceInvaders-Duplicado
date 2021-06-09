@@ -1,21 +1,28 @@
 package proyecto1.Hileras;
 
 import javafx.scene.Group;
+import proyecto1.AbstractFactory.Factory;
+import proyecto1.AbstractFactory.FactoryProvider;
 import proyecto1.Animaciones.currentClass;
 import proyecto1.Enemigos.NaveEnemiga;
 import proyecto1.Trees.AVLTree;
+import proyecto1.Trees.Tree;
+import proyecto1.Trees.TreeFactory;
+import proyecto1.Ventanas.VentanaDeJuego;
 
 
-
-public class HileraArbolAVL {
-    public HileraArbolAVL(Group juego){
+public class HileraArbolAVL implements Hilera{
+    public HileraArbolAVL(){
+        Group juego = VentanaDeJuego.getVentanaDeJuego();
         //usar https://www.cs.usfca.edu/~galles/visualization/AVLtree.html para visualizar movimiento, util
         //guardar naves en NaveEnemiga
         //el AVL obtiene los ids para ordenar
         //yo moverlas respecto avl eso si
         int x=380;
         int y=80;
-        AVLTree arbolAVL = new AVLTree();
+        TreeFactory factory = (TreeFactory) FactoryProvider.getFactory("Tree");
+        assert factory != null;
+        Tree arbolAVL = factory.create("AVL");
         //Nave en el primer nivel
         arbolAVL.add(new NaveEnemiga(x, y, juego, 3));
         //naves en el segundo nivel

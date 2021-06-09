@@ -5,9 +5,11 @@ import proyecto1.Animaciones.TreeEnemysAnimation;
 import proyecto1.Animaciones.currentClass;
 import proyecto1.Enemigos.NaveEnemiga;
 import proyecto1.Trees.BinaryTree;
+import proyecto1.Ventanas.VentanaDeJuego;
 
-public class BSTtreeRow {
-    public BSTtreeRow(Group gameWindow){
+public class BSTtreeRow implements Hilera{
+    public BSTtreeRow(){
+        Group gameWindow = VentanaDeJuego.getVentanaDeJuego();
         //if id parent dead, the child younger goes up becomes parent not itself anymore, other stays same
         BinaryTree BSTtree = new BinaryTree();
         int x=380;

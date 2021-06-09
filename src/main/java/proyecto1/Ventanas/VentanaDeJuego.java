@@ -12,6 +12,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import proyecto1.AbstractFactory.FactoryProvider;
 import proyecto1.Animaciones.Animacion;
 import proyecto1.Animaciones.AnimacionClaseE;
 import proyecto1.Animaciones.TreeEnemysAnimation;
@@ -20,11 +21,11 @@ import proyecto1.Hileras.*;
 import proyecto1.Imagenes.Fondo;
 import proyecto1.Imagenes.Imagenes;
 import proyecto1.Usuario.NaveUsuario;
-import proyecto1.protocolo.GraphicElements;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * The type Ventana de juego.
@@ -35,11 +36,11 @@ public class VentanaDeJuego {
     public static String clase = "Basic";
     private static final Text puntos = new Text();
     private static final Text cla = new Text();
-    private static List<NaveUsuario> jugadores = new ArrayList<>();
+    private static final List<NaveUsuario> jugadores = new ArrayList<>();
     private static Stage GameStage;
     private static Stage stagePrincipal;
     private static int nivel = 1;
-    private static Text nivelLabel = new Text();
+    private static final Text nivelLabel = new Text();
     private static Group ventanaDeJuego;
     private static boolean gamePaused = true;
     /**
@@ -73,14 +74,7 @@ public class VentanaDeJuego {
         //setJugador(new NaveUsuario(ventanaDeJuego));
         GameStage.show(); //requerido para mostrar el stage
 
-       // HileraBasic primeraHilera = new HileraBasic(ventanaDeJuego);
-//        new HileraC(ventanaDeJuego);
-//        Animacion.iniciarAnimacion(currentClass.getLista());
-//        setCLASE();
-        new AVLTreeRow(ventanaDeJuego);
-        TreeEnemysAnimation.AnimationStart(ventanaDeJuego);
-
-//        crearClases(ventanaDeJuego, nivelLabel);
+        crearClases(ventanaDeJuego, nivelLabel);
         String puntaje = Integer.toString(pts);
         puntos.setText(puntaje);
         puntos.setX(105);
@@ -114,61 +108,18 @@ public class VentanaDeJuego {
     }
     private static void generarHilera(Group ventanaDeJuego){
         if (!estado) {
-//                double hill = Math.random()*5;
-//                int hilera = (int) hill+1;
-            int hilera = 5;
-            System.out.println("Hilera: "+hilera);
-            if (hilera == 0){ //hilera basic
-                try {
-                    HileraBasic naves = new HileraBasic(ventanaDeJuego); //inicia la hilera Basic
-                    Animacion.iniciarAnimacion(currentClass.getLista());
-                    setCLASE();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-            else if(hilera == 1){ //clase A
-                new HileraA(ventanaDeJuego); //inicia la hilera A
+            EnemyFactory factory = (EnemyFactory) FactoryProvider.getFactory("Enemy");
+            Random rng = new Random();
+            assert factory != null;
+            factory.create(Integer.toString(rng.nextInt(99)));
+            if(currentClass.getClase().equalsIgnoreCase("E")){
+                new AnimacionClaseE(currentClass.getCurrentHileraE()).iniciarAnimacion();
+            }else if(currentClass.getClase().equalsIgnoreCase("AVL") || currentClass.getClase().equalsIgnoreCase("BST")){
+                TreeEnemysAnimation.AnimationStart(ventanaDeJuego);
+            }else{
                 Animacion.iniciarAnimacion(currentClass.getLista());
-                setCLASE();
             }
-            else if(hilera == 2){ //clase B
-                try {
-                    HileraB.IniciarClaseB(ventanaDeJuego); //inicia la hilera B
-                    Animacion.iniciarAnimacion(currentClass.getLista());
-                    setCLASE();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-            else if(hilera == 3){ //clase C
-                try {
-                    new HileraC(ventanaDeJuego); //inicia la hilera C
-                    Animacion.iniciarAnimacion(currentClass.getLista());
-                    setCLASE();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-            else if (hilera == 4){ //Clase D
-                try {
-                    new HileraC(ventanaDeJuego); //inicia la hilera D
-                    Animacion.iniciarAnimacion(currentClass.getLista());
-                    setCLASE();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-            else{
-                try {
-                    HileraE hileraE = new HileraE(ventanaDeJuego, 330, 300); //Inicia la hilera E
-                    AnimacionClaseE animacionClaseE = new AnimacionClaseE(hileraE);
-                    animacionClaseE.iniciarAnimacion();
-                    setCLASE();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
+            setCLASE();
         }
     }
     /**
@@ -196,7 +147,7 @@ public class VentanaDeJuego {
             Fondo.setFondo(nivel);
             cambiarNivel(nivel);
 
-            if (currentClass.getLista().tamanoLista() > 0) {
+            if (currentClass.getLista() != null && currentClass.getTree() != null) {
                 estado = true; //hay enemigos en la ventana
             }else{
                 estado=false;

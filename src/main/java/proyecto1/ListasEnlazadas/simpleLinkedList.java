@@ -128,11 +128,11 @@ public class simpleLinkedList<T> implements Lista<T>{
             }
         }
         Nodo<T> aux= primero;
-        while (aux != primero ){
+        while (aux != null ){
             if(aux.getPosicion() == i){
-                return aux.getDato();
+                return aux.valor;
             }
-            aux= aux.getSiguiente();
+            aux= aux.siguiente;
         }
         return null;
     }

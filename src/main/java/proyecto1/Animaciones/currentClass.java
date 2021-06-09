@@ -1,6 +1,8 @@
 package proyecto1.Animaciones;
 
+import proyecto1.AbstractFactory.FactoryProvider;
 import proyecto1.Enemigos.NaveEnemiga;
+import proyecto1.Hileras.HileraE;
 import proyecto1.ListasEnlazadas.ListFactory;
 import proyecto1.ListasEnlazadas.Lista;
 import proyecto1.ListasEnlazadas.doubleLinkedList;
@@ -11,18 +13,24 @@ import proyecto1.Trees.Tree;
  */
 public class currentClass {
     private static String claseActual = "";
-    private static final ListFactory<NaveEnemiga> listFactory = new ListFactory<>();
+    private static final ListFactory listFactory = (ListFactory) FactoryProvider.getFactory("List");
     private static Lista<NaveEnemiga> listaActual;
     private static int nivel=1;
-    private static Tree treecito;
+    private static Tree treeActual;
     private static int deathID = -1;
     private static final Lista PosList = new doubleLinkedList();
     private static boolean StopMovement;
+    private static HileraE currentHileraE;
     /**
      * Setter para indicar cual es la hilera actual.
      * @param claseActual the clase actual
      */
-    public static void setClass(String claseActual,Lista<NaveEnemiga> lista, Tree tree) { System.out.println("Esto deberia correr primero");currentClass.claseActual = claseActual;listaActual = lista;treecito = tree; }
+    public static void setClass(String claseActual,Lista<NaveEnemiga> lista, Tree tree) {
+        System.out.println("Esto deberia correr primero");
+        currentClass.claseActual = claseActual;
+        listaActual = lista;
+        treeActual = tree;
+    }
     /**
      * Retorna la lista actual
      * @return listaActual : Lista<NaveEnemiga>
@@ -32,13 +40,13 @@ public class currentClass {
         return listaActual;
     }
 
-    public static Tree getTree() {return treecito;}
+    public static Tree getTree() { return treeActual;}
 
     /**
      * Return the tree that is stored on the class for universal access
      * @return any Tree that is stored
      */
-    public static Tree getTreecito() {return treecito;}
+    public static Tree getTreecito() {return treeActual;}
 
     /**
      * Retorna el tipo de hilera actual
@@ -50,7 +58,15 @@ public class currentClass {
      * Reordena la lista
      * @param indice: int
      */
-    public static void reordenar(int indice){ while(indice < listaActual.tamanoLista()-1){ NaveEnemiga data = listaActual.obtenerDato(indice + 1);if (data != null){ data.setPosicionLista(indice); }indice++; } }
+    public static void reordenar(int indice){
+        while(indice < listaActual.tamanoLista()-1){
+            NaveEnemiga data = listaActual.obtenerDato(indice + 1);
+            if (data != null){
+                data.setPosicionLista(indice);
+            }
+            indice++;
+        }
+    }
 
     /**
      * Set de la variable que indica el nivel actual
@@ -116,4 +132,11 @@ public class currentClass {
      * @return true if the animation should stop, false if the animation execute
      */
     public static boolean getStopMovement(){return StopMovement;}
+
+    public static void setHileraE(HileraE hilera){
+        currentHileraE = hilera;
+    }
+    public static HileraE getCurrentHileraE(){
+        return currentHileraE;
+    }
 }

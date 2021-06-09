@@ -3,8 +3,8 @@ package proyecto1.ListasEnlazadas;
 import proyecto1.AbstractFactory.Factory;
 import proyecto1.Enemigos.NaveEnemiga;
 
-public class ListFactory<T> implements Factory<Lista<T>> {
-    public Lista<T> create(String tipoLista){
+public class ListFactory implements Factory<Lista<NaveEnemiga>> {
+    public Lista<NaveEnemiga> create(String tipoLista){
         if (tipoLista == null){
             return null;
         }else if ("Simple".equalsIgnoreCase(tipoLista)){

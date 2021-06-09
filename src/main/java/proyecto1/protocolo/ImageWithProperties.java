@@ -6,6 +6,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import proyecto1.Animaciones.currentClass;
 import proyecto1.Imagenes.Imagenes;
 import proyecto1.Ventanas.ClientWindow;
 
@@ -57,7 +58,9 @@ public class ImageWithProperties {
     public void removeFromGameWindow(){
         image.setVisible(false);
         idLabel.setVisible(false);
+        if (currentClass.getClase().equals("AVL") || currentClass.getClase().equals("BST")){
 
+        }
     }
 
     public void move(double x, double y) {

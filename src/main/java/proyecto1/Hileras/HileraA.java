@@ -1,23 +1,25 @@
 package proyecto1.Hileras;
 
 import javafx.scene.Group;
+import proyecto1.AbstractFactory.FactoryProvider;
 import proyecto1.Animaciones.currentClass;
 import proyecto1.Enemigos.NaveEnemiga;
 import proyecto1.ListasEnlazadas.ListFactory;
 import proyecto1.ListasEnlazadas.Lista;
+import proyecto1.Ventanas.VentanaDeJuego;
 
 
 /**
  * Hilera de naves tipo A
  */
-public class HileraA {
-    private static final ListFactory<NaveEnemiga> listFactory = new ListFactory<>();
+public class HileraA implements Hilera{
+    private static final ListFactory listFactory = (ListFactory) FactoryProvider.getFactory("List");
 
     /**
      * Constructor de la hilera
-     * @param juego: JavaFX Group
      */
-    public HileraA(Group juego){
+    public HileraA(){
+        Group juego = VentanaDeJuego.getVentanaDeJuego();
         Lista<NaveEnemiga> listaA= listFactory.create("Simple");
 
         currentClass.setClass("A", listaA,null);
@@ -31,9 +33,5 @@ public class HileraA {
 
         NaveEnemiga naveJefe= listaA.obtenerDato(posJefe);
         naveJefe.toBoss();
-
-    }
-    public HileraA(){
-
     }
 }

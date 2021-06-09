@@ -1,23 +1,25 @@
 package proyecto1.Hileras;
 
 import javafx.scene.Group;
+import proyecto1.AbstractFactory.FactoryProvider;
 import proyecto1.Animaciones.currentClass;
 import proyecto1.Enemigos.NaveEnemiga;
 import proyecto1.ListasEnlazadas.ListFactory;
 import proyecto1.ListasEnlazadas.Lista;
+import proyecto1.Ventanas.VentanaDeJuego;
+
 import java.io.FileNotFoundException;
 
 /**
  * La hilera Básica solo tiene una hilera de naves uniformes.
  */
-public class HileraBasic {
-    private static final ListFactory<NaveEnemiga> listFactory = new ListFactory<>();
+public class HileraBasic implements Hilera{
+    private static final ListFactory listFactory = (ListFactory) FactoryProvider.getFactory("List");
     /**
      * Instancia Case Basica
-     * @param juego la ventana de juego
-     * @throws FileNotFoundException  file not found exception
      */
-    public HileraBasic(Group juego) throws FileNotFoundException{
+    public HileraBasic(){
+        Group juego = VentanaDeJuego.getVentanaDeJuego();
         Lista<NaveEnemiga> listaBasic = listFactory.create("Simple");
         listaBasic.agregarUltimo(new NaveEnemiga(110, 100, juego, 0));
         listaBasic.agregarUltimo(new NaveEnemiga(220, 100, juego, 1));

@@ -1,7 +1,5 @@
 package proyecto1;
 
-import proyecto1.Animaciones.TreeEnemysAnimation;
-import proyecto1.Hileras.HileraArbolAVL;
 import proyecto1.Ventanas.VentanaDeJuego;
 import proyecto1.network.ServerSession;
 
@@ -80,8 +78,6 @@ public class Server implements Runnable {
        currentConnectedClients++;
         if (VentanaDeJuego.getGamePaused()){
             VentanaDeJuego.setGamePaused(false);
-//            new HileraArbolAVL(VentanaDeJuego.getVentanaDeJuego());
-//            TreeEnemysAnimation.AnimationStart(VentanaDeJuego.getVentanaDeJuego());
         }
     }
 }

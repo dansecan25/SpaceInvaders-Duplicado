@@ -194,7 +194,8 @@ public class ServerSession implements Runnable {
             } while(socket.isBound());
 
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
+            //System.out.println("Error: " + e.getMessage());
         }
 
         Server.decreaseCurrentConnectedClients();

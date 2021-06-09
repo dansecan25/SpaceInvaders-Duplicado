@@ -16,13 +16,13 @@ public class EnemyFactory implements Factory<Hilera> {
             int hilera = random.nextInt(6);
             System.out.println("Hilera: " + hilera);
             if (hilera == 0){ //hilera basic
-                return new HileraBasic(); //inicia la hilera Basic
+                return new HileraC(); //inicia la hilera Basic
             }
             else if(hilera == 1){ //clase A
-                return new HileraA(); //inicia la hilera A
+                return new HileraC(); //inicia la hilera A
             }
             else if(hilera == 2){ //clase B
-                return new HileraB(); //inicia la hilera B
+                return new HileraC(); //inicia la hilera B
             }
             else if(hilera == 3){ //clase C
                 return new HileraC(); //inicia la hilera C

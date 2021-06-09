@@ -21,6 +21,7 @@ import proyecto1.Hileras.*;
 import proyecto1.Imagenes.Fondo;
 import proyecto1.Imagenes.Imagenes;
 import proyecto1.Usuario.NaveUsuario;
+import proyecto1.protocolo.GraphicElements;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ import java.util.Random;
  * The type Ventana de juego.
  */
 public class VentanaDeJuego {
-    private static boolean estado = true;
+    private static boolean shipsOnScreen = true;
     public static int pts = 0;
     public static String clase = "Basic";
     private static final Text puntos = new Text();
@@ -107,19 +108,27 @@ public class VentanaDeJuego {
         ventanaDeJuego.getChildren().add(nivelLabel);
     }
     private static void generarHilera(Group ventanaDeJuego){
-        if (!estado) {
+        if (!shipsOnScreen) {
             EnemyFactory factory = (EnemyFactory) FactoryProvider.getFactory("Enemy");
             Random rng = new Random();
             assert factory != null;
-            factory.create(Integer.toString(rng.nextInt(99)));
-            if(currentClass.getClase().equalsIgnoreCase("E")){
-                new AnimacionClaseE(currentClass.getCurrentHileraE()).iniciarAnimacion();
-            }else if(currentClass.getClase().equalsIgnoreCase("AVL") || currentClass.getClase().equalsIgnoreCase("BST")){
-                TreeEnemysAnimation.AnimationStart(ventanaDeJuego);
+            if(GraphicElements.SINGLETON.enemiesOnWindow()){
+                System.out.println("Skipped movement");
             }else{
-                Animacion.iniciarAnimacion(currentClass.getLista());
+                factory.create(Integer.toString(rng.nextInt(20)+100));
+
+                if(currentClass.getClase().equals("E")){
+                    System.out.println("inicia animacion e");
+                    new AnimacionClaseE(currentClass.getCurrentHileraE()).iniciarAnimacion();
+                }else if(currentClass.getClase().equals("AVL") || currentClass.getClase().equals("BST")){
+                    System.out.println("inicia animacion tree");
+                    TreeEnemysAnimation.AnimationStart(ventanaDeJuego);
+                }else{
+                    System.out.println("inicia animacion base");
+                    Animacion.iniciarAnimacion(currentClass.getLista());
+                }
+                setCLASE();
             }
-            setCLASE();
         }
     }
     /**
@@ -147,11 +156,11 @@ public class VentanaDeJuego {
             Fondo.setFondo(nivel);
             cambiarNivel(nivel);
 
-            if (currentClass.getLista() != null && currentClass.getTree() != null) {
-                estado = true; //hay enemigos en la ventana
-            }else{
-                estado=false;
+            if (!GraphicElements.SINGLETON.enemiesOnWindow()) {
+                shipsOnScreen = false;
                 generarHilera(ventanaDeJuego);
+            }else{
+                shipsOnScreen =true; //Hay enemigos en la ventana
             }
         }));
         clasesAleatoriedad.setCycleCount(Timeline.INDEFINITE);
@@ -192,8 +201,8 @@ public class VentanaDeJuego {
         gamePaused = state;
     }
 
-    public static boolean isEstado() {
-        return estado;
+    public static boolean isShipsOnScreen() {
+        return shipsOnScreen;
     }
 
     public static int getPts() {

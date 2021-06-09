@@ -19,6 +19,7 @@ public class ImageWithProperties {
     private double positionX;
     private double positionY;
     private int numberOfPlayers = 0;
+    private boolean alive = true;
 
     public ImageWithProperties(String id, String imageType, double positionX, double positionY) {
         this(id, imageType);
@@ -122,6 +123,12 @@ public class ImageWithProperties {
 
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
+    }
+    public void setAlive(boolean value){
+        alive = value;
+    }
+    public boolean getAlive(){
+        return alive;
     }
 
     //    public void addPlayer(){

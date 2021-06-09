@@ -1,5 +1,7 @@
 package proyecto1.protocolo;
 
+import proyecto1.Animaciones.currentClass;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -63,6 +65,14 @@ public class GraphicElements {
         }
 
         return -1;
+    }
+    public boolean enemiesOnWindow(){
+        for(ImageWithProperties object : elements){
+            if(object.getId().endsWith("n")){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

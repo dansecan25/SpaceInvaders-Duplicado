@@ -97,25 +97,27 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
                                     () -> {
                                         ImageWithProperties imageWithProperties = GraphicElements.SINGLETON.findElement(id);
 
-
                                             if (imageWithProperties == null) {
                                                 System.out.println("se creo elemento");
                                                 imageWithProperties = GraphicElements.SINGLETON.createElement(id, imageType);
                                                 GraphicElements.SINGLETON.addElement(imageWithProperties);
                                                 ClientWindow.ventanaDeJuego.getChildren().add(imageWithProperties.getImage());
                                                 ClientWindow.ventanaDeJuego.getChildren().add(imageWithProperties.getIdLabel());
+                                                System.out.println("imageType: " + imageWithProperties.getImageType());
                                             }
 
                                             imageWithProperties.move(newX, newY);
                                         ImageWithProperties laser= GraphicElements.SINGLETON.findElement(myLaserId);
-                                            
+                                            /*
                                         if(laser != null){
                                             if (laser.getImage().intersects(imageWithProperties.getImage().getBoundsInParent())) {
                                                 if (imageWithProperties.getId().endsWith("n")) {
+                                                    imageWithProperties.move(2000,2000);
+                                                    GraphicElements.SINGLETON.removeElement(id);
                                                     imageWithProperties.removeFromGameWindow();
                                                 }
                                             }
-                                        }
+                                        }*/
 
                                     });
                         }
@@ -130,7 +132,8 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
             } while(clientSocket.isConnected());
 
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
+            //System.out.println("Error: " + e.getMessage());
         }
     }
 

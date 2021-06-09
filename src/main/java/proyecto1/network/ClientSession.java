@@ -18,7 +18,6 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
     double lastPosicionX = 0;
     String myId;
     String myLaserId;
-    //public ImageView user;
 
     public ClientSession(Socket clientSocket){
         this.clientSocket = clientSocket;
@@ -36,6 +35,7 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
 
         myId = Protocol.generateId();
         myLaserId = Protocol.generateId()+"l";
+
         long lastSentTime = 0;
 
         try {
@@ -84,10 +84,6 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
 //                        break;
                     }
 
-//                    case Protocol.CMD_DRAW -> {
-//                        Protocol.writeMessage(bw, Protocol.CMD_OK, "DRAWN");
-//                        break;
-//                    }
                         case Protocol.CMD_MOVE -> {
 
                             String id = completeCommand[1];
@@ -95,32 +91,26 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
                             double newX = Double.parseDouble(completeCommand[3]);
                             double newY = Double.parseDouble(completeCommand[4]);
 
-
                             Platform.runLater(
                                     () -> {
                                         ImageWithProperties imageWithProperties = GraphicElements.SINGLETON.findElement(id);
+                                        ImageWithProperties laser= GraphicElements.SINGLETON.findElement(myLaserId);
 
-                                        if (imageWithProperties == null) {
-                                            System.out.println("se creo elemento");
-                                            imageWithProperties = GraphicElements.SINGLETON.createElement(id, imageType);
-                                            GraphicElements.SINGLETON.addElement(imageWithProperties);
-                                            ClientWindow.ventanaDeJuego.getChildren().add(imageWithProperties.getImage());
-                                            ClientWindow.ventanaDeJuego.getChildren().add(imageWithProperties.getIdLabel());
-                                        }
+                                        assert laser!=null;
+                                            if (imageWithProperties == null) {
+                                                System.out.println("se creo elemento");
+                                                imageWithProperties = GraphicElements.SINGLETON.createElement(id, imageType);
+                                                GraphicElements.SINGLETON.addElement(imageWithProperties);
+                                                ClientWindow.ventanaDeJuego.getChildren().add(imageWithProperties.getImage());
+                                                ClientWindow.ventanaDeJuego.getChildren().add(imageWithProperties.getIdLabel());
+                                            }
 
-                                        imageWithProperties.move(newX, newY);
-                                        if (imageWithProperties.getId().endsWith("n")){
-                                            ImageWithProperties laser = null;
-                                            for(ImageWithProperties element : GraphicElements.SINGLETON.getElements()){
-                                                if (element.getId().endsWith("l")){
-                                                    laser = element;
+                                            imageWithProperties.move(newX, newY);
+                                            if (laser.getImage().intersects(imageWithProperties.getImage().getBoundsInParent())) {
+                                                if (imageWithProperties.getId().endsWith("n")) {
+                                                    imageWithProperties.removeFromGameWindow();
                                                 }
                                             }
-                                            assert laser != null;
-                                            if (imageWithProperties.getImage().getBoundsInParent().intersects(laser.getImage().getBoundsInParent())){
-                                                System.out.println("Nave "+imageWithProperties.getId()+" colisiono con laser "+laser.getId());
-                                            }
-                                        }
 
                                     });
                         }
@@ -132,10 +122,8 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
                     lastPosicionX = posicionX;
                 }
 
-
-                //Thread.sleep(100);
             } while(clientSocket.isConnected());
-//
+
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -153,9 +141,6 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
                 e.printStackTrace();
             }
         }
-
-
-        //System.out.println(posicionX);
     }
 
 }

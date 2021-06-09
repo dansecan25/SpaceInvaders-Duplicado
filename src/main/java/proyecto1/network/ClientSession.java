@@ -10,6 +10,7 @@ import proyecto1.protocolo.Protocol;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Random;
 
 public class ClientSession implements Runnable, EventHandler<MouseEvent> {
     Socket clientSocket;

@@ -77,7 +77,7 @@ public class VentanaDeJuego {
 //        new HileraC(ventanaDeJuego);
 //        Animacion.iniciarAnimacion(currentClass.getLista());
 //        setCLASE();
-        new HileraArbolAVL(ventanaDeJuego);
+        new AVLTreeRow(ventanaDeJuego);
         TreeEnemysAnimation.AnimationStart(ventanaDeJuego);
 
 //        crearClases(ventanaDeJuego, nivelLabel);

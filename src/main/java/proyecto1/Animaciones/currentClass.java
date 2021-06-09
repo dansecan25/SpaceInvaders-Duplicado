@@ -35,6 +35,12 @@ public class currentClass {
     public static Tree getTree() {return treecito;}
 
     /**
+     * Return the tree that is stored on the class for universal access
+     * @return any Tree that is stored
+     */
+    public static Tree getTreecito() {return treecito;}
+
+    /**
      * Retorna el tipo de hilera actual
      * @return claseActual : String
      */

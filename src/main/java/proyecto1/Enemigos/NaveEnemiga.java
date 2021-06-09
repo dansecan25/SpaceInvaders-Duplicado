@@ -139,7 +139,7 @@ public class NaveEnemiga {
             if (!naveUsuario.getDisparo().isVisible()){
                 return;
             }
-            if (this.nave.getImage().getBoundsInParent().intersects(naveUsuario.getDisparo().getBoundsInParent())){
+            if (this.nave.getBoundsInParent().intersects(naveUsuario.getDisparo().getBoundsInParent())){
                 naveUsuario.setEstadoDisparo(true);
                 vida -= 1;
                 if (currentClass.getClase().equals("D")){
@@ -176,7 +176,7 @@ public class NaveEnemiga {
      * Retorna la imagen de la nave
      * @return nave: ImageView
      */
-    public ImageView getImagenNave(){ return nave.getImage(); }
+    public ImageView getImagenNave(){ return nave; }
 
     /**
      * Mueve la nave hacia la derecha

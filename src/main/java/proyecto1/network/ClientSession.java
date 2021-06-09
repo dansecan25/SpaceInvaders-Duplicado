@@ -94,9 +94,8 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
                             Platform.runLater(
                                     () -> {
                                         ImageWithProperties imageWithProperties = GraphicElements.SINGLETON.findElement(id);
-                                        ImageWithProperties laser= GraphicElements.SINGLETON.findElement(myLaserId);
 
-                                        assert laser!=null;
+
                                             if (imageWithProperties == null) {
                                                 System.out.println("se creo elemento");
                                                 imageWithProperties = GraphicElements.SINGLETON.createElement(id, imageType);
@@ -106,11 +105,15 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
                                             }
 
                                             imageWithProperties.move(newX, newY);
+                                        ImageWithProperties laser= GraphicElements.SINGLETON.findElement(myLaserId);
+                                            
+                                        if(laser != null){
                                             if (laser.getImage().intersects(imageWithProperties.getImage().getBoundsInParent())) {
                                                 if (imageWithProperties.getId().endsWith("n")) {
-                                                    imageWithProperties.removeFromGameWindow();
+                                                imageWithProperties.removeFromGameWindow();
                                                 }
                                             }
+                                        }
 
                                     });
                         }

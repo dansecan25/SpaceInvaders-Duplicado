@@ -30,7 +30,7 @@ public class NaveEnemiga {
     private int puntosMorir = 5;
     private int vida;
     private final int shipID;
-    private final String imageId = Protocol.generateId();
+    private final String imageId = Protocol.generateId()+"n";
 
     /**
      * Instantiates a new Nave enemiga.
@@ -46,7 +46,7 @@ public class NaveEnemiga {
         GraphicElements.SINGLETON.addElement(nave);
         nave.move(x, y);
         //nave.setId("ufos");
-        juego.getChildren().add(nave.getImage());
+        //juego.getChildren().add(nave.getImage());
         vida = 1;
         comprobacion = new Timeline(new KeyFrame(Duration.millis(100), event -> colision()));
         comprobarColision();
@@ -184,7 +184,7 @@ public class NaveEnemiga {
     public void moveRight(int pixels){
         Timeline movimientoDerecha = new Timeline(new KeyFrame(Duration.millis(25),mover -> {
             if(!currentClass.getStopMovement()){
-                nave.setX(nave.getX()+1);
+                nave.setPositionX(nave.getPositionY()+1);
             }
 
         }));
@@ -197,7 +197,7 @@ public class NaveEnemiga {
     public void moveLeft(int pixels){
         Timeline movimientoIzquierda = new Timeline(new KeyFrame(Duration.millis(25),mover ->{
             if(!currentClass.getStopMovement()) {
-                nave.setX(nave.getX() - 1);
+                nave.setPositionX(nave.getPositionX() - 1);
             }
         }));
         movimientoIzquierda.setCycleCount(pixels);
@@ -210,7 +210,7 @@ public class NaveEnemiga {
     public void moveDown(int pixels){
         Timeline movimientoAbajo = new Timeline(new KeyFrame(Duration.millis(25),mover ->{
                 if(!currentClass.getStopMovement()){
-                    nave.setY(nave.getY()+1);
+                    nave.setPositionY(nave.getPositionY()+1);
                 }
         }));
         movimientoAbajo.setCycleCount(pixels);
@@ -220,7 +220,7 @@ public class NaveEnemiga {
     public void moveUp(int pixels){
         Timeline movimientoAbajo = new Timeline(new KeyFrame(Duration.millis(25),mover ->{
             if(!currentClass.getStopMovement()){
-                nave.setY(nave.getY()-1);
+                nave.setPositionY(nave.getPositionY()-1);
             }
         }));
         movimientoAbajo.setCycleCount(pixels);

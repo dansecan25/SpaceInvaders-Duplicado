@@ -57,12 +57,11 @@ public class TreeEnemysAnimation {
                   //  }
                     return null;
                 }
-                return null;
-            }
+            };
+            animation.setOnSucceeded(event -> System.out.println("se animo"));
+            new Thread(animation).start();
         };
-        animation.setOnSucceeded(event -> System.out.println("se animo"));
-        new Thread(animation).start();
-    }
+
 
     /**
      * Method for moving the ships in the direction specified

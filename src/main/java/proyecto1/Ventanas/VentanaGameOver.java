@@ -37,12 +37,11 @@ public class VentanaGameOver {
 
         //Botón para volver a la ventana principal
 
-        ImageInput titleGameOver = new ImageInput(Imagenes.getInstancia().getGO());
+        ImageInput titleGameOver = new ImageInput(Imagenes.getInstancia().getTitulo());
         ImageView startOver = new ImageView(Imagenes.getInstancia().getBotonExit());
         Button botonReset = new Button();
         botonReset.setOnAction(event -> {
             overStage.close();
-            VentanaPrincipal.getStage().show();
         });
         botonReset.setLayoutX(500);
         botonReset.setLayoutY(25);

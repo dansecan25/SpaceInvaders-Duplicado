@@ -2,7 +2,6 @@ package proyecto1.network;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.input.MouseEvent;
 import proyecto1.Ventanas.ClientWindow;
 import proyecto1.protocolo.GraphicElements;
@@ -11,7 +10,6 @@ import proyecto1.protocolo.Protocol;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Random;
 
 public class ClientSession implements Runnable, EventHandler<MouseEvent> {
     Socket clientSocket;
@@ -37,7 +35,7 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
         BufferedReader br;
 
         myId = Protocol.generateId();
-        myLaserId = Protocol.generateId();
+        myLaserId = Protocol.generateId()+"l";
         long lastSentTime = 0;
 
         try {
@@ -70,10 +68,7 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
 //                        System.out.println(command);
 //                        break;
 //                    }
-                    case Protocol.CMD_CLEAR -> {
-                        GraphicElements.SINGLETON.clearElements();
-                        break;
-                    }
+                    case Protocol.CMD_CLEAR -> GraphicElements.SINGLETON.clearElements();
                     case Protocol.CMD_CREATE -> {
 //                        String id = completeCommand[1];
 //
@@ -114,10 +109,20 @@ public class ClientSession implements Runnable, EventHandler<MouseEvent> {
                                         }
 
                                         imageWithProperties.move(newX, newY);
+                                        if (imageWithProperties.getId().endsWith("n")){
+                                            ImageWithProperties laser = null;
+                                            for(ImageWithProperties element : GraphicElements.SINGLETON.getElements()){
+                                                if (element.getId().endsWith("l")){
+                                                    laser = element;
+                                                }
+                                            }
+                                            assert laser != null;
+                                            if (imageWithProperties.getImage().getBoundsInParent().intersects(laser.getImage().getBoundsInParent())){
+                                                System.out.println("Nave "+imageWithProperties.getId()+" colisiono con laser "+laser.getId());
+                                            }
+                                        }
 
                                     });
-
-                            break;
                         }
                     }
                 }

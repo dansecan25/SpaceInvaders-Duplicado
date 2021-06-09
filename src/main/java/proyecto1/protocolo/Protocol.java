@@ -35,8 +35,7 @@ public class Protocol {
     }
 
     public static String readMessage(BufferedReader br) throws IOException {
-        String command = br.readLine();
-        return command;
+        return br.readLine();
     }
 
     public static String[] readSplitMessage(BufferedReader br) throws IOException {
